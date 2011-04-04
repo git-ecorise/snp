@@ -19,8 +19,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		print "hello martin";
-		$this->load->view('welcome_message');
+            $this->load->view('welcome_message');
 	}
 }
 
