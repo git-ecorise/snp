@@ -4,16 +4,16 @@ class User extends CI_Controller
 {
     public function create()
     {
-        $this->load->view('welcome_message');
+        $this->load->view('home/index');
     }
 
     public function login()
     {
-        $this->load->view('welcome_message');
+        $this->load->view('home/index');
     }
 
         public function logout()
     {
-        $this->load->view('welcome_message');
+        $this->load->view('home/index');
     }
 }
