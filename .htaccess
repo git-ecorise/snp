@@ -1,0 +1,5 @@
+# http://codeigniter.com/wiki/mod_rewrite/
+
+RewriteEngine on
+RewriteCond $1 !^(index\.php|content|robots\.txt)
+RewriteRule ^(.*)$ /snp/index.php/$1 [L]
