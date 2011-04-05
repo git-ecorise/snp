@@ -41,10 +41,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '';
-$db['default']['password'] = '';
-$db['default']['database'] = '';
+$db['default']['hostname'] = 'ec2-46-137-99-126.eu-west-1.compute.amazonaws.com:3008';
+$db['default']['username'] = 'socialproject';
+$db['default']['password'] = 'carlsagangroup';
+$db['default']['database'] = 'socialproject';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
