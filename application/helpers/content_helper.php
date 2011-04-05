@@ -1,26 +1,26 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// What name to use ?
+// What name to use for the methods ?
 // graphic_content ? graphic_url ?
 
 function graphic_content($file)
 {
-    return base_url() . "/content/gfx/" . $file;
+    return base_url() . "content/gfx/" . $file;
 }
 
 function stylesheet_content($file)
 {
-    return base_url() . "/content/css/" . $file;
+    return base_url() . "content/css/" . $file;
 }
 
 function javascript_content($file)
 {
-    return base_url() . "/content/js/" . $file;
+    return base_url() . "content/js/" . $file;
 }
 
 function image_content($file)
 {
-    return base_url() . "/content/img/" . $file;
+    return base_url() . "content/img/" . $file;
 }
 
 ?>
