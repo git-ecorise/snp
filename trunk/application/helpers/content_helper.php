@@ -1,8 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// What name to use for the methods ?
-// graphic_content ? graphic_url ?
-
 function graphic_content($file)
 {
     return base_url() . "content/gfx/" . $file;

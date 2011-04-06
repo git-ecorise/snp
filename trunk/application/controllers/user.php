@@ -4,17 +4,20 @@ class User extends CI_Controller
 {
     public function create()
     {
-        $this->load->view('user/create');
+        $this->template->load('user/create');
     }
 
     public function login()
-    {
-        $this->load->view('user/login');
+    {       
+        $this->template->load('user/login');
     }
 
     public function logout()
     {
-        // Remove cookie
-        // Redirect - display referer url ?
+        redirect(home_route(),'refresh');
+    }
+
+    public function validate($code)
+    {
     }
 }
