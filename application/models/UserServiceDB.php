@@ -13,7 +13,6 @@ class UserServiceDB extends CI_Model{
 
     public function check_user_email($user_email)
     {
-
         //check in db if user_password exist
         $this->db->where('email', $user_email);
         $query = $this->db->get_where('users');

@@ -8,43 +8,43 @@
 class UserService {
     var $CI;
     
-    function create($user_email = '', $user_password = '', $first_name = '', $last_name = '')
+    function create($user)
     {
         $this->CI =& get_instance();
         
         //Make sure account info was sent
-        if($user_email == '' OR $user_password == '' OR $first_name == '' OR $last_name == '')
+        if($user['email'] == '' OR $user['password'] == '' OR $user['firstname'] == '' OR $user['lastname'] == '')
         {
             return false;
         }
 
         //Check if user_email already exist in db
-        if ($this->CI->UserServiceDB->check_user_email($user_email)) //user_email already exists
+        if ($this->CI->UserServiceDB->check_user_email($user['email'])) //user_email already exists
             return false;
 
         //hash the user_password with sha1(php build in function)
         //TODO hash it in another way
-        $hashed_passsword = sha1($user_password);
+        $hashed_passsword = sha1($user['password']);
 
         //genereate activation code
         //TODO: create the mechanism that does this
         $activation_code = "activate";
 
         //create user object
-        $user = array(
-            'email' => $user_email,
+        $new_user = array(
+            'email' => $user['email'],
             'password' => $hashed_passsword,
-            'firstname' => $first_name,
-            'lastname' => $last_name,
+            'firstname' => $user['firstname'],
+            'lastname' => $user['lastname'],
             'activation_code' => $activation_code,
             'isactivated' => false
         );
 
         //insert data into database
-        $this->CI->UserServiceDB->create_user($user);
+        $this->CI->UserServiceDB->create_user($new_user);
 
         //send email_confirmation
-        $this->send_email_confirmation($user_email);
+        $this->send_email_confirmation($new_user['email']);
 
         //TODO: if autologin then login the user automatically in
 
@@ -71,50 +71,57 @@ class UserService {
 
         $this->CI->email->send();
 
-        echo $this->CI->email->print_debugger();
+        //echo $this->CI->email->print_debugger();
     }
 
-    function login($user_email = '', $user_password = '')
+    function login($login_user)
     {
         $this->CI =& get_instance();
-
+        
         //Make sure account info was sent
-        if($user_email == '' OR $user_password == '')
+        if($login_user['email'] == '' OR $login_user['password'] == '')
             return false;
 
         //Check if already logged in
-        if($this->CI->session->userdata('user_email') == $user_email)
+        if($this->is_logged_in($login_user['email']))
             return true;
 
         //check email and password against user table
-        $user_data = $this->CI->UserServiceDB->user_login($user_email);
-        if(!$user_data==NULL)
+        $user_data = $this->CI->UserServiceDB->user_login($login_user['email']);
+        
+        if($user_data!=NULL)
         {
             //Destroy old session
             $this->CI->session->sess_destroy();
 
             //check against hashed password
-            $hashed_password = sha1($user_password);
-            if(!$hashed_password == $user_data['password'])
-                return false;
+            $hashed_password = sha1($login_user['password']);
+            if($hashed_password != $user_data['password'])
+                return FALSE;
 
             //Create a fresh, brand new session
             $this->CI->session->sess_create();
 
             //Set session data
+            //remove the password from user_data
             unset($user_data['password']);
             $user_data['logged_in'] = true;
             $this->CI->session->set_userdata($user_data);
-            print_r($user_data);
-            print "<br/>succes";
             return TRUE;
         }
         else
         {
-            print "fail";
             return FALSE;
         }
         
+    }
+
+    function is_logged_in($email)
+    {
+        $email = $this->CI->session->userdata('email');
+        $isLoggedIn = $this->CI->session->userdata('logged_in');
+        //Check if already logged in
+        return $email == $email && $isLoggedIn == true ? true : false;
     }
 
     function logout()
