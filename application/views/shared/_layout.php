@@ -11,20 +11,26 @@
         <link type="text/css" rel="Stylesheet" href="<?= stylesheet_content('layout.css') ?>" />
     </head>
     <body>
-        <h1>Features</h1>
+        
+        <h2>Features</h2>
         <ul>
             <li>
-                <a href="<?= home_url() ?>">Home</a>
+                <a href="<?= home_route() ?>">Home</a>
             </li>
             <li>
-                <a href="<?= createuser_url() ?>">Create user</a>
+                <a href="<?= createuser_route() ?>">Create user</a>
             </li>
             <li>
-                <a href="<?= login_url() ?>">Login</a>
+                <a href="<?= login_route() ?>">Login</a>
             </li>
             <li>
-                <a href="<?= logout_url() ?>">Logout</a>
+                <a href="<?= logout_route() ?>">Logout</a>
             </li>
         </ul>
+
+        <hr />
+
+        <?= $template_view ?>
+
     </body>
 </html>
