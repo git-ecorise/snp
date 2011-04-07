@@ -3,8 +3,6 @@ require_once 'iUserService.php';
 require_once 'iUserCreate.php';
 require_once 'iUserLogin.php';
 
-// prøv at logge ind og se hvad data der bliver sat og det virker?
-
 class UserService implements iUserService
 {
     protected $CI;
