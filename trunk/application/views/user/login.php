@@ -1,3 +1,7 @@
+<?php
+    $template_model->title = 'Login';
+?>
+
 <h1>Login</h1>
 <form action="<?= login_route() ?>" method="post">
     <label>Email</label>
