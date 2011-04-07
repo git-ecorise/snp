@@ -9,7 +9,6 @@ class AuthenticatedUser implements iIdentity
 
     function __construct($email, $firstname, $lastname)
     {
-        parent::__construct();
         $this->email = $email;
         $this->firstname = $firstname;
         $this->lastnasme = $lastname;
