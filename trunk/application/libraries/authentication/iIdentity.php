@@ -3,6 +3,7 @@
 interface iIdentity
 {
     public function is_authenticated();
+    public function get_id();
     public function get_email();
     public function get_firstname();
     public function get_lastname();
