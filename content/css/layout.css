@@ -138,12 +138,16 @@ text-align: center;
 }
 
 .message-box {
+    position:fixed;
+    margin-left:-205px;
+    left:50%;
+    width:410px;
     top:100px;
     text-align: center;
     display:none;
-    position:fixed;
+    
     height:auto;
-    width:408px;
+    
     background:#f5e6b4;
     border:2px solid #999;
     z-index:2;
