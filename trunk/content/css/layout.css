@@ -137,19 +137,18 @@ text-align: center;
     margin: 12px 0 4px 0;
 }
 
-.message-box{
+.message-box {
+    top:100px;
     text-align: center;
     display:none;
     position:fixed;
-    _position:absolute; /* hack for internet explorer 6*/
     height:auto;
-    min-height: 60px;
     width:408px;
-    background:#FFFFFF;
+    background:#f5e6b4;
     border:2px solid #999;
     z-index:2;
-    box-shadow: 0 0 20px #999;
-    border-radius: 8px;
-    padding:12px;
-    font-size:13px;
+    box-shadow:0 0 20px #999;
+    border-radius:8px;
+    padding:24px;
+    font-size:20px;
 }
