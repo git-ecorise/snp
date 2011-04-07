@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once 'iIdentity.php';
+require_once 'iUser.php';
 
-class AuthenticatedUser implements iIdentity
+class AuthenticatedUser implements iUser
 {
     private $id;
     private $email;
