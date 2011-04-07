@@ -1,3 +1,7 @@
+<?php
+    $template_model->title = 'Create user';
+?>
+
 <h1>Create user</h1>
 
 <form action="<?= createuser_route() ?>" method="post">

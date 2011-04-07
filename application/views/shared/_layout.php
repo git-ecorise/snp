@@ -5,13 +5,12 @@
       	<meta name="description" content="A Social Network Project"/>
         <meta name="keywords" content="Social, Network, Project"/>
 
-        <title>The Social Network Project</title>
+        <title><?= $template_model->get_title() ?> | The Social Network Project</title>
 
         <link rel="shortcut icon" href="<?= graphic_content('favicon.ico') ?>" />
         <link type="text/css" rel="Stylesheet" href="<?= stylesheet_content('layout.css') ?>" />
     </head>
-    <body>
-        
+    <body>     
         <h2>Features</h2>
         <ul>
             <li>
@@ -27,10 +26,7 @@
                 <a href="<?= logout_route() ?>">Logout</a>
             </li>
         </ul>
-
         <hr />
-
         <?= $template_view ?>
-
     </body>
 </html>
