@@ -12,7 +12,6 @@
                 var popupWidth = $(".message-box").width();
                 //centering
                 $(".message-box").css({
-                    "position": "absolute",
                     "left": windowWidth/2-popupWidth/2
                 });
             }
