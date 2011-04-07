@@ -2,6 +2,10 @@
 
 // Rename folder to misc ?
 
+// add_to_head metode ? add_head_element?
+// get_head_elements ?
+// user object mm ? helper metoder til logged in ?
+
 class Layout_model extends CI_Model
 {
     //var $head = array();
@@ -11,12 +15,6 @@ class Layout_model extends CI_Model
     {
         parent::__construct();
     }
-
-
-    // add_to_head metode ? add_head_element? 
-    // get_head_elements ?
-    // user object mm ? helper metoder til logged in ?
-
 
     // Getter and Setters
 

@@ -51,6 +51,50 @@ class UserService implements iUserService
             // wrap i result istedet - iServiceResult? - is_success ?
             return $model;
         }
+
+
+
+
+
+
+
+                    // Service
+/*
+            $this->db->select('id, passwordhash, passwordsalt');    // isvalidated and more ?
+            $this->db->where('email', $email);                      // escape?
+            $this->db->where('isvalidated', TRUE);
+            $this->db->limit(1);
+
+            $query = $this->db->get('users');   // user
+
+            // is there any way you can send object to get/query method which it can automatically fill ?
+
+            if ($query->num_rows() > 0)
+            {
+                $record = $query->row_array();
+
+                // Create user object used for when authenticated / signed in
+                // Or get data to array ($record) ?
+
+                $id = $record['id'];
+                $passwordhash = $record['passwordhash'];
+                $passwordsalt = $record['passwordsalt'];
+
+                // Authenticate user and call Authentication/Identification service (or just it self) Login(User)
+                // Return true or array with data
+            }
+            else
+            {
+                // Create an error message or something that says Email or Password is incorrect
+                // return view
+            }
+ */
+
+
+
+
+
+
     }
 
     /*
