@@ -8,7 +8,7 @@ require_once 'AuthenticatedUser.php';
 
 
 
-// Authentication - SERVICE ? eller Identification ?
+// Rename to AuthenticationService and move to services folder ?
 
 class Authentication implements iAuthentication
 {
