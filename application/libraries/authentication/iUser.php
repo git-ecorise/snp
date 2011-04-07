@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-interface iIdentity
+interface iUser
 {
     public function is_authenticated();
     public function get_id();

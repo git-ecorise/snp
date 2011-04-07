@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once 'iIdentity.php';
+require_once 'iUser.php';
 require_once 'iAuthentication.php';
 require_once 'DefaultUser.php';
 require_once 'AuthenticatedUser.php';
@@ -21,22 +21,22 @@ class Authentication implements iAuthentication
         $this->CI =& get_instance();
     }
 
-    public function login(iIdentity $identity)
+    public function login(iUser $user)
     {
         // Add user to session
-        $this->CI->session->set_userdata($this->key, $identity);
+        $this->CI->session->set_userdata($this->key, $user);
     }
 
     public function logout()
     {
         // Remove user from session
-        $this->CI->session->unset_userdata('user');
+        $this->CI->session->unset_userdata($this->key);
     }
 
     public function get_user()
     {
         // Get user from session
-        $user = $this->CI->session->userdata('user');
+        $user = $this->CI->session->userdata($this->key);
 
         // If user is not found return DefaultUser
         if (!$user)
