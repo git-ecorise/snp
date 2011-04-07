@@ -8,6 +8,7 @@ body {
 
 #header-wrap{
     background: #5599bb;
+    border-bottom: 2px solid #e3e1ec;
 }
 
 #header
@@ -17,6 +18,7 @@ body {
     padding: 14px 14px 10px 14px;
     height: 40px;
     overflow: hidden;
+    
 }
 
 #main-wrap{
@@ -40,14 +42,34 @@ body {
 
 #main input[type=text]{
     border: 1px solid #c8c5d2;
-    height: 40px;
+    height: 36px;
     width: 250px;
 }
 
 #main input[type=password]{
     border: 1px solid #c8c5d2;
-    height: 40px;
+    height: 36px;
     width: 250px;
+}
+
+#main input{
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    border-radius: 8px;
+    padding: 2px 8px 2px 8px;
+    font-size: 1.2em;
+}
+
+#main input[type=submit]{
+    padding: 8px;
+    cursor: pointer;
+}
+
+#main input:hover[type=submit]{
+    padding: 8px;
+    cursor: pointer;
+    background-color: #c8c5d2;
 }
 
 #main label{
@@ -80,6 +102,7 @@ body {
 
 #footer-wrap{
     background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x;
+    border-top: 2px solid #c8c5d2;
 }
 
 #footer{
@@ -103,5 +126,13 @@ color: white;
 div.footer-top {
 margin: 0 auto;
 text-align: center;
-border-bottom: 2px solid #c8c5d2;
+
+}
+
+.input{
+    margin: 4px 0 4px 0;
+}
+
+.input-submit{
+    margin: 12px 0 4px 0;
 }
