@@ -1,7 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'iIdentity.php';
+require_once 'iAuthentication.php';
+require_once 'DefaultUser.php';
+require_once 'AuthenticatedUser.php';
+
+ // This is the worst crap ever - how do i avoid those require_once statements ?
+
+
 
 // Authentication - SERVICE ? + interface og smid under services folder ?
+
+// Identification ?
 
 class Authentication implements iAuthentication
 {
@@ -12,8 +21,6 @@ class Authentication implements iAuthentication
     {
         // Get CodeIginiter reference
         $this->CI =& get_instance();
-
-        // Config ?
     }
 
     public function login(iIdentity $identity)
@@ -30,8 +37,10 @@ class Authentication implements iAuthentication
 
     public function get_user()
     {
-        $user = $this->CI->session->user_data('user');  // returns false if not found
+        // Get user from session
+        $user = $this->CI->session->userdata('user');
 
+        // If user is not found return DefaultUser
         if (!$user)
             return new DefaultUser();
 
