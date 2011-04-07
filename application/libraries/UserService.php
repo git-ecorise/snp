@@ -41,9 +41,10 @@ class UserService {
         );
 
         //insert data into database
-        $this->CI->UserServiceDB->create_user($new_user);
+        //$this->CI->UserServiceDB->create_user($new_user);
 
         //send email_confirmation
+        print $new_user['email'];
         $this->send_email_confirmation($new_user['email']);
 
         //TODO: if autologin then login the user automatically in
@@ -59,20 +60,28 @@ class UserService {
 
     private function send_email_confirmation($email)
     {
-        
-        //TODO: send the email to the user
-        $this->CI->load->library('email');
+        $config = Array(
+        'protocol' => 'smtp',
+        'smtp_host' => 'ssl://smtp.googlemail.com',
+        'smtp_port' => 465,
+        'smtp_user' => 'carlsagangroup@gmail.com',
+        'smtp_pass' => 'CarlS1234',
+        );
+        $this->CI->load->library('email', $config);
+        $this->CI->email->set_newline("\r\n");
 
-        $this->CI->email->from('your@example.com', 'Your Name');
+        $this->CI->email->from('gmail.login@googlemail.com', 'Your Name');
         $this->CI->email->to($email);
 
-        $this->CI->email->subject('Email Test');
-        $this->CI->email->message('Testing the email class.');
+        $this->CI->email->subject(' CodeIgniter Rocks Socks ');
+        $this->CI->email->message('Hello World');
 
-        $this->CI->email->send();
 
-        //echo $this->CI->email->print_debugger();
-    }
+        if (!$this->CI->email->send())
+            show_error($this->CI->email->print_debugger());
+        else
+        echo 'Your e-mail has been sent!';
+        }
 
     function login($login_user)
     {

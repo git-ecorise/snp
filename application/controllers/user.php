@@ -26,7 +26,6 @@ class User extends CI_Controller
         {
             $this->template->load('user/create');
         }
-        
     }
 
     public function login()

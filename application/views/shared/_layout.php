@@ -9,24 +9,27 @@
 
         <link rel="shortcut icon" href="<?= graphic_content('favicon.ico') ?>" />
         <link type="text/css" rel="Stylesheet" href="<?= stylesheet_content('layout.css') ?>" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
     </head>
-    <body>     
-        <h2>Features</h2>
-        <ul>
-            <li>
-                <a href="<?= home_route() ?>">Home</a>
-            </li>
-            <li>
-                <a href="<?= createuser_route() ?>">Create user</a>
-            </li>
-            <li>
-                <a href="<?= login_route() ?>">Login</a>
-            </li>
-            <li>
-                <a href="<?= logout_route() ?>">Logout</a>
-            </li>
-        </ul>
-        <hr />
-        <?= $template_view ?>
+    <body>
+        <div id="header-wrap">
+            <div id="header">
+            <? $this->load->view('shared/header'); ?>
+            </div>
+        </div>
+        <div class="header-bottom"></div>
+
+        <div id="main-wrap">
+            <div id="main">
+            <?= $template_view ?>
+        </div>
+        </div>
+        
+        <div class="footer-top"></div>
+        <div id="footer-wrap">
+            <div id="footer">
+            <? $this->load->view('shared/footer'); ?>
+        </div>
+        </div>
     </body>
 </html>
