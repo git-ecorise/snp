@@ -13,7 +13,6 @@
                 //centering
                 $(".message-box").css({
                     "position": "absolute",
-                    "top": 60,
                     "left": windowWidth/2-popupWidth/2
                 });
             }
