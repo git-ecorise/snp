@@ -10,6 +10,7 @@
         <link rel="shortcut icon" href="<?= graphic_content('favicon.ico') ?>" />
         <link type="text/css" rel="Stylesheet" href="<?= stylesheet_content('layout.css') ?>" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        <script type="text/javascript" src="<?= javascript_content('layout.js') ?>"></script>
     </head>
     <body>
         <div id="header-wrap">
@@ -17,19 +18,21 @@
             <? $this->load->view('shared/header'); ?>
             </div>
         </div>
-        <div class="header-bottom"></div>
 
         <div id="main-wrap">
             <div id="main">
-            <?= $template_view ?>
+                <?= $template_view ?>
+            </div>
         </div>
-        </div>
-        
-        <div class="footer-top"></div>
+ 
         <div id="footer-wrap">
             <div id="footer">
-            <? $this->load->view('shared/footer'); ?>
+                <? $this->load->view('shared/footer'); ?>
+            </div>
         </div>
-        </div>
+
+        <script type="text/javascript">
+        var status = '<?= $this->session->flashdata('status'); ?>';
+        </script>
     </body>
 </html>
