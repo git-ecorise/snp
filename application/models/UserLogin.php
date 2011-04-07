@@ -1,4 +1,6 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+require_once 'iUserLogin.php';
+require_once(APPPATH . 'libraries/validation/ValidationResult.php');
 
 class UserLogin extends CI_Model implements iUserLogin
 {

@@ -1,7 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'iUserService.php';
-require_once 'iUserCreate.php';
-require_once 'iUserLogin.php';
+require_once 'ServiceResult.php';
 
 class UserService implements iUserService
 {
@@ -32,8 +31,15 @@ class UserService implements iUserService
         // How do i move error messages to the view ?
         // Return validation object - isValid - errors ?
 
-        if ($login->is_valid()) // validationresult->is_valid()    is_success direkte på serviceResult
+
+        
+        // Validate and get ValidationResult
+        $result = $login->validate();
+        
+        if ($result->is_valid())
         {
+
+
             // Get from database and validate email/password
 
             // if valid email/password return result? (must be valid since it is here) ?
@@ -44,7 +50,9 @@ class UserService implements iUserService
 
             // Or just move the database stuff to the User_model (DB) and call user.get_logindata(); ? should that return dbQueryResult ? or just operate with the result/array returned from build in ?
 
-            $result = user_model.get_logindata($model->get_email(), $model->get_password());
+
+
+            //$result = user_model.get_logindata($model->get_email(), $model->get_password());
         }
         else
         {
@@ -53,6 +61,12 @@ class UserService implements iUserService
         }
 
 
+        // Update login with id? and let userController call authentication->login() ?
+        // or just call from here instead and return ?
+
+        
+
+        return new ServiceResult($login, $result);
 
 
 
