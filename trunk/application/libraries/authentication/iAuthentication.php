@@ -5,6 +5,7 @@ interface iAuthentication
 {
     public function login(iIdentity $identity);
     public function logout();
+    public function get_user();
 }
 
 ?>
