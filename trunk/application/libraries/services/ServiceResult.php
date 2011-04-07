@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'iServiceResult.php';
-require_once 'iValidationResult.php';
+require_once(APPPATH . 'libraries/validation/iValidationResult.php');
 
 // intern variable that determines if success ? or let validation result determine it ?
 // should validation result be changed to result or errorResult ?
@@ -28,7 +28,7 @@ class ServiceResult implements iServiceResult
 
     public function is_success()
     {
-        return $this->validationresult->is_valid(); // intern variable issuccess ?
+        return $this->validationresult->is_valid();
     }
 }
 

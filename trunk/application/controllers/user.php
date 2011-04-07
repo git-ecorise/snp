@@ -34,9 +34,9 @@ class User extends CI_Controller
             // Post request
             
             $this->load->library('services/UserService');
-            $this->load->model('view/user/UserLogin');
+            $this->load->model('UserLogin');
 
-            $result = $this->userservice->authenticate($this->userLogin);
+            $result = $this->userservice->authenticate($this->UserLogin);
 
             if($result->is_success())
             {
@@ -45,26 +45,24 @@ class User extends CI_Controller
                 // Set status message
                 $this->session->set_flashdata('status', 'You have been logged in!');
                 // Redirct
-                redirect(home_route());   // url referer instead ?
+                redirect(usersearch_route());   // url referer instead ?
+                return;
             }
-            else
-            {
-                // Fail
-                
-                $data = array("model" => $this->userLogin,
-                              "errors" => $result->get_errors());
 
-                $this->session->set_flashdata('status', 'Login was incorrect. Please fix it!');
-         
-                $this->template->load('user/login', $data);
-            }
+            // Fail
+
+            $data = array("model" => $this->userLogin,
+                          "errors" => $result->get_errors());
+
+            $this->session->set_flashdata('status', 'Login was incorrect. Please fix it!');
+
+            $this->template->load('user/login', $data);
+            return;
         }
-        else
-        {
-            // Get Request
-            
-            $this->template->load('user/login');
-        }
+
+        // Get Request
+
+        $this->template->load('user/login');
     }
 
 
@@ -80,6 +78,8 @@ class User extends CI_Controller
         redirect(home_route());   // redirect to url referer instead (if protected it will redirect again) ?
     }
 
+
+    
     public function validate($code)
     {
         // if there is no code present with form field where the code can be entered ?
@@ -99,6 +99,8 @@ class User extends CI_Controller
             // $model = new UserActivate($code);
         }
 
+
+        
         // Get UserService
         // Call UserService->Activate(UserActivate)     // UserActivationCode?
             // Check the result returned
@@ -109,5 +111,16 @@ class User extends CI_Controller
         // Dont login directly - redirect to login page instead
 
         // If not valid return view including errors in viewdata - same as if code is not present
+    }
+
+
+    
+    public function search()
+    {
+        // require_authenticated metode (helper?) der blot tjekker om user is_authenticated og hvis ikke så redirecter den ? evt viser flashdata ?
+        // 
+        // Post check
+
+        $this->template->load('user/search');
     }
 }

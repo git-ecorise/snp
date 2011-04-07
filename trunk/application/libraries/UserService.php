@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Description of UserService
- *
- * @author BigSlott
- */
-class UserService {
+class UserService_FIXED {
     var $CI;
     
     function create($user)

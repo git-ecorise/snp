@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once 'UserCreate.php';
-require_once 'UserLogin.php';
+require_once(APPPATH . 'models/iUserCreate.php');
+require_once(APPPATH . 'models/iUserLogin.php');
 
 interface iUserService
 {
-    public function create(UserCreate $create);
-    public function authenticate(UserLogin $login);
+    public function create(iUserCreate $create);
+    public function authenticate(iUserLogin $login);
     //public function validate(UserActivate $activation);
 }
 

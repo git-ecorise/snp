@@ -20,4 +20,9 @@ function logout_route()
     return site_url('user/logout');
 }
 
+function usersearch_route()
+{
+    return site_url('user/search');
+}
+
 ?>
