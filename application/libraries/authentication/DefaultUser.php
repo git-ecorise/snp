@@ -12,6 +12,11 @@ class DefaultUser implements iIdentity
         return false;
     }
 
+    public function get_id()
+    {
+        return 0;
+    }
+
     public function get_email()
     {
         return null;

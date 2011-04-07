@@ -3,12 +3,14 @@ require_once 'iIdentity.php';
 
 class AuthenticatedUser implements iIdentity
 {
+    private $id;
     private $email;
     private $firstname;
     private $lastnasme;
 
-    function __construct($email, $firstname, $lastname)
+    function __construct($id, $email, $firstname, $lastname)
     {
+        $this->id = $id;
         $this->email = $email;
         $this->firstname = $firstname;
         $this->lastnasme = $lastname;
@@ -17,6 +19,11 @@ class AuthenticatedUser implements iIdentity
     public function is_authenticated()
     {
         return true;
+    }
+
+    public function get_id()
+    {
+        return $this->id;
     }
 
     public function get_email()
