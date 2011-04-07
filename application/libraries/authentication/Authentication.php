@@ -9,7 +9,6 @@ require_once 'AuthenticatedUser.php';
 
 
 // Authentication - SERVICE ? + interface og smid under services folder ?
-
 // Identification ?
 
 class Authentication implements iAuthentication
