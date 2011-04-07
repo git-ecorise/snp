@@ -15,7 +15,7 @@
     <body>
         <div id="header-wrap">
             <div id="header">
-            <? $this->load->view('shared/header'); ?>
+            <? $this->load->view('shared/_header'); ?>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
  
         <div id="footer-wrap">
             <div id="footer">
-                <? $this->load->view('shared/footer'); ?>
+                <? $this->load->view('shared/_footer'); ?>
             </div>
         </div>
 
