@@ -31,6 +31,9 @@
             </div>
         </div>
 
+        <div class="message-box">
+        </div>
+
         <script type="text/javascript">
         var status = '<?= $this->session->flashdata('status'); ?>';
         </script>
