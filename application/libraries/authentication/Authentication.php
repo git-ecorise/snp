@@ -37,7 +37,6 @@ class Authentication implements iAuthentication
 
         return $user;
     }
-
 }
 
 ?>
