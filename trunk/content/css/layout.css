@@ -1,1 +1,107 @@
-body { margin:20px; }
+*{margin: 0; padding: 0;}
+
+body {
+    font-family: "Trebuchet MS", Arial, "Bitstream Vera Sans", sans-serif;
+    background: #eeeeee;
+    /*background: #fff url('/snp/content/gfx/topbluefade.gif') repeat-x;*/
+}
+
+#header-wrap{
+    background: #5599bb;
+}
+
+#header
+{
+    margin: 0 auto;
+    width: 950px;
+    padding: 14px 14px 10px 14px;
+    height: 40px;
+    overflow: hidden;
+}
+
+#main-wrap{
+    background: #fff;
+}
+
+#main{
+    margin: 0 auto;
+    width: 950px;
+    padding: 14px;
+    min-height: 300px;
+}
+
+#main h1 {
+    font-size: 3.0em;
+}
+
+#main{
+    
+}
+
+#main input[type=text]{
+    border: 1px solid #c8c5d2;
+    height: 40px;
+    width: 250px;
+}
+
+#main input[type=password]{
+    border: 1px solid #c8c5d2;
+    height: 40px;
+    width: 250px;
+}
+
+#main label{
+    font-size: 0.8em;
+}
+
+#main-menu{
+    float: right;
+}
+
+#main-menu ul{
+    list-style-type: none;
+}
+
+#main-menu li{
+    float: left;
+    padding: 14px;
+}
+
+#main-menu ul a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.3em;
+
+}
+
+#main-menu li a:hover{
+    color: #c8c5d2; 
+}
+
+#footer-wrap{
+    background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x;
+}
+
+#footer{
+    margin: 0 auto;
+    width: 950px;
+    text-align: center;
+    padding: 10px;
+    color: #330066;
+}
+
+div.header-bottom {
+margin: 0 auto 0 auto;
+text-align: center;
+/*background-color: #981A21;*/
+background-color: #e3e1ec;
+font-size: 11px;
+padding: 2px;
+color: white;
+}
+
+div.footer-top {
+margin: 0 auto;
+text-align: center;
+border-bottom: 2px solid #c8c5d2;
+}
