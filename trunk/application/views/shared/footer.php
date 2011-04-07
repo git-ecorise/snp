@@ -1,1 +1,1 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing@elit, 24323423
+The Social Network 2011, bigslott@mail.com
