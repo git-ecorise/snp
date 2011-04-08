@@ -9,7 +9,7 @@ require_once 'route_helper.php';
 function get_user()
 {
     $CI =& get_instance();
-    $CI->load->library('authentication/Authentication');
+    //$CI->load->library('authentication/Authentication');
 
     // Fix !
     

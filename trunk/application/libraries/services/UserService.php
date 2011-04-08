@@ -20,6 +20,45 @@ class UserService implements iUserService
 
 
 
+
+    
+    // Missing interface
+    public function login()
+    {
+        // Set delimiters - hide this away (extend controller etc...)
+        $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+
+        // Validate Form
+        $isvalid = $this->CI->form_validation->run('login');
+
+        if (!$isvalid)
+            return false;
+
+        // Form is valid get user input
+        $email = $this->CI->input->post('email');
+        $password = $this->CI->input->post('password');
+
+        // Try to get the user by email
+        $this->CI->load->model('UserModel');
+        $user = $this->userModel->get_by_email($email);
+
+
+
+       
+        // Get user by email
+
+        // Validate password if found
+
+
+        // Hvordan får jeg loaded data hvis det skal i validerings processens
+
+    }
+
+
+
+
+
+
     function authenticate(iUserLogin $login)
     {
         // return Authenticated eller DefaultUser() via data ? gør det hele lidt letterer
