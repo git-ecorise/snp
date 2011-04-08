@@ -4,13 +4,12 @@
 
 <h1>Search</h1>
 
-<?= validation_errors() ?>
-
 <form action="<?= usersearch_route() ?>" method="post">
     <div class="input">
-        <label>Email</label>
+        <label>Name</label>
         <br />
-        <input type="text" name="email" value="<?= set_value('email')?>"/>
+        <input type="text" name="name" value="<?= set_value('name')?>"/>
+        <?= form_error('name'); ?>
     </div>
     <div class="input-submit">
         <input type="submit" name="submit" value="Search"/><br/>
@@ -20,8 +19,21 @@
 <br/>
 <br/>
 
-<!-- Only show if result is found -->
-<h2>Result</h2>
-<div>
-    
-</div>
+<?
+if (isset($result))
+{
+?>
+<h2>Results</h2>
+<ul class="searchresult">
+    <?
+    foreach ($result as $row)
+    {
+    ?>
+        <li><?= $row->firstname . ' ' . $row->lastname ?></li>
+    <?
+    }
+    ?>
+</ul>
+<?
+}
+?>

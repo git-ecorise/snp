@@ -2,9 +2,10 @@
 
 interface iUserModel
 {
-    //public function get_by_id($id);
     public function get_by_email($email);
-    public function create($user);
+    public function insert($user);
+    public function validate($code);
+    public function get_all_by_name($name);
 }
 
 ?>

@@ -157,3 +157,6 @@ text-align: center;
 
 a img { border:0; }
 span.error { color:#9c2d2d; padding-left:12px; }
+
+ul.searchresult {}
+ul.searchresult li { margin-left:24px; padding:6px; }
