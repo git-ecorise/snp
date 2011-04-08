@@ -2,6 +2,7 @@
 
 // Remember controller actions should only dictate the flow
 // Remove nesting - it is nasty... break into smaller pieces...
+// Optimize database data types and lengths
 // Use PRG pattern
 
 class User extends CI_Controller
@@ -11,32 +12,8 @@ class User extends CI_Controller
         // Check if already logged in - make helper
         if (get_user()->is_authenticated())
         {
-            redirect (home_route());
+            return redirect (home_route());
         }
-
-        $viewdata = array();
-
-
-
-
-
-
-
-
-
-        /*
-        Bruger sender data
-         - Validerer data indtil ingen fejl bliver fundet (inkl Email ikke allerede eksisterer)
-        --- Hvis fejl returner View med fejl beskrivelse
-         - Lav PasswordHash (inkl Salt) samt email validerings kode og indsæt data i databasen.
-         - Send Email (angående validering)
-         - Returner Success View
-
-        */
-
-
-        
-
         
         if ($_POST)
         {
@@ -56,66 +33,65 @@ class User extends CI_Controller
                 $firstname = $this->input->post('firstname');
                 $lastname = $this->input->post('lastname');
 
-                // Try to get the user by email
+                // Prepare data
+                    // Remember to use salt and save it
+                $passwordhash = hash('sha256', $password);
+                $this->load->helper('string');
+                $activationcode = random_string('unique');  // 32
+
+                // Load model and insert (use class instead, or send as parameters)
                 $this->load->model('UserModel');
-                $user = $this->UserModel->get_by_email($email);
 
+                $id = $this->UserModel->insert(array(
+                    'email' => $email,
+                    'passwordhash' => $passwordhash,
+                    'firstname' => $firstname,
+                    'lastname' => $lastname,
+                    'activationcode' => $activationcode,
+                    //'isactivated' => false
+                    ));
+                
+                // Send email
+                $this->load->library('services/EmailService');
+                $this->emailservice->send_validation_email($email, $activationcode);    // include id
 
+                // Set status message
+                $this->session->set_flashdata('status', 'You have signed up!');
 
-                $user = null;
+                // For presentation only
+                $this->session->set_flashdata('code', $activationcode);
 
-
-
-                // Check if found
-                if ($user != null)  // ???
-                {
-                    // Check the password   - missing salt - create helper
-                    $inputpasswordhash = hash('sha256', $password);
-                    if ($inputpasswordhash === $user->passwordhash)
-                    {
-                        // Success
-
-                        // Login
-                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);
-                        $this->authentication->login($authUser);
-
-                        // Set status message
-                        $this->session->set_flashdata('status', 'You have been logged in!');
-
-                        // Redirct - returns immediatly
-                        //redirect(usersearch_route());       // redirect to home instead ?
-                    }
-                }
-
-                //$viewdata['status'] = 'Login was incorrect. Please try again.';
+                // Redirct
+                return redirect(signup_success_route());
             }
         }
 
-        
-
         // Default fallback
         
-        $this->template->load('user/signup', $viewdata);
+        $this->template->load('user/signup');
     }
 
+    public function signupsuccess()
+    {
+        $this->template->load('user/signup_success');
+    }
+    
     // Simple callback validator for the email - put it somewhere else (helper?)
-    public function email_available($email)
+    public function is_email_available($email)
     {
         // Set callback error message (could be set elsewhere - in cofig file)
-        $this->form_validation->set_message('email_available', '%s is already signed up');
+        $this->form_validation->set_message('is_email_available', '%s is already signed up');
 
         $this->load->model('UserModel');
         return $this->UserModel->get_by_email($email) == null;
     }
-
-
     
     public function login()
     {
         // Check if already logged in - make helper
         if (get_user()->is_authenticated())
         {
-            redirect (home_route());
+            return redirect (home_route());
         }
 
         $viewdata = array();
@@ -149,6 +125,13 @@ class User extends CI_Controller
                     {
                         // Success
 
+                        // Check user is activated
+                        if (!$user->isactivated)
+                        {
+                             $this->session->set_flashdata('status', 'You are already signed up! Please activate your Email.');
+                             return redirect(validate_route());
+                        }
+
                         // Login
                         $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);
                         $this->authentication->login($authUser);
@@ -157,7 +140,7 @@ class User extends CI_Controller
                         $this->session->set_flashdata('status', 'You have been logged in!');
 
                         // Redirct - returns immediatly
-                        //redirect(usersearch_route());       // redirect to home instead ?
+                        return redirect(usersearch_route());       // redirect to home or url referer instead ?
                     }
                 }
 
@@ -180,58 +163,83 @@ class User extends CI_Controller
 
         redirect(home_route());   // redirect to url referer instead ?
     }
-
-
-
-
-
     
-    public function validate($code)
+    public function validate($code = '')
     {
-        // if there is no code present with form field where the code can be entered ?
-        // Create UserActivate model and check for post ?
+        // Check if already logged in - make helper
+        if (get_user()->is_authenticated())
+        {
+            return redirect (home_route());
+        }
+        
+        if ($_POST)
+        {
+            // Post
 
-        $model;
+            // Set delimiters - hide this away (extend controller etc...)
+            $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+
+            // Validate form input
+            if ($this->form_validation->run('validate'))
+            {
+                $code = $this->input->post('validationcode');
+            }
+        }
+
+        if ($code != '')
+        {
+            // Try to validate/activate
+            $this->load->model('UserModel');
+            $success = $this->UserModel->validate($code);
+
+            if ($success)
+            {
+                // Set status message
+                $this->session->set_flashdata('status', 'You Email have been validated.');
+
+                // Could login directly
+
+                // Redirct
+                return redirect(login_route());
+            }
+        }   
+        
+        // Default fallback
+        
+        $this->template->load('user/validate');
+    }
+    
+    public function search($name = '')
+    {
+        // Ensure user is authorized
+        ensure_authorized();
+
+        $viewdata = array();
 
         if ($_POST)
         {
-            // $model = Get UserActivate model
-            // Or just get the activation code directly from input->post()? remember to escape data in the service then
+            // Post
+
+            // Set delimiters - hide this away (extend controller etc...)
+            $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+
+            // Validate form input
+            if ($this->form_validation->run('search'))
+            {
+                // Get search term
+                $term = $this->input->post('name');
+
+                $this->load->model('UserModel');
+                $result = $this->UserModel->get_all_by_name($term);
+
+                // If any results add to viewdata
+                if ($result != null)
+                {
+                    $viewdata['result'] = $result;
+                }
+            }
         }
-        else
-        {
-            // Make sure the code is present ? - if not just return view with form field
-            
-            // $model = new UserActivate($code);
-        }
 
-
-        
-        // Get UserService
-        // Call UserService->Activate(UserActivate)     // UserActivationCode?
-            // Check the result returned
-
-        // If valid return to home and use flash_data to show message that you have been activated ?
-        // Or show success page by redirecting !
-
-        // Dont login directly - redirect to login page instead
-
-        // If not valid return view including errors in viewdata - same as if code is not present
-    }
-
-
-    
-    public function search()
-    {
-        // Ensure user is autorized
-        ensure_authorized();
-
-        
-
-        // Post check
-
-        // Search mangler i menuen når logged in - skal være der sammen med logout istedet for login og create user
-
-        $this->template->load('user/search');
+        $this->template->load('user/search', $viewdata);
     }
 }

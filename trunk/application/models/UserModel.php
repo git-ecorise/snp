@@ -1,19 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'iUserModel.php';
 
-// Remember could pass a class to be instantiated
-
-// Use chaining
-//$this->db->select('*')->from('user')->where('email', $email)->limit(10, 20);
-//$query = $this->db->get();
-
 class UserModel extends CI_Model implements iUserModel
 {
     function __construct()
     {
         parent::__construct();
-
-        // Load database here if not autoloaded
     }
 
     public function get_by_email($email)
@@ -22,24 +14,28 @@ class UserModel extends CI_Model implements iUserModel
         return $query->row();
     }
 
-    public function create($user)
+    public function insert($user)
     {
-        // Get values and escape
-        // array or variables
-
-
-        
+        // return id later for validation
         $this->db->insert('user', $user);
-        //$this->db->insert_id()
+    }
+
+    public function validate($code)
+    {
+        // danger ... just quick impl - should be removed and use both id and code
+        $this->db->where('activationcode', $code);
+        $this->db->update('user', array('isactivated' => TRUE));
+        return $this->db->affected_rows() > 0;
+    }
+  
+    public function get_all_by_name($name)
+    {
+        $this->db->like('LOWER(firstname)', strtolower($name));
+        $this->db->or_like('LOWER(lastname)', strtolower($name));
+        
+        $this->db->where('isactivated', TRUE);
+        $query = $this->db->get('user');
+
+        return $query->result();
     }
 }
-
-
-
-
-    //function role_exists($key) {
-    //$this->db->where('rolekey',$key);
-    //  $query = $this->db->get('roles');
-    //     if ($query->num_rows() > 0){
-    //          return true;     }
-    //          else{         return false;     } }

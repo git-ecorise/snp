@@ -25,4 +25,14 @@ function usersearch_route()
     return site_url('user/search');
 }
 
+function validate_route($code = '')
+{
+    return site_url('user/validate/' . $code);
+}
+
+function signup_success_route()
+{
+    return site_url('user/signupsuccess');
+}
+
 ?>
