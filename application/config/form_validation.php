@@ -6,13 +6,14 @@
 $emailRule = 'trim|required|valid_email';                   // min/max length ?
 $passwordRule = 'required|min_length[5]';                   // min/max length ?
 $nameRule = 'trim|required|min_length[3]|alpha_dash';       // min/max length ?
+$validationcodeRule = 'trim|required';
 
 $config = array(
              'signup' => array(
                                 array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule
+                                        'rules' => $emailRule . '|callback_email_available'
                                      ),
                                 array(
                                         'field' => 'password',
@@ -54,6 +55,15 @@ $config = array(
                                         'label' => 'Email',
                                         'rules' => $emailRule
                                      )
+                                ),
+
+             'validate' => array(
+                                array(
+                                        'field' => 'validationcode',
+                                        'label' => 'Validation Code',
+                                        'rules' => $validationcodeRule
+                                     )
+
                                 )
             );
 
