@@ -5,9 +5,9 @@ function home_route()
     return base_url();
 }
 
-function createuser_route()
+function signup_route()
 {
-    return site_url('user/create');
+    return site_url('user/signup');
 }
 
 function login_route()

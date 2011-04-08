@@ -12,16 +12,19 @@ class UserService implements iUserService
         $this->CI =& get_instance();
 
         // Any configuration ?
-
-        // Init db ?
     }
 
     public function create(iUserCreate $create)
     {
     }
 
+
+
     function authenticate(iUserLogin $login)
     {
+        // return Authenticated eller DefaultUser() via data ? gør det hele lidt letterer
+
+
         // Kald login direkte herfra eller istedet returner ServiceResult der har data felt så det kan gøres i controller
 
 

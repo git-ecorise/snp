@@ -1,7 +1,10 @@
 <?php
     $template_model->title = 'Search';
 ?>
+
 <h1>Search</h1>
+
+<?= validation_errors() ?>
 
 <form action="<?= usersearch_route() ?>" method="post">
     <div class="input">
