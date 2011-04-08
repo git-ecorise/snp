@@ -128,7 +128,7 @@ class User extends CI_Controller
                         // Check user is activated
                         if (!$user->isactivated)
                         {
-                             $this->session->set_flashdata('status', 'You are already signed up! Please activate your Email.');
+                             $this->session->set_flashdata('status', 'Please activate your Email.');
                              return redirect(validate_route());
                         }
 
