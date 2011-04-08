@@ -5,7 +5,7 @@
 
 class User extends CI_Controller
 {
-    public function create()
+    public function signup()
     {
         //$tmpl = new Template(array('master' => 'shared/_layout'));
         //$data = $tmpl->load('home/index', array(), TRUE);
@@ -22,7 +22,7 @@ class User extends CI_Controller
 
         */
 
-        $this->template->load('user/create');
+        $this->template->load('user/signup');
     }
 
 
@@ -31,22 +31,41 @@ class User extends CI_Controller
     {       
         if ($_POST)
         {
-            // Post request
+            // Post Request
             
             $this->load->library('services/UserService');
             $this->load->model('UserLogin');
 
+            // Authenticate UserLogin and get Result
             $result = $this->userservice->authenticate($this->UserLogin);
 
+            // Check Result
             if($result->is_success())
             {
                 // Success
 
+                $this->load->library('authentication/Authentication');
+
+
+                
+
+
+                
+                // Get user from result->data (AuthenticatedUser)
+                // or just get the data for the user from there in data ?
+
+                $user = new AuthenticatedUser(1234, 'email@domain.com', 'Martin', 'From');       // get data from $result->data / model ?
+
+
+
+                // Login
+                $this->authentication->login($user);
+
                 // Set status message
                 $this->session->set_flashdata('status', 'You have been logged in!');
-                // Redirct
-                redirect(usersearch_route());   // url referer instead ?
-                return;
+
+                // Redirct - returns immediatly
+                redirect(usersearch_route());       // redirect to home instead ?
             }
 
             // Fail
@@ -54,29 +73,33 @@ class User extends CI_Controller
             $data = array("model" => $this->userLogin,
                           "errors" => $result->get_errors());
 
-            $this->session->set_flashdata('status', 'Login was incorrect. Please fix it!');
+            $this->session->set_flashdata('status', 'Login was incorrect. Please try again.');
 
             $this->template->load('user/login', $data);
-            return;
+
+            return; // could just continue - require that data is included in last load
         }
 
         // Get Request
 
         $this->template->load('user/login');
     }
-
-
-    
+  
     public function logout()
     {
         $this->load->library('authentication/Authentication');
-       $this->authentication->logout();
+
+        // Logout
+        $this->authentication->logout();
 
         // Set status message
         $this->session->set_flashdata('status', 'You have been logged out!');
 
-        redirect(home_route());   // redirect to url referer instead (if protected it will redirect again) ?
+        redirect(home_route());   // redirect to url referer instead ?
     }
+
+
+
 
 
     
@@ -117,9 +140,14 @@ class User extends CI_Controller
     
     public function search()
     {
-        // require_authenticated metode (helper?) der blot tjekker om user is_authenticated og hvis ikke så redirecter den ? evt viser flashdata ?
-        // 
+        // Ensure user is autorized
+        ensure_authorized();
+
+        
+
         // Post check
+
+        // Search mangler i menuen når logged in - skal være der sammen med logout istedet for login og create user
 
         $this->template->load('user/search');
     }
