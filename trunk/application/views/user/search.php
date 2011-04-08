@@ -7,7 +7,7 @@
     <div class="input">
         <label>Email</label>
         <br />
-        <input type="text" value="" name="email" />
+        <input type="text" name="email" value="<?= set_value('email')?>"/>
     </div>
     <div class="input-submit">
         <input type="submit" name="submit" value="Search"/><br/>

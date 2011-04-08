@@ -6,7 +6,7 @@
 <form action="<?= login_route() ?>" method="post">
     <div class="input">
         <label>Email</label><br/>
-        <input type="text" name="email" value="" />
+        <input type="text" name="email" value="<?= set_value('email')?>" />
         <br />
     </div>
     <div class="input">
