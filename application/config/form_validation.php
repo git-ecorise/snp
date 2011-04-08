@@ -4,8 +4,8 @@
 
 // Shared rules
 $emailRule = 'trim|required|valid_email';                   // min/max length ?
-$passwordRule = 'required|min_length[5]';                   //  min/max length ?
-$nameRule = 'trim|required|min_length[3]|alpha_dash';       //  min/max length ?
+$passwordRule = 'required|min_length[5]';                   // min/max length ?
+$nameRule = 'trim|required|min_length[3]|alpha_dash';       // min/max length ?
 
 $config = array(
              'signup' => array(

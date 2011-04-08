@@ -1,3 +1,8 @@
+<?
+    $flash = $this->session->flashdata('status');
+    $status = $flash ? $flash : (isset ($status) ? $status : '');
+?>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -35,7 +40,7 @@
         </div>
 
         <script type="text/javascript">
-        var status = '<?= $this->session->flashdata('status'); ?>';
+        var status = '<?= $status ?>';
         </script>
     </body>
 </html>

@@ -1,6 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 // Remember controller actions should only dictate the flow
+// Remove nesting - it is nasty... break into smaller pieces...
 // Use PRG pattern
 
 class User extends CI_Controller
@@ -28,67 +29,71 @@ class User extends CI_Controller
 
     
     public function login()
-    {       
+    {
+        // Check if already logged in - make helper
+        if (get_user()->is_authenticated())
+        {
+            redirect (home_route());
+        }
+
+        $viewdata = array();
+            
         if ($_POST)
         {
-            // Post Request
-            
-            $this->load->library('services/UserService');
-            $this->load->model('UserLogin');
+            // Post request
+                        
+            // Set delimiters - hide this away (extend controller etc...)
+            $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
 
-            // Authenticate UserLogin and get Result
-            $result = $this->userservice->authenticate($this->UserLogin);
-
-            // Check Result
-            if($result->is_success())
+            // Validate Form
+            if ($this->form_validation->run('login'))
             {
-                // Success
+                // Validation is success
 
-                $this->load->library('authentication/Authentication');
+                // Get user input
+                $email = $this->input->post('email');
+                $password = $this->input->post('password');
 
+                // Try to get the user by email
+                $this->load->model('UserModel');
+                $user = $this->UserModel->get_by_email($email);
 
-                
+                // Check if found       
+                if ($user != null)  // ???
+                {
+                    // Check the password   - missing salt - create helper
+                    $inputpasswordhash = hash('sha256', $password);
+                    if ($inputpasswordhash === $user->passwordhash)
+                    {
+                        // Success
 
+                        echo $inputpasswordhash;
+                        echo '<br />';
+                        echo $user->passwordhash;
 
-                
-                // Get user from result->data (AuthenticatedUser)
-                // or just get the data for the user from there in data ?
+                        // Login
+                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);
+                        $this->authentication->login($authUser);
 
-                $user = new AuthenticatedUser(1234, 'email@domain.com', 'Martin', 'From');       // get data from $result->data / model ?
+                        // Set status message
+                        $this->session->set_flashdata('status', 'You have been logged in!');
 
+                        // Redirct - returns immediatly
+                        redirect(usersearch_route());       // redirect to home instead ?
+                    }
+                }
 
-
-                // Login
-                $this->authentication->login($user);
-
-                // Set status message
-                $this->session->set_flashdata('status', 'You have been logged in!');
-
-                // Redirct - returns immediatly
-                redirect(usersearch_route());       // redirect to home instead ?
+                $viewdata['status'] = 'Login was incorrect. Please try again.';
             }
-
-            // Fail
-
-            $data = array("model" => $this->userLogin,
-                          "errors" => $result->get_errors());
-
-            $this->session->set_flashdata('status', 'Login was incorrect. Please try again.');
-
-            $this->template->load('user/login', $data);
-
-            return; // could just continue - require that data is included in last load
         }
 
         // Get Request
 
-        $this->template->load('user/login');
+        $this->template->load('user/login', $viewdata);
     }
   
     public function logout()
     {
-        $this->load->library('authentication/Authentication');
-
         // Logout
         $this->authentication->logout();
 
