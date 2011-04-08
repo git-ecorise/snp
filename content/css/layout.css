@@ -130,11 +130,11 @@ text-align: center;
 }
 
 .input{
-    margin: 4px 0 4px 0;
+    margin: 16px 0 16px 0;
 }
 
 .input-submit{
-    margin: 12px 0 4px 0;
+    margin: 16px 0 16px 0;
 }
 
 .message-box {
@@ -154,3 +154,5 @@ text-align: center;
     padding:24px;
     font-size:20px;
 }
+
+a img { border:0; }
