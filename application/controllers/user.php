@@ -157,57 +157,57 @@ class User extends CI_Controller
     {
         // Logout
         $this->authentication->logout();
-
         // Set status message
         $this->session->set_flashdata('status', 'You have been logged out!');
 
-        redirect(home_route());   // redirect to url referer instead ?
+        redirect(home_route());
     }
     
     public function validate($code = '')
     {
-        // Check if already logged in - make helper
-        if (get_user()->is_authenticated())
-        {
-            return redirect (home_route());
-        }
-        
+        $viewdata = array();
+
+        // Check if it was a Post
         if ($_POST)
         {
-            // Post
-
-            // Set delimiters - hide this away (extend controller etc...)
+            // Set delimiters - hide this away somehow
             $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
 
             // Validate form input
             if ($this->form_validation->run('validate'))
             {
-                $code = $this->input->post('validationcode');
+                // If valid get the input
+                $code = $this->input->post('validationcode', TRUE);
             }
         }
 
         if ($code != '')
         {
-            // Try to validate/activate
+            // Try to validate
             $this->load->model('UserModel');
             $success = $this->UserModel->validate($code);
 
             if ($success)
             {
                 // Set status message
-                $this->session->set_flashdata('status', 'You Email have been validated.');
+                $this->session->set_flashdata('status', 'Your email have been validated.');
 
-                // Could login directly
+                // Could login directly here - but could posses a security problem
 
                 // Redirct
                 return redirect(login_route());
             }
-        }   
+
+            // Not valid
+            $viewdata['status'] = 'The validation code is invalid.';
+        }
         
         // Default fallback
         
-        $this->template->load('user/validate');
+        $this->template->load('user/validate', $viewdata);
     }
+
+
     
     public function search($name = '')
     {

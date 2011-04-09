@@ -16,18 +16,20 @@ function get_user()
     return $CI->authentication->get_user();
 }
 
+function is_authorized()
+{
+    // Currently just requires user is authenticated to be authroized
+    $user = get_user();
+    return $user->is_authenticated();
+}
+
 function ensure_authorized()
 {
-    // Fix
-    // Should be able to save url refer when it happens, so it can go back to the page which the user tried to visit
-
-    $user = get_user();
-    if (!$user->is_authenticated())
+    if (!is_authorized())
     {
         $CI =& get_instance();
         $CI->session->set_flashdata('status', 'You are not allowed to view the page. Please login.');
-
-        // return immediatly
+        // returns immediatly
         redirect(login_route());
     }
 }
