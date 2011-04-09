@@ -12,6 +12,7 @@ class EmailService implements iEmailService
         // Get CodeIginiter reference
         $this->CI =& get_instance();
 
+        // Load Config
         $this->from = $config['from'];
         $this->name = $config['name'];
     }
@@ -20,21 +21,21 @@ class EmailService implements iEmailService
     {
         $this->CI->load->library('email');
 
+        // Setup
         $this->CI->email->from($this->from, $this->name);
         $this->CI->email->to($email);
 
-        $this->CI->email->subject('Validate your email');
-        $this->CI->email->message('<a href="' + validate_route($code) + '">Click here to validate</a>');
+        $this->CI->email->subject('Validate your email - ' . $this->name);
+        $this->CI->email->message('Please validate your email.<br /><a href="' + validate_route($code) + '">Click here to validate</a>');
         $this->CI->email->set_alt_message('Your validation code is: ' . $code);
 
-        // Disabled for presentation
-
         // Send the email
+        $success = !$this->CI->email->send();
+
+        // Only in development !
         /*
-        if (!$this->CI->email->send())
+        if (!$success)
             show_error($this->CI->email->print_debugger());
-        else
-            echo 'Email sent - here is the validation code:' . $code;
         */
     }
 }
