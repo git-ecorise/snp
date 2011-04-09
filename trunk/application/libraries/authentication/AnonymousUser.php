@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'iUser.php';
 
-class DefaultUser implements iUser
+class AnonymousUser implements iUser
 {
     function __construct()
     {
