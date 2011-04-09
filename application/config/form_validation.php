@@ -1,11 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// xss_clean and esccape
-
 // Shared rules
-$emailRule = 'trim|required|valid_email';                   // min/max length ?
-$passwordRule = 'required|min_length[5]';                   // min/max length ?
-$nameRule = 'trim|required|min_length[3]|alpha_dash';       // min/max length ?
+$emailRule = 'trim|required|valid_email';
+$passwordRule = 'required|min_length[5]';
+$nameRule = 'trim|required|min_length[3]|alpha_dash';
 $validationcodeRule = 'trim|required';
 $fullnameRule = 'trim|required|min_length[3]';
 
