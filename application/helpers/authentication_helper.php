@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Remmber later on there can be a difference between been authenticatd and authorized
+// Remmber later on there can be a difference between been authenticated and authorized
 
 function get_user()
 {
