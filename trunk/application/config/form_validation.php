@@ -22,7 +22,7 @@ $config = array(
                                 array(
                                         'field' => 'passwordconfirm',
                                         'label' => 'Password Confirmation',
-                                        'rules' => 'matches[password]'
+                                        'rules' => 'required|matches[password]'
                                      ),
                                 array(
                                         'field' => 'firstname',
