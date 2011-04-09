@@ -1,14 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'iUser.php';
 require_once 'iAuthentication.php';
-require_once 'DefaultUser.php';
+require_once 'AnonymousUser.php';
 require_once 'AuthenticatedUser.php';
-
- // This is the worst crap ever - how do i avoid those require_once statements ?
-
-
-
-// Rename to AuthenticationService and move to services folder ?
 
 class Authentication implements iAuthentication
 {
@@ -38,9 +32,9 @@ class Authentication implements iAuthentication
         // Get user from session
         $user = $this->CI->session->userdata($this->key);
 
-        // If user is not found return DefaultUser
+        // If user is not found return AnonymousUser
         if (!$user)
-            return new DefaultUser();
+            return new AnonymousUser();
 
         return $user;
     }
