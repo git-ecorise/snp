@@ -18,25 +18,25 @@
         <script type="text/javascript" src="<?= javascript_content('layout.js') ?>"></script>
     </head>
     <body>
-        <div id="header-wrap">
-            <div id="header">
+        <div id="header">
+            <div class="section">
                 <? $this->load->view('shared/_header'); ?>
             </div>
         </div>
 
-        <div id="main-wrap">
-            <div id="main">
+        <div id="view">
+            <div class="section">
                 <?= $template_view ?>
             </div>
         </div>
  
-        <div id="footer-wrap">
-            <div id="footer">
+        <div id="footer">
+            <div class="section">
                 <? $this->load->view('shared/_footer'); ?>
             </div>
         </div>
 
-        <div class="message-box">
+        <div id="message-box">
         </div>
 
         <script type="text/javascript">

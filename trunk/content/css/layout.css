@@ -1,42 +1,38 @@
-*{margin: 0; padding: 0;}
+* { margin: 0; padding: 0; }
 
 body { font-family: "Trebuchet MS", Arial, sans-serif; background: #eeeeee; }
 a img { border:0; }
 
-#header-wrap{ background: #5599bb; border-bottom: 2px solid #e3e1ec; }
-#header { margin: 0 auto; width: 950px; padding: 14px 14px 10px 14px; height: 40px; overflow: hidden; }
+div.section { margin: 0 auto; overflow: hidden; width: 950px; }
 
-#main-menu { float: right; }
-#main-menu ul { list-style-type: none; }
-#main-menu li { float: left; padding: 14px; }
-#main-menu ul a { text-decoration: none; color: #fff; font-size: 1.3em; }
-#main-menu li a:hover { color: #c8c5d2; }
+#header { background: #5599bb; border-bottom: 2px solid #e3e1ec; padding: 14px 0 6px 0; height: 40px; }
 
-#main-wrap { background: #fff; }
-#main { margin: 0 auto; width: 950px; padding: 14px; min-height: 300px; }
-#main h1 { font-size: 3.0em; }
+#navigation { float: right; }
+#navigation ul { list-style-type: none; }
+#navigation li { float: left; padding: 14px; }
+#navigation ul a { text-decoration: none; color: #fff; font-size: 1.3em; }
+#navigation li a:hover { color: #c8c5d2; }
 
-#main .input { margin: 16px 0 16px 0; }
-#main .input-submit{ margin: 16px 0 16px 0; }
+#view { background: #fff; padding: 14px 0; min-height: 300px; }
+#view h1 { font-size: 3.0em; }
+#view .input { margin: 16px 0 16px 0; }
+#view .input-submit{ margin: 16px 0 16px 0; }
+#view label { font-size: 0.8em; display: block; }
+#view input{ padding: 2px 8px 2px 8px; font-size: 1.2em; border-radius: 3px; }
+#view input[type=text] { border: 1px solid #c8c5d2; height: 36px; width: 250px; line-height: 36px; }
+#view input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
+#view input[type=submit] { padding: 8px; cursor: pointer; }
+#view input:hover[type=submit] { padding: 8px; cursor: pointer; background-color: #c8c5d2; }
+#view span.error { color:#9c2d2d; padding-left:12px; }
 
-#main label { font-size: 0.8em; display: block; }
-#main input{ border-radius: 3px; padding: 2px 8px 2px 8px; font-size: 1.2em; }
-#main input[type=text] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
-#main input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
-#main input[type=submit] { padding: 8px; cursor: pointer; }
-#main input:hover[type=submit] { padding: 8px; cursor: pointer; background-color: #c8c5d2; }
+#footer { background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x; border-top: 2px solid #c8c5d2; text-align: center; padding: 10px; color: #000000; }
 
-#footer-wrap{ background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x; border-top: 2px solid #c8c5d2; }
-#footer { margin: 0 auto; width: 950px; text-align: center; padding: 10px; color: #000000; }
-
-div.message-box { 
+div#message-box {
     display:none;
     position:fixed; margin-left:-205px; left:50%; width:410px; top:100px;
     text-align: center; background:#f5e6b4; border:5px solid #ffffff; padding:24px; font-size:20px; z-index:1; box-shadow:0 0 20px #999; border-radius:8px;
 }
 
-#main span.error { color:#9c2d2d; padding-left:12px; }
-
 /* Only for the search view - should go into a seperate css */
-#main ul.searchresult {}
-#main ul.searchresult li { margin-left:24px; padding:6px; }
+#view ul.searchresult {}
+#view ul.searchresult li { margin-left:24px; padding:6px; }

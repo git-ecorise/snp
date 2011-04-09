@@ -5,7 +5,7 @@
 <a href="<?= home_route() ?>">
     <img src="<?= graphic_content('logo.png') ?>" alt="logo"/>
 </a>
-<div id="main-menu">
+<div id="navigation">
     <ul>
         <li>
             <a href="<?= home_route() ?>">Home</a>
