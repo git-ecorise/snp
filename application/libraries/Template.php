@@ -24,17 +24,16 @@ class Template implements iTemplate
         $this->master = isset ($config['master']) ? $config['master'] : '';
         $modelname = isset ($config['model']) ? $config['model'] : '';
 
-        // Load model if defined
-        if ($modelname != '')
-        {   
-            $varname = $this->prefix . 'model';
-            $this->CI->load->model($modelname, $varname);
-            $this->model = $this->CI->{$varname};
-        }
-
         // Set keys
         $this->viewkey = $this->prefix . 'view';
         $this->modelkey = $this->prefix . 'model';
+
+        // Load model if defined
+        if ($modelname != '')
+        {
+            $this->CI->load->library($modelname, array(), $this->modelkey);
+            $this->model = $this->CI->{$this->modelkey};
+        }
     }
 
     function load($view = '', $view_data = array(), $return = FALSE)
@@ -43,23 +42,17 @@ class Template implements iTemplate
         $this->data[$this->modelkey] = $this->model;
 
         // Make template model available to the view
-        $view_data[$this->modelkey] = $this->model;     
-        // or make all template data available to the view ?
-        //$this->CI->load->vars($this->data);
-        // or move via push(), merge(), fill() ?
-        $view_data = array_merge($view_data, $this->data);
-        
+        $view_data[$this->modelkey] = $this->model;
+
         // Load the view
         $viewcontent = $this->CI->load->view($view, $view_data, TRUE);
         
         // Make view available to the template
         $this->data[$this->viewkey] = $viewcontent;
 
-        // Load and return the template
+        // Load and return
         return $this->CI->load->view($this->master, $this->data, $return);
     }
-
-    
 
     // Getter and Setters
 
