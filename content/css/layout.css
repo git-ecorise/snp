@@ -1,162 +1,42 @@
 *{margin: 0; padding: 0;}
 
-body {
-    font-family: "Trebuchet MS", Arial, "Bitstream Vera Sans", sans-serif;
-    background: #eeeeee;
-    /*background: #fff url('/snp/content/gfx/topbluefade.gif') repeat-x;*/
-}
-
-#header-wrap{
-    background: #5599bb;
-    border-bottom: 2px solid #e3e1ec;
-}
-
-#header
-{
-    margin: 0 auto;
-    width: 950px;
-    padding: 14px 14px 10px 14px;
-    height: 40px;
-    overflow: hidden;
-    
-}
-
-#main-wrap{
-    background: #fff;
-}
-
-#main{
-    margin: 0 auto;
-    width: 950px;
-    padding: 14px;
-    min-height: 300px;
-}
-
-#main h1 {
-    font-size: 3.0em;
-}
-
-#main{
-    
-}
-
-#main input[type=text]{
-    border: 1px solid #c8c5d2;
-    height: 36px;
-    width: 250px;
-}
-
-#main input[type=password]{
-    border: 1px solid #c8c5d2;
-    height: 36px;
-    width: 250px;
-}
-
-#main input{
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -khtml-border-radius: 8px;
-    border-radius: 8px;
-    padding: 2px 8px 2px 8px;
-    font-size: 1.2em;
-}
-
-#main input[type=submit]{
-    padding: 8px;
-    cursor: pointer;
-}
-
-#main input:hover[type=submit]{
-    padding: 8px;
-    cursor: pointer;
-    background-color: #c8c5d2;
-}
-
-#main label{
-    font-size: 0.8em;
-}
-
-#main-menu{
-    float: right;
-}
-
-#main-menu ul{
-    list-style-type: none;
-}
-
-#main-menu li{
-    float: left;
-    padding: 14px;
-}
-
-#main-menu ul a{
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.3em;
-
-}
-
-#main-menu li a:hover{
-    color: #c8c5d2; 
-}
-
-#footer-wrap{
-    background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x;
-    border-top: 2px solid #c8c5d2;
-}
-
-#footer{
-    margin: 0 auto;
-    width: 950px;
-    text-align: center;
-    padding: 10px;
-    color: #330066;
-}
-
-div.header-bottom {
-margin: 0 auto 0 auto;
-text-align: center;
-/*background-color: #981A21;*/
-background-color: #e3e1ec;
-font-size: 11px;
-padding: 2px;
-color: white;
-}
-
-div.footer-top {
-margin: 0 auto;
-text-align: center;
-
-}
-
-.input{
-    margin: 16px 0 16px 0;
-}
-
-.input-submit{
-    margin: 16px 0 16px 0;
-}
-
-.message-box {
-    position:fixed;
-    margin-left:-205px;
-    left:50%;
-    width:410px;
-    top:100px;
-    text-align: center;
-    display:none;
-    height:auto;
-    background:#f5e6b4;
-    border:5px solid #ffffff;
-    z-index:2;
-    box-shadow:0 0 20px #999;
-    border-radius:8px;
-    padding:24px;
-    font-size:20px;
-}
-
+body { font-family: "Trebuchet MS", Arial, sans-serif; background: #eeeeee; }
 a img { border:0; }
-span.error { color:#9c2d2d; padding-left:12px; }
 
-ul.searchresult {}
-ul.searchresult li { margin-left:24px; padding:6px; }
+#header-wrap{ background: #5599bb; border-bottom: 2px solid #e3e1ec; }
+#header { margin: 0 auto; width: 950px; padding: 14px 14px 10px 14px; height: 40px; overflow: hidden; }
+
+#main-menu { float: right; }
+#main-menu ul { list-style-type: none; }
+#main-menu li { float: left; padding: 14px; }
+#main-menu ul a { text-decoration: none; color: #fff; font-size: 1.3em; }
+#main-menu li a:hover { color: #c8c5d2; }
+
+#main-wrap { background: #fff; }
+#main { margin: 0 auto; width: 950px; padding: 14px; min-height: 300px; }
+#main h1 { font-size: 3.0em; }
+
+#main .input { margin: 16px 0 16px 0; }
+#main .input-submit{ margin: 16px 0 16px 0; }
+
+#main label { font-size: 0.8em; display: block; }
+#main input{ border-radius: 3px; padding: 2px 8px 2px 8px; font-size: 1.2em; }
+#main input[type=text] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
+#main input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
+#main input[type=submit] { padding: 8px; cursor: pointer; }
+#main input:hover[type=submit] { padding: 8px; cursor: pointer; background-color: #c8c5d2; }
+
+#footer-wrap{ background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x; border-top: 2px solid #c8c5d2; }
+#footer { margin: 0 auto; width: 950px; text-align: center; padding: 10px; color: #330066; }
+
+div.message-box { 
+    display:none;
+    position:fixed; margin-left:-205px; left:50%; width:410px; top:100px;
+    text-align: center; background:#f5e6b4; border:5px solid #ffffff; padding:24px; font-size:20px; z-index:1; box-shadow:0 0 20px #999; border-radius:8px;
+}
+
+#main span.error { color:#9c2d2d; padding-left:12px; }
+
+/* Only for the search view - should go into a seperate css */
+#main ul.searchresult {}
+#main ul.searchresult li { margin-left:24px; padding:6px; }
