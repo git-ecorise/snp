@@ -1,18 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Clean up actions and move logic elsewhere - someday ...
-// The nesting is nasty
-
 class User extends CI_Controller
 {
     public function signup()
     {
-        // Check if already logged in
-        if (get_user()->is_authenticated())
-        {
-            $this->session->set_flashdata('status', 'You are already logged in. There is no need to sign up again.');
-            return redirect (home_route());
-        }
+        // If already authenticated redirect
+        redirect_if_authenticated('You have already signed up.');
         
         if ($_POST)
         {
@@ -88,11 +81,8 @@ class User extends CI_Controller
     
     public function login()
     {
-        // Check if already logged in - make helper
-        if (get_user()->is_authenticated())
-        {
-            return redirect (home_route());
-        }
+        // If already authenticated redirect
+        redirect_if_authenticated('You are already logged in.');
 
         $viewdata = array();
             
@@ -116,16 +106,16 @@ class User extends CI_Controller
                 $this->load->model('UserModel');
                 $user = $this->UserModel->get_by_email($email);
 
-                // Check if found       
-                if ($user != null)  // ???
+                // Check if user was found
+                if ($user != null)
                 {
-                    // Check the password   - missing salt - create helper
+                    // Check the password - missing salt - create helper
                     $inputpasswordhash = hash('sha256', $password);
                     if ($inputpasswordhash === $user->passwordhash)
                     {
                         // Success
 
-                        // Check user is activated
+                        // Check if already activated
                         if (!$user->isactivated)
                         {
                              $this->session->set_flashdata('status', 'Please activate your Email.');
@@ -140,7 +130,7 @@ class User extends CI_Controller
                         $this->session->set_flashdata('status', 'You have been logged in!');
 
                         // Redirct - returns immediatly
-                        return redirect(usersearch_route());       // redirect to home or url referer instead ?
+                        return redirect(usersearch_route());
                     }
                 }
 
