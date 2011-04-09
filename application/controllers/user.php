@@ -219,10 +219,11 @@ class User extends CI_Controller
                 // Get search term
                 $term = $this->input->post('name');
 
+                // Search the database
                 $this->load->model('UserModel');
                 $result = $this->UserModel->get_all_by_name($term);
 
-                // If any results add to viewdata
+                // If any results found add to the viewdata
                 if ($result != null)
                 {
                     $viewdata['result'] = $result;
