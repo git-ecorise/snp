@@ -9,10 +9,10 @@ interface iTemplate
     public function get_prefix();
 
     public function get_master();
-    public function set_master(String $master);
+    public function set_master($master);
 
     public function get_model();
-    public function set_model(CI_Model $model);
+    public function set_model($model);
 
     public function get_data();
     public function set_data($data = array(), $value = '');
