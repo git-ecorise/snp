@@ -20,7 +20,7 @@
     <body>
         <div id="header-wrap">
             <div id="header">
-            <? $this->load->view('shared/_header'); ?>
+                <? $this->load->view('shared/_header'); ?>
             </div>
         </div>
 

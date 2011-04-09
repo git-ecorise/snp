@@ -1,5 +1,5 @@
 <?php
-    $template_model->title = 'Home';
+    $template_model->set_title('Home');
 ?>
 
 <h1>Home</h1>

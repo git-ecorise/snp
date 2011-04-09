@@ -1,12 +1,12 @@
 <?php
-    $template_model->title = 'Validate Email';
+    $template_model->set_title('Validate Email');
 ?>
 
 <h1>Validate Email</h1>
 
 <form action="<?= validate_route() ?>" method="post">
     <div class="input">
-        <label>Validation Code</label><br/>
+        <label>Validation Code</label>
         <input type="text" name="validationcode" value="<?= set_value('validationcode')?>" />
         <?= form_error('validationcode'); ?>
     </div>
