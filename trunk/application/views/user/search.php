@@ -1,5 +1,5 @@
 <?php
-    $template_model->title = 'Search';
+    $template_model->set_title('Search');
 ?>
 
 <h1>Search</h1>
@@ -7,7 +7,6 @@
 <form action="<?= usersearch_route() ?>" method="post">
     <div class="input">
         <label>Name</label>
-        <br />
         <input type="text" name="name" value="<?= set_value('name')?>"/>
         <?= form_error('name'); ?>
     </div>

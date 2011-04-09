@@ -1,17 +1,17 @@
 <?php
-    $template_model->title = 'Login';
+    $template_model->set_title('Login');
 ?>
 
 <h1>Login</h1>
 
 <form action="<?= login_route() ?>" method="post">
     <div class="input">
-        <label>Email</label><br/>
+        <label>Email</label>
         <input type="text" name="email" value="<?= set_value('email')?>" />
         <?= form_error('email'); ?>
     </div>
     <div class="input">
-        <label>Password</label><br/>
+        <label>Password</label>
         <input type="password" name="password" value="" />
         <?= form_error('password'); ?>
     </div>

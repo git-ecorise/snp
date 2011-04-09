@@ -1,1 +1,1 @@
-The Social Network 2011, bigslott@mail.com
+The Social Network 2011
