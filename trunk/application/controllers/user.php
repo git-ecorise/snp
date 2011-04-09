@@ -1,9 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Remember controller actions should only dictate the flow
-// Remove nesting - it is nasty... break into smaller pieces...
-// Optimize database data types and lengths
-// Use PRG pattern
+// Clean up actions and move logic elsewhere - someday ...
 
 class User extends CI_Controller
 {
@@ -73,15 +70,17 @@ class User extends CI_Controller
 
     public function signupsuccess()
     {
+        // Could make check that only people comming straight from signup is allowed to view this
         $this->template->load('user/signup_success');
     }
     
-    // Simple callback validator for the email - put it somewhere else (helper?)
+    // Simple callback validator for the email
     public function is_email_available($email)
     {
         // Set callback error message (could be set elsewhere - in cofig file)
         $this->form_validation->set_message('is_email_available', '%s is already signed up');
 
+        // Check if email exists - Could use more optimal query
         $this->load->model('UserModel');
         return $this->UserModel->get_by_email($email) == null;
     }
@@ -211,7 +210,7 @@ class User extends CI_Controller
     
     public function search($name = '')
     {
-        // Ensure user is authorized
+        // Ensure user is authorized to view the page
         ensure_authorized();
 
         $viewdata = array();
