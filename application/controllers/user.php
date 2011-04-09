@@ -1,14 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 // Clean up actions and move logic elsewhere - someday ...
+// The nesting is nasty
 
 class User extends CI_Controller
 {
     public function signup()
     {
-        // Check if already logged in - make helper
+        // Check if already logged in
         if (get_user()->is_authenticated())
         {
+            $this->session->set_flashdata('status', 'You are already logged in. There is no need to sign up again.');
             return redirect (home_route());
         }
         
@@ -31,12 +33,12 @@ class User extends CI_Controller
                 $lastname = $this->input->post('lastname');
 
                 // Prepare data
-                    // Remember to use salt and save it
+                    // Someday use salt and save it (also include in login)
                 $passwordhash = hash('sha256', $password);
                 $this->load->helper('string');
-                $activationcode = random_string('unique');  // 32
+                $activationcode = random_string('unique');  // 32 char length
 
-                // Load model and insert (use class instead, or send as parameters)
+                // Load model and insert (use class instead, or send as parameters - array is ugly)
                 $this->load->model('UserModel');
 
                 $id = $this->UserModel->insert(array(
@@ -44,18 +46,17 @@ class User extends CI_Controller
                     'passwordhash' => $passwordhash,
                     'firstname' => $firstname,
                     'lastname' => $lastname,
-                    'activationcode' => $activationcode,
-                    //'isactivated' => false
+                    'activationcode' => $activationcode
                     ));
                 
-                // Send email
+                // Send validation email
                 $this->load->library('services/EmailService');
-                $this->emailservice->send_validation_email($email, $activationcode);    // include id
+                $this->emailservice->send_validation_email($email, $activationcode);    // include the id someday for proper security
 
                 // Set status message
                 $this->session->set_flashdata('status', 'You have signed up!');
 
-                // For presentation only
+                // For presentation only - delete and change view (signup_success)
                 $this->session->set_flashdata('code', $activationcode);
 
                 // Redirct
