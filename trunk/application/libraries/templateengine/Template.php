@@ -66,7 +66,7 @@ class Template implements iTemplate
        return $this->master;
     }
 
-    public function set_master(String $master)
+    public function set_master($master)
     {
        $this->master = $master;
     }
@@ -76,7 +76,7 @@ class Template implements iTemplate
        return $this->model;
     }
 
-    public function set_model(CI_Model $model)
+    public function set_model($model)
     {
        $this->model = $model;
     }
