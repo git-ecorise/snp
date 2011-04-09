@@ -27,7 +27,7 @@ a img { border:0; }
 #main input:hover[type=submit] { padding: 8px; cursor: pointer; background-color: #c8c5d2; }
 
 #footer-wrap{ background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x; border-top: 2px solid #c8c5d2; }
-#footer { margin: 0 auto; width: 950px; text-align: center; padding: 10px; color: #330066; }
+#footer { margin: 0 auto; width: 950px; text-align: center; padding: 10px; color: #000000; }
 
 div.message-box { 
     display:none;
