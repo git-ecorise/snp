@@ -196,8 +196,6 @@ class User extends CI_Controller
         
         $this->template->load('user/validate', $viewdata);
     }
-
-
     
     public function search($name = '')
     {
@@ -216,6 +214,8 @@ class User extends CI_Controller
             // Validate form input
             if ($this->form_validation->run('search'))
             {
+                // Success
+                
                 // Get search term
                 $term = $this->input->post('name');
 
