@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'IUser.php';
-require_once 'IAuthentication.php';
+require_once 'IAuthenticationService.php';
 require_once 'AnonymousUser.php';
 require_once 'AuthenticatedUser.php';
 
