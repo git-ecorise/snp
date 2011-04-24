@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-interface iTemplate
+interface ITemplate
 {
     public function load($view = '', $view_data = array(), $return = FALSE);
 

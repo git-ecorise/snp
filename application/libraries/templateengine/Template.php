@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once 'iTemplate.php';
+require_once 'ITemplate.php';
 
-class Template implements iTemplate
+class Template implements ITemplate
 {
     // Private fields
     private $prefix = '';
