@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-interface iValidatable
+interface IValidatable
 {
     public function is_valid();     // validate ?
 }
