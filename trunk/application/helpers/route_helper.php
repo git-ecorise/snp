@@ -27,6 +27,7 @@ function usersearch_route()
 
 function validate_route($code = '')
 {
+    // include email
     return site_url('user/validate/' . $code);
 }
 
