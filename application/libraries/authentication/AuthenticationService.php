@@ -4,11 +4,7 @@ require_once 'IAuthentication.php';
 require_once 'AnonymousUser.php';
 require_once 'AuthenticatedUser.php';
 
-// AuthenticationService
-
-// Community / Membership Service - that uses the authenticationService ... - ?
-
-class Authentication implements IAuthentication
+class AuthenticationService implements IAuthenticationService
 {
     protected $key = 'user';
     protected $CI;
@@ -19,7 +15,7 @@ class Authentication implements IAuthentication
         $this->CI =& get_instance();
     }
 
-    public function login(iUser $user)
+    public function login(IUser $user)
     {
         // Add user to session
         $this->CI->session->set_userdata($this->key, $user);
