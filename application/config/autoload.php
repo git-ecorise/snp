@@ -52,7 +52,7 @@ $autoload['packages'] = array(APPPATH.'third_party');
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('authentication/Authentication', 'templateengine/Template','database','session', 'form_validation');
+$autoload['libraries'] = array('authentication/AuthenticationService', 'templateengine/Template','database','session', 'form_validation');
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('authentication/Authentication', 'templateengine/
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'route', 'content', 'authentication', 'form');
+$autoload['helper'] = array('url', 'route', 'content', 'authentication', 'form', 'misc');
 
 
 /*
