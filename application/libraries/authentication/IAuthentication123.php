@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once 'iUser.php';
+require_once 'IUser.php';
 
-interface iAuthentication
+interface IAuthenticationService
 {
-    public function login(iUser $user);
+    public function login(IUser $user);
     public function logout();
     public function get_user();
 }
