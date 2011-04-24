@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once 'iUserModel.php';
+require_once 'IUserModel.php';
 
-class UserModel extends CI_Model implements iUserModel
+class UserModel extends CI_Model implements IUserModel
 {
     function __construct()
     {
@@ -15,16 +15,42 @@ class UserModel extends CI_Model implements iUserModel
         return $query->row();
     }
 
-    public function insert($user)
+    public function insert(IUserSignUp $signup)
     {
-        // implement returning the created user id for validation (insert_id)
+        // Change name of function to signup / create / register ?
+
+        // parameter name $user / $userSignUp ? 
+
+        // Use class / iUserSignUp to insert into the database ?
+        // Create db (insert/create/register/signup) model ? and do the mapping here ? - entities
+
+        
+        $this->UserModel->insert(array(
+            'email' => $email,
+            'passwordhash' => $passwordhash,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'activationcode' => $activationcode
+            ));
+
+        // Insert into db
         $this->db->insert('user', $user);
+
+        // Get the inserted id
+        $userid = $this->db->insert_id();
+
+        // Update the user
+        $signup->set_id($userid);
     }
 
     public function validate($code)
     {
         // Should include the user id for proper security
         // Also it allows to validate more than one time because where isactivated == FALSE is not included
+
+        // take the user/email validation model - containing $code and id/email
+        // put validation code into seperate tabel delete when validated ? but then i cant tell that it the user is already validated if tried twice ?
+
         $this->db->where('activationcode', $code);
         $this->db->update('user', array('isactivated' => TRUE));
 
