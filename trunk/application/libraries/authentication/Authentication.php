@@ -1,10 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once 'iUser.php';
-require_once 'iAuthentication.php';
+require_once 'IUser.php';
+require_once 'IAuthentication.php';
 require_once 'AnonymousUser.php';
 require_once 'AuthenticatedUser.php';
 
-class Authentication implements iAuthentication
+// AuthenticationService
+
+// Community / Membership Service - that uses the authenticationService ... - ?
+
+class Authentication implements IAuthentication
 {
     protected $key = 'user';
     protected $CI;
