@@ -1,9 +1,10 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 // Not much here yet - extend it with whatever you need to use in the layout template
 
-// Move ? to models ? view model ? /view/shared ?
-// extend CI_Model ? or not really needed ? - use load->model to load in template engine ? 
+// Move ? to models / view / shared ? - should change templateengine and config - where model is located.
+
+// extend CI_Model ?
 
 class LayoutModel
 {
