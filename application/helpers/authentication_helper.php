@@ -5,7 +5,7 @@
 function get_user()
 {
     $CI =& get_instance();   
-    return $CI->authentication->get_user();
+    return $CI->authenticationservice->get_user();
 }
 
 function is_authorized()
