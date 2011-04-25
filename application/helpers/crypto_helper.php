@@ -20,16 +20,17 @@ function verify_hash($hash, $str, $salt = '')
     return $hash === $newhash;
 }
 
-function generate_randomcode()
+function generate_randomcode($length = 32)
 {
-    // length ? define as parameter? or indicate in name ?
-    // length is fine but check it is not longer than maximum length ? 32 ? 44 / 43 ?
+    // default length ? 32 vs 43/44 ? what ?
 
     $CI =& get_instance();
     $CI->load->helper('string');
     
-    //return random_string('unique');
-    return random_string('encrypt');
+    //$code = random_string('unique');
+    $code = random_string('encrypt');
+
+    return substr($code, 0, $length);
 }
 
 ?>

@@ -1,47 +1,25 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Any way to move this into a extensions folder ?
-
-
-// make possible to execute callback somewhere else than in the controller
-// maybe pass in "$this" for the object / instance to use for the callback
-
-
-// http://www.haloweb.co.uk/blog/2009/03/codeigniter-custom-errors-using-the-form-validation-class/
-// http://codeigniter.com/wiki/Custom_Validation_Errors_per_Field/
+// The original code is poorly designed which makes it difficult to hook into the original functions without having to duplicate the code.
 
 class EXT_Form_validation extends CI_Form_validation
 {
+    protected $_callbackObj;
+
     function __construct($config = array())
     {        
         parent::__construct($config);
+
+        // Default let callback happen on the CI instance
+        $this->_callbackObj = $this->CI;
     }
 
-
-    // Authentication
-
-    // Authorization ... ? forskellen ?
-
-    // Identification ?
-
-
-
-    // override Run og execute ?
-
-    // hvis null så kald metode på ingenting
-    // ellers så kald på det der sendes - CI (=controller) eller model osv ...
-
-
-    // Pass this or something else to the Run() function and have callbacks called on that object ...
-
-    // Copy over the execute feature to the  EXT_Form_Validation and make the change !
-
-
-
-
-
-
-    
+    public function set_callback_object($callbackObj)
+    {
+        // Set to null for calling global function
+        
+        $this->_callbackObj = $callbackObj;
+    }
 
     function has_errors()
     {
@@ -63,6 +41,270 @@ class EXT_Form_validation extends CI_Form_validation
         // Check parameters ?
 
         $this->_error_array[$key] = $error;
+    }
+
+    
+    
+    // ----------------------------------------------------------------------------------------------------
+    // The part below is from the original Form_valiation
+    // It is modified to use the callback object when calling the callback functions
+
+    /**
+     * Executes the Validation routines
+     *
+     * @access	private
+     * @param	array
+     * @param	array
+     * @param	mixed
+     * @param	integer
+     * @return	mixed
+     */
+    function _execute($row, $rules, $postdata = NULL, $cycles = 0)
+    {
+        // If the $_POST data is an array we will run a recursive call
+        if (is_array($postdata))
+        {
+                foreach ($postdata as $key => $val)
+                {
+                        $this->_execute($row, $rules, $val, $cycles);
+                        $cycles++;
+                }
+
+                return;
+        }
+
+        // --------------------------------------------------------------------
+
+        // If the field is blank, but NOT required, no further tests are necessary
+        $callback = FALSE;
+        if ( ! in_array('required', $rules) AND is_null($postdata))
+        {
+                // Before we bail out, does the rule contain a callback?
+                if (preg_match("/(callback_\w+)/", implode(' ', $rules), $match))
+                {
+                        $callback = TRUE;
+                        $rules = (array('1' => $match[1]));
+                }
+                else
+                {
+                        return;
+                }
+        }
+
+        // --------------------------------------------------------------------
+
+        // Isset Test. Typically this rule will only apply to checkboxes.
+        if (is_null($postdata) AND $callback == FALSE)
+        {
+                if (in_array('isset', $rules, TRUE) OR in_array('required', $rules))
+                {
+                        // Set the message type
+                        $type = (in_array('required', $rules)) ? 'required' : 'isset';
+
+                        if ( ! isset($this->_error_messages[$type]))
+                        {
+                                if (FALSE === ($line = $this->CI->lang->line($type)))
+                                {
+                                        $line = 'The field was not set';
+                                }
+                        }
+                        else
+                        {
+                                $line = $this->_error_messages[$type];
+                        }
+
+                        // Build the error message
+                        $message = sprintf($line, $this->_translate_fieldname($row['label']));
+
+                        // Save the error message
+                        $this->_field_data[$row['field']]['error'] = $message;
+
+                        if ( ! isset($this->_error_array[$row['field']]))
+                        {
+                                $this->_error_array[$row['field']] = $message;
+                        }
+                }
+
+                return;
+        }
+
+        // --------------------------------------------------------------------
+
+        // Cycle through each rule and run it
+        foreach ($rules As $rule)
+        {
+            $_in_array = FALSE;
+
+            // We set the $postdata variable with the current data in our master array so that
+            // each cycle of the loop is dealing with the processed data from the last cycle
+            if ($row['is_array'] == TRUE AND is_array($this->_field_data[$row['field']]['postdata']))
+            {
+                    // We shouldn't need this safety, but just in case there isn't an array index
+                    // associated with this cycle we'll bail out
+                    if ( ! isset($this->_field_data[$row['field']]['postdata'][$cycles]))
+                    {
+                            continue;
+                    }
+
+                    $postdata = $this->_field_data[$row['field']]['postdata'][$cycles];
+                    $_in_array = TRUE;
+            }
+            else
+            {
+                    $postdata = $this->_field_data[$row['field']]['postdata'];
+            }
+
+            // --------------------------------------------------------------------
+
+            // Is the rule a callback?
+            $callback = FALSE;
+            if (substr($rule, 0, 9) == 'callback_')
+            {
+                    $rule = substr($rule, 9);
+                    $callback = TRUE;
+            }
+
+            // Strip the parameter (if exists) from the rule
+            // Rules can contain a parameter: max_length[5]
+            $param = FALSE;
+            if (preg_match("/(.*?)\[(.*)\]/", $rule, $match))
+            {
+                    $rule	= $match[1];
+                    $param	= $match[2];
+            }
+
+            // Call the function that corresponds to the rule
+            if ($callback === TRUE)
+            {
+
+
+
+                // THIS PART HAVE BEEN MODIFIED **************
+                // --------------------------------------------------------------------
+
+                $result;
+
+                if ($this->_callbackObj == null)
+                {
+                    // If set to null call global function
+                    if (!function_exists($rule))
+                        continue;
+
+                    $result = $rule($postdata, $param);
+                }
+                else
+                {
+                    // If not null call function on object
+                    if ( ! method_exists($this->_callbackObj, $rule))
+                        continue;
+
+                    $result = $this->_callbackObj->$rule($postdata, $param);
+                }
+ 
+                // ORIGINAL CODE ***********
+                // --------------------------------------------------------------------
+                
+                /*
+                if ( ! method_exists($this->CI, $rule))
+                {
+                        continue;
+                }
+
+                // Run the function and grab the result
+                $result = $this->CI->$rule($postdata, $param);
+                */
+
+               // --------------------------------------------------------------------
+
+
+                
+                // Re-assign the result to the master data array
+                if ($_in_array == TRUE)
+                {
+                        $this->_field_data[$row['field']]['postdata'][$cycles] = (is_bool($result)) ? $postdata : $result;
+                }
+                else
+                {
+                        $this->_field_data[$row['field']]['postdata'] = (is_bool($result)) ? $postdata : $result;
+                }
+
+                // If the field isn't required and we just processed a callback we'll move on...
+                if ( ! in_array('required', $rules, TRUE) AND $result !== FALSE)
+                {
+                        continue;
+                }
+            }
+            else
+            {
+                    if ( ! method_exists($this, $rule))
+                    {
+                            // If our own wrapper function doesn't exist we see if a native PHP function does.
+                            // Users can use any native PHP function call that has one param.
+                            if (function_exists($rule))
+                            {
+                                    $result = $rule($postdata);
+
+                                    if ($_in_array == TRUE)
+                                    {
+                                            $this->_field_data[$row['field']]['postdata'][$cycles] = (is_bool($result)) ? $postdata : $result;
+                                    }
+                                    else
+                                    {
+                                            $this->_field_data[$row['field']]['postdata'] = (is_bool($result)) ? $postdata : $result;
+                                    }
+                            }
+
+                            continue;
+                    }
+
+                    $result = $this->$rule($postdata, $param);
+
+                    if ($_in_array == TRUE)
+                    {
+                            $this->_field_data[$row['field']]['postdata'][$cycles] = (is_bool($result)) ? $postdata : $result;
+                    }
+                    else
+                    {
+                            $this->_field_data[$row['field']]['postdata'] = (is_bool($result)) ? $postdata : $result;
+                    }
+            }
+
+            // Did the rule test negatively?  If so, grab the error.
+            if ($result === FALSE)
+            {
+                    if ( ! isset($this->_error_messages[$rule]))
+                    {
+                            if (FALSE === ($line = $this->CI->lang->line($rule)))
+                            {
+                                    $line = 'Unable to access an error message corresponding to your field name.';
+                            }
+                    }
+                    else
+                    {
+                            $line = $this->_error_messages[$rule];
+                    }
+
+                    // Is the parameter we are inserting into the error message the name
+                    // of another field?  If so we need to grab its "field label"
+                    if (isset($this->_field_data[$param]) AND isset($this->_field_data[$param]['label']))
+                    {
+                            $param = $this->_translate_fieldname($this->_field_data[$param]['label']);
+                    }
+
+                    // Build the error message
+                    $message = sprintf($line, $this->_translate_fieldname($row['label']), $param);
+
+                    // Save the error message
+                    $this->_field_data[$row['field']]['error'] = $message;
+
+                    if ( ! isset($this->_error_array[$row['field']]))
+                    {
+                            $this->_error_array[$row['field']] = $message;
+                    }
+
+                    return;
+            }
+        }
     }
 }
 

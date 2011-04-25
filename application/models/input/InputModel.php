@@ -20,7 +20,7 @@ require_once (APPPATH . 'libraries/IValidatable.php');
 
 abstract class InputModel extends CI_Model implements IValidatable
 {
-    function __construct($validationgroup)
+    function __construct($validationgroup = '', $callbackObj = '')
     {
         // Call base constructor
         parent::__construct();
@@ -29,7 +29,7 @@ abstract class InputModel extends CI_Model implements IValidatable
         $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
 
         // Run Validation immediately before input is loaded - because input data can also be modified in the validation process.
-        $this->form_validation->run($validationgroup);
+        $this->form_validation->run($validationgroup, $callbackObj);
     }
     
     public function is_valid()
@@ -38,8 +38,7 @@ abstract class InputModel extends CI_Model implements IValidatable
         // Could check locally, but always add to global ?
 
 
-        echo $this->form_validation->has_errors();
-
+        echo $this->form_validation->has_errors() ? "ERRORS" : "NONE";
         
         return !$this->form_validation->has_errors();       // check it works with the form_validation->RUN 
     }

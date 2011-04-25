@@ -54,7 +54,16 @@ class User extends CI_Controller
         $this->template->load('user/signup_success');
     }
 
-    
+
+
+    // resetpassword - email
+    // create reset code and send email
+    // When link clicked go to page where code, new password + password confirm can be entered.
+    // 
+    // if reset attempted check if the code exists if yes - set new password... and login ? 
+
+
+
 
 
 
