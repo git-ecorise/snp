@@ -22,13 +22,14 @@ class EmailService implements IEmailService
         // Setup defaults
         $this->CI->email->from($this->from, $this->name);     
     }
-
+    
     public function send_signup_email(IUserSignUp $user)
     {
         // Create email
         $this->CI->email->to($user->get_email());
 
 
+        
 
 
         // Include the id somehow, because it is needed when validating the email ?
@@ -47,11 +48,11 @@ class EmailService implements IEmailService
         // Send the email
         $success = $this->CI->email->send();
 
+
+        
         // Only in development !
-        /*
         if (!$success)
             show_error($this->CI->email->print_debugger());
-        */
     }
 }
 ?>
