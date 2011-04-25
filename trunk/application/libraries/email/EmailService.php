@@ -45,7 +45,7 @@ class EmailService implements IEmailService
 
         
         // Send the email
-        //$success = !$this->CI->email->send();                     // DOES NOT SEND THE EMAIL CURRENTLY AS IT DOESNT WORK !!!!!!!!!
+        $success = $this->CI->email->send();
 
         // Only in development !
         /*
