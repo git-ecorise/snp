@@ -12,7 +12,7 @@ $config = array(
                                 array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule . '|callback_is_email_available'
+                                        'rules' => $emailRule . '|callback_is_unique_email[model={db/UserModel}, message={The %s is already signed up.}]'
                                      ),
                                 array(
                                         'field' => 'password',

@@ -41,7 +41,7 @@ class EmailService implements IEmailService
         $this->CI->email->set_alt_message('Your validation code is: ' . $code);
 
         // Send the email
-        $success = !$this->CI->email->send();
+        //$success = !$this->CI->email->send();                     // DOES NOT SEND THE EMAIL CURRENTLY AS IT DOESNT WORK !!!!!!!!!
 
         // Only in development !
         /*

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// The original code is poorly designed which makes it difficult to hook into the original functions without having to duplicate the code.
+// The original code is poorly designed which makes it impossible to hook into the original functions without having to duplicate the code.
 
 class EXT_Form_validation extends CI_Form_validation
 {
@@ -16,12 +16,10 @@ class EXT_Form_validation extends CI_Form_validation
 
     public function set_callback_object($callbackObj)
     {
-        // Set to null for calling global function
-        
         $this->_callbackObj = $callbackObj;
     }
 
-    function has_errors()
+    public function has_errors()
     {
         // has_errors ? is_valid?
 
@@ -29,12 +27,12 @@ class EXT_Form_validation extends CI_Form_validation
         //return count($this_error_array) > 0;
     }
 
-    function contains_error($key)
+    public function contains_error($key)
     {
         return isset ($this->_error_array[$key]);
     }
 
-    function add_error($key, $error)
+    public function add_error($key, $error)
     {
         // set_error
         // Accept array ?
@@ -43,7 +41,27 @@ class EXT_Form_validation extends CI_Form_validation
         $this->_error_array[$key] = $error;
     }
 
-    
+    private function get_setting_value($setting, $key)
+    {
+        $pattern = "/^" . $key . "=\{(.*)\}$/";
+        if (preg_match($pattern, $setting, $match))
+            return $match[1];
+
+        return FALSE;
+    }
+
+    private function get_modelname($str)
+    {
+        $segments = explode('/', $str);
+        if ($segments)
+        {
+            return $segments[count($segments)-1];
+        }
+
+        return $str;
+    }
+
+
     
     // ----------------------------------------------------------------------------------------------------
     // The part below is from the original Form_valiation
@@ -183,8 +201,52 @@ class EXT_Form_validation extends CI_Form_validation
                 // --------------------------------------------------------------------
 
                 $result;
+                $callbackObj = $this->_callbackObj;     // assign default
 
-                if ($this->_callbackObj == null)
+                // Handle parameters if any
+                if ($param)
+                {
+                    // split settings by ','
+                    $settings = explode(',', $param);
+
+                    // Find out if there is any supported params
+                    foreach ($settings as $setting)
+                    {
+                        $setting = trim($setting);
+
+                        // Automatically set the error message if defined
+                        $msg = $this->get_setting_value($setting, 'message');
+                        if ($msg)
+                        {
+                            $this->set_message($rule, $msg);
+                            continue;
+                        }
+
+                        // Automatically use the model if defined
+                        $model = $this->get_setting_value($setting, 'model');
+                        if ($model)
+                        {
+                            $modelname = $this->get_modelname($model);
+
+                            if (!isset($this->CI->{$modelname}))
+                            {
+                                // Load if not already loaded
+                                // little naive as it assumes variable name only referes to the model
+                                $this->CI->load->model($model);
+                                $callbackObj = $this->CI->{$modelname};
+                            }
+
+                            continue;
+                        }
+                        
+                        // library ?
+                        // more ... ?
+                    }                    
+                }
+
+
+                
+                if ($callbackObj == null)
                 {
                     // If set to null call global function
                     if (!function_exists($rule))
@@ -195,12 +257,14 @@ class EXT_Form_validation extends CI_Form_validation
                 else
                 {
                     // If not null call function on object
-                    if ( ! method_exists($this->_callbackObj, $rule))
+                    if (!method_exists($callbackObj, $rule))
                         continue;
 
-                    $result = $this->_callbackObj->$rule($postdata, $param);
+                    $result = $callbackObj->$rule($postdata, $param);
                 }
- 
+
+
+                
                 // ORIGINAL CODE ***********
                 // --------------------------------------------------------------------
                 

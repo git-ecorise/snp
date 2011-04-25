@@ -9,7 +9,9 @@ require_once 'InputModel.php';
 // Eller helt drop det og map denne model til db i db laget.
 
 
-// Skal stadigvæk bruge en helper til at validerer password med ? is_valid_credentials ? verify_credentials ?
+
+// put logic for hash, salt and so on somewhere else ?
+
 
 
 // Change database
@@ -38,7 +40,7 @@ class UserSignUp extends InputModel implements IUserSignUp
     
     function __construct()
     {
-        parent::__construct('signup');
+        parent::__construct('signup', $this);
 
         $this->load->helper('crypto');
 

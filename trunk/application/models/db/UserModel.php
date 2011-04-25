@@ -72,4 +72,13 @@ class UserModel extends CI_Model implements IUserModel
 
         return $query->result();
     }
+
+
+
+
+    public function is_unique_email($email)
+    {
+        $query = $this->db->get_where('user', array('email' => $email), 1);
+        return $query->num_rows() == 0;
+    }
 }
