@@ -26,7 +26,7 @@ function set_status_message($message, Array $arr = null)
         // Use session flashdata
 
         $CI =& get_instance();
-        $this->session->set_flashdata($statuskey, $message);
+        $CI->session->set_flashdata($statuskey, $message);
     }
     else
     {

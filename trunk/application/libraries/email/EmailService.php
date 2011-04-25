@@ -29,6 +29,8 @@ class EmailService implements IEmailService
         $this->CI->email->to($user->get_email());
 
 
+
+
         // Include the id somehow, because it is needed when validating the email ?
         // Split validationcode out into seperate table and delete when no longer needed ?
 
@@ -37,9 +39,11 @@ class EmailService implements IEmailService
         // Why not always use the email then ? its less predictable to ...
 
         $this->CI->email->subject('Validate your email - ' . $this->name);
-        $this->CI->email->message('Please validate your email.<br /><a href="' + validate_route($code) + '">Click here to validate</a>');
-        $this->CI->email->set_alt_message('Your validation code is: ' . $code);
+        $this->CI->email->message('Please validate your email.<br /><a href="' + validate_route($user->get_activationcode()) + '">Click here to validate</a>');
+        $this->CI->email->set_alt_message('Your validation code is: ' . $user->get_activationcode());
 
+
+        
         // Send the email
         //$success = !$this->CI->email->send();                     // DOES NOT SEND THE EMAIL CURRENTLY AS IT DOESNT WORK !!!!!!!!!
 
