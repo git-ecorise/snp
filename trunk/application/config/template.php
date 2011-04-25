@@ -2,6 +2,6 @@
 
 $config['prefix']  = 'template_';
 $config['master']  = 'shared/_layout';
-$config['model']   = 'LayoutModel';
+$config['model']   = 'view/LayoutModel';
 
 ?>

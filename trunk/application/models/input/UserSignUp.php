@@ -2,7 +2,9 @@
 require_once 'IUserSignUp.php';
 require_once 'InputModel.php';
 
-// UserSignUpModel / iUserSignUpModel ?
+// UserSignUpModel / IUserSignUpModel ?
+
+
 
 // Some of the logic can be moved into a service and then make this model a plain data carrier ?
 // But it is really not needed ... dont over engineer this ....
@@ -13,68 +15,6 @@ require_once 'InputModel.php';
 
 
 
-class UserSignUp extends InputModel implements IUserSignUp
-{
-    private $id = null;
-    private $salt = null;
-
-    function __construct()
-    {
-        parent::__construct('signup');
-
-        $this->load->helper('crypto');
-
-        // Load input here ? after validation have taken place ?
-        // only if valid ?
-    }
-
-    // Getter and Setters
-    
-    public function get_id()
-    {
-        return $this->id;
-    }
-
-    public function set_id($id)
-    {
-        $this->id = $id;
-    }
-
-    public function get_email()
-    {
-        return $this->input->post('email');
-    }
-
-    public function get_passwordhash()
-    {      
-        // escape ? xss clean ?
-        // Generate new on every call or just cache it ? could be different depending if it is called before or after validate() !?
-
-        // Store the result or calculate everytime called ?
-
-        $clearpassword = $this->input->post('password');
-        $salt = get_salt();
-        $hashedpassword = generate_hash($clearpassword, $salt);
-
-        return $hashedpassword;
-    }
-
-    public function get_salt()
-    {
-        // Check this works in PHP like in C#
-        
-        return $this->salt == null ? ($this->salt = $this->generate_salt()) : $this->salt;
-    }
-
-    public function get_firstname()
-    {
-        return $this->input->post('firstname');
-    }
-
-    public function get_lastname()
-    {
-        return $this->input->post('lastname');
-    }
 
 
 
@@ -92,8 +32,84 @@ class UserSignUp extends InputModel implements IUserSignUp
     // ValidationCode = 32 chars ?
 
 
-    // Skal stadigvæk bruge en helper til at validerer password med ? is_valid_credentials ? verify_credentials ? 
+    // Skal stadigvæk bruge en helper til at validerer password med ? is_valid_credentials ? verify_credentials ?
 
+
+
+
+
+// Change database 
+
+
+// escape ? xss clean ?
+
+class UserSignUp extends InputModel implements IUserSignUp
+{
+    // Private fields
+    private $id = null;
+    private $passwordsalt = null;
+    private $passwordhash = null;
+    private $activationcode = null;
+
+    private $email;
+    private $password;
+    private $firstname;
+    private $lastname;
+    
+    function __construct()
+    {
+        parent::__construct('signup');
+
+        $this->load->helper('crypto');
+
+        // Load data
+        $this->email = $this->input->post('email');
+        $this->password = $this->input->post('password');
+        $this->firstname = $this->input->post('firstname');
+        $this->lastname = $this->input->post('lastname');
+    }
+
+    // Getter and Setters
+    
+    public function get_id()
+    {
+        return $this->id;
+    }
+
+    public function set_id($id)
+    {
+        $this->id = $id;
+    }
+
+    public function get_email()
+    {
+        return $this->email;
+    }
+
+    public function get_passwordhash()
+    {
+        return $this->passwordhash != null ? $this->passwordhash : ($this->passwordhash = generate_hash($this->password, $this->get_passwordsalt()));
+    }
+
+    public function get_passwordsalt()
+    { 
+        return $this->passwordsalt != null ? $this->passwordsalt : ($this->passwordsalt = generate_salt());
+    }
+
+    public function get_firstname()
+    {
+        return $this->firstname;
+    }
+
+    public function get_lastname()
+    {
+        return $this->lastname;
+    }
+
+    public function get_activationcode()
+    {
+        return $this->activationcode != null ? $this->activationcode : ($this->activationcode = generate_randomcode());
+    }
 }
 
 ?>

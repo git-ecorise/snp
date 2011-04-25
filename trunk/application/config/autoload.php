@@ -52,7 +52,7 @@ $autoload['packages'] = array(APPPATH.'third_party');
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('authentication/AuthenticationService', 'templateengine/Template','database','session', 'form_validation');
+$autoload['libraries'] = array('database', 'session', 'form_validation', 'authentication/AuthenticationService', 'templateengine/Template');
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('authentication/AuthenticationService', 'template
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'route', 'content', 'authentication', 'form', 'misc');
+$autoload['helper'] = array('url', 'route', 'content', 'authentication', 'misc');   // form helper is automatically included when form_validation library is included
 
 
 /*

@@ -11,46 +11,30 @@ class User extends CI_Controller
         {
             // Post request
 
-            // Set delimiters - hide this away (extend controller etc...)
-            $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
-            
-            // Validate Form
-            if ($this->form_validation->run('signup'))
+            $this->load->model('input/UserSignUp');
+
+             // Check if input is valid
+            if ($this->UserSignUp->is_valid())
             {
-                // Validation is success
+                // Success
 
-                // Get user input
-                $email = $this->input->post('email');
-                $password = $this->input->post('password');
-                $firstname = $this->input->post('firstname');
-                $lastname = $this->input->post('lastname');
+                // Insert into database
+                $this->load->model('db/UserModel');
+                $this->UserModel->insert($this->UserSignUp);
 
-                // Prepare data
-                    // Someday use salt and save it (also include in login)
-                $passwordhash = hash('sha256', $password);
-                $this->load->helper('string');
-                $activationcode = random_string('unique');  // 32 char length
-
-                // Load model and insert (use class instead, or send as parameters - array is ugly)
-                $this->load->model('UserModel');
-
-                $id = $this->UserModel->insert(array(
-                    'email' => $email,
-                    'passwordhash' => $passwordhash,
-                    'firstname' => $firstname,
-                    'lastname' => $lastname,
-                    'activationcode' => $activationcode
-                    ));
-                
-                // Send validation email
-                $this->load->library('services/EmailService');
-                $this->emailservice->send_validation_email($email, $activationcode);    // include the id someday for proper security
+                // Send signup email
+                $this->load->library('email/EmailService');
+                $this->emailservice->send_signup_email($this->UserSignUp);
 
                 // Set status message
-                $this->session->set_flashdata('status', 'You have signed up!');
+                set_status_message('You have signed up!');
 
-                // For presentation only - delete and change view (signup_success)
+
+
+                // For presentation only - delete and change view (signup_success) ******
                 $this->session->set_flashdata('code', $activationcode);
+
+
 
                 // Redirct
                 return redirect(signup_success_route());
@@ -65,19 +49,43 @@ class User extends CI_Controller
     public function signupsuccess()
     {
         // Could make check that only people comming straight from signup is allowed to view this
+        // use flashdata in signup - and check if it exists here.
+        
         $this->template->load('user/signup_success');
     }
+
     
+
+
+
+
+
+    // Put this in a helper ? or does it have to be on the controller ?
+
+    // is_email_unique ? - create function in model ...
+
+    
+
     // Simple callback validator for the email
     public function is_email_available($email)
     {
+        // Move the logic to function somewhere ...
+        // Put callback somewhere else ? base controller - core ?
+
+
+        
         // Set callback error message (could be set elsewhere - in cofig file)
-        $this->form_validation->set_message('is_email_available', '%s is already signed up');
+        $this->form_validation->set_message('is_email_available', 'The %s is already signed up.');
 
         // Check if email exists - Could use more optimal query
-        $this->load->model('UserModel');
+        $this->load->model('db/UserModel');
         return $this->UserModel->get_by_email($email) == null;
     }
+
+
+
+
+
     
     public function login()
     {
@@ -89,37 +97,75 @@ class User extends CI_Controller
         if ($_POST)
         {
             // Post request
-                        
-            // Set delimiters - hide this away (extend controller etc...)
-            $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+            
+            $this->load->model('input/UserLogin');
 
-            // Validate Form
-            if ($this->form_validation->run('login'))
+            if ($this->UserLogin->Validate())
             {
-                // Validation is success
+                // Success
 
-                // Get user input
-                $email = $this->input->post('email');
-                $password = $this->input->post('password');
+
+                // UserLogin->verify_credentials() ....
+                // Hvordan tjekker jeg om isactivated ? skal den så hente dataene ind på UserLogin modellen så de er tilgængelige der ? eller hvordan ?
+
+                // Fix også lige db når du nu er igang ... length på columns og navne ... samt opret nye tabeller ...
+
+                // Lav helper metode til signin istedet for at kode direkte her ... så kald og send iUserLogin med eller noget ... data objekt der indeholder nødvendige data for at sign in !?
+                // Skal også bruge userid - brug iUserLogin eller lav seperat objekt / interface til den del !? - interface ihvertfald iUser skal den have ind ? men hvor skal mapping ske?
+                // Ville være smart hvis en / et eller andet kunne spytte en iUser tilbage som har alt der skal bruges
+
+
+
+                // Fremgår det tydeligt nok at Validate validerer input !? is_valid_input eller validate_input istedet?
+
+                
+
 
                 // Try to get the user by email
-                $this->load->model('UserModel');
-                $user = $this->UserModel->get_by_email($email);
+                $this->load->model('db/UserModel');
+                $user = $this->UserModel->get_by_email($this->UserLogin->get_email());
 
+
+
+                
+                // Need to seperate some stuff here... someday
+                // Put Logic for validating the email somewhere else - right now logic for generating password is put in UserSignUp so could put check in UserLogin but it doesnt feel right
+                // Maybe create a helper somewhere that can be used for both generating the password and for checking - would be the right thing to do... 
+
+
+
+                
                 // Check if user was found
                 if ($user != null)
                 {
+
+                    // Replace this - should use the user->validate_credentials() ...
+                    // could create interface that contains function for validate/verify/check _credentials
+                    // create service that login/authenticate any object containing the verify_credentials - if it returns true do the stuff...
+
+                    // checking if user is activated really isnt logic that should be here ...
+
+
+                    // Some service that can consume the userLogin and tell it is okay ...
+                    // the logic probably shouldnt be in the model ... then logic for logging in isnt keept in one place
+
+                    // authentication should take iUser / some model / entity that contains the needed data for logging in
+
+                    // create the db as entities and make it pssoble to return the entities in the model ?
+                    
+
                     // Check the password - missing salt - create helper
-                    $inputpasswordhash = hash('sha256', $password);
+                    $inputpasswordhash = hash('sha256', $this->UserLogin->get_password());
                     if ($inputpasswordhash === $user->passwordhash)
                     {
                         // Success
 
                         // Check if already activated
-                        if (!$user->isactivated)
+                        if (!$user->isactivated)        // function ? missing () ?
                         {
-                             $this->session->set_flashdata('status', 'Please activate your Email.');
-                             return redirect(validate_route());
+                            // Set status message and redirect
+                            set_status_message('Please activate your Email.');
+                            return redirect(validate_route());
                         }
 
                         // Login
@@ -127,14 +173,15 @@ class User extends CI_Controller
                         $this->authentication->login($authUser);
 
                         // Set status message
-                        $this->session->set_flashdata('status', 'You have been logged in!');
+                        set_status_message('You have been logged in!');
 
                         // Redirct - returns immediatly
                         return redirect(usersearch_route());
                     }
                 }
 
-                $viewdata['status'] = 'Login was incorrect. Please try again.';
+                // Set status message
+                set_status_message('Login was incorrect. Please try again.', $viewdata);             
             }
         }
 
@@ -174,7 +221,7 @@ class User extends CI_Controller
         if ($code != '')
         {
             // Try to validate
-            $this->load->model('UserModel');
+            $this->load->model('db/UserModel');
             $success = $this->UserModel->validate($code);
 
             if ($success)
@@ -220,7 +267,7 @@ class User extends CI_Controller
                 $term = $this->input->post('name');
 
                 // Search the database
-                $this->load->model('UserModel');
+                $this->load->model('db/UserModel');
                 $result = $this->UserModel->get_all_by_name($term);
 
                 // If any results found add to the viewdata

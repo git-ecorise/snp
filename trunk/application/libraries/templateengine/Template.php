@@ -31,7 +31,7 @@ class Template implements ITemplate
         // Load model if defined
         if ($modelname != '')
         {
-            $this->CI->load->library($modelname, array(), $this->modelkey);
+            $this->CI->load->model($modelname, $this->modelkey);
             $this->model = $this->CI->{$this->modelkey};
         }
     }
