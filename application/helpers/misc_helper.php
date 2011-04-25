@@ -36,33 +36,4 @@ function set_status_message($message, Array $arr = null)
     }
 }
 
-
-
-
-
-
-
-
-    function is_email_available123($email)
-    {
-        // Move the logic to function somewhere ...
-        // Put callback somewhere else ? base controller - core ?
-
-
-        $CI =& get_instance();
-
-
-        // Set callback error message (could be set elsewhere - in cofig file)
-        $CI->form_validation->set_message('is_email_available', 'The %s is already signed up.');
-
-        // Check if email exists - Could use more optimal query
-        $CI->load->model('db/UserModel');
-        return $CI->UserModel->get_by_email($email) == null;
-    }
-
-
-
-
-
-
 ?>

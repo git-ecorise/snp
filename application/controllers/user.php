@@ -69,22 +69,27 @@ class User extends CI_Controller
 
 
 
-    // Put this in a helper ? or does it have to be on the controller ?
+
+
+    // is_unique_email ?
+    // is_email_unique
+    // email_exists
+
 
     // is_email_unique ? - create function in model ...
 
-    
+    // could also just call directly on db model ? and then set the message in the constructor
 
-    // Simple callback validator for the email
-    public function is_email_available($email)
-    {
-        // Move the logic to function somewhere ...
+
+            // Move the logic to function somewhere ...
         // Put callback somewhere else ? base controller - core ?
 
 
-        
+    // Simple callback validator for the email
+    public function is_email_available12342432($email)
+    {
         // Set callback error message (could be set elsewhere - in cofig file)
-        $this->form_validation->set_message('is_email_available', 'The %s is already signed up.');
+        //$this->form_validation->set_message('is_email_available', 'The %s is already signed up.');
 
         // Check if email exists - Could use more optimal query
         $this->load->model('db/UserModel');
