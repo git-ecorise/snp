@@ -5,41 +5,21 @@ require_once 'InputModel.php';
 // UserSignUpModel / IUserSignUpModel ?
 
 
-
-// Some of the logic can be moved into a service and then make this model a plain data carrier ?
-// But it is really not needed ... dont over engineer this ....
-
-
-// Should it have the iUser interface ? then it can actually be used to authenticate with later on if wanted ?
-// But who cares ?
+// skal der laves nogle db models til det? UserInsert / UserCreate / CreateUser lignende models ?
+// Eller helt drop det og map denne model til db i db laget.
 
 
+// Skal stadigvæk bruge en helper til at validerer password med ? is_valid_credentials ? verify_credentials ?
 
 
-
-
-
-
-    // Kan databasen evt bruges til direkte at opdaterer db med ? eller skal der laves nogle db models til det? UserInsert / UserCreate / CreateUser lignende models ?
-    // Eller helt drop det og map denne model til db i db laget.
-
-    
-    
-    // Ret Database så alle fields er korrekt + tilføj max length til validerings checks ?
-
+// Change database
     // Password = xx chars ?
     // Salt = xx chars ?
     // ValidationCode = 32 chars ?
+    // Validation / Activation goes into seperate table ? register time of validation / activation ?
 
 
-    // Skal stadigvæk bruge en helper til at validerer password med ? is_valid_credentials ? verify_credentials ?
-
-
-
-
-
-// Change database 
-
+// Could split out all the logic for generating hash, salt, validation code to a UserService
 
 // escape ? xss clean ?
 
@@ -108,7 +88,7 @@ class UserSignUp extends InputModel implements IUserSignUp
 
     public function get_activationcode()
     {
-        return $this->activationcode != null ? $this->activationcode : ($this->activationcode = generate_randomcode());
+        return $this->activationcode != null ? $this->activationcode : ($this->activationcode = generate_randomcode(32));
     }
 }
 
