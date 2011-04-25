@@ -20,7 +20,7 @@ class EmailService implements IEmailService
         $this->name = $config['name'];
 
         // Setup defaults
-        $this->CI->email->from($this->from, $this->name);     
+        //$this->CI->email->from($this->from, $this->name);
     }
     
     public function send_signup_email(IUserSignUp $user)
@@ -29,7 +29,11 @@ class EmailService implements IEmailService
         $this->CI->email->to($user->get_email());
 
 
+        echo $user->get_email();
         
+        $this->CI->email->subject('This is the subject');
+        $this->CI->email->message('This is the message. Does it work as supposed ?');
+
 
 
         // Include the id somehow, because it is needed when validating the email ?
@@ -39,9 +43,11 @@ class EmailService implements IEmailService
 
         // Why not always use the email then ? its less predictable to ...
 
-        $this->CI->email->subject('Validate your email - ' . $this->name);
-        $this->CI->email->message('Please validate your email.<br /><a href="' + validate_route($user->get_activationcode()) + '">Click here to validate</a>');
-        $this->CI->email->set_alt_message('Your validation code is: ' . $user->get_activationcode());
+
+        
+        //$this->CI->email->subject('Validate your email - ' . $this->name);
+        //$this->CI->email->message('Please validate your email.<br /><a href="' . validate_route($user->get_activationcode()) . '">Click here to validate</a>');
+        //$this->CI->email->set_alt_message('Your validation code is: ' . $user->get_activationcode());
 
 
         
@@ -51,8 +57,8 @@ class EmailService implements IEmailService
 
         
         // Only in development !
-        if (!$success)
-            show_error($this->CI->email->print_debugger());
+        //if (!$success)
+        //    show_error($this->CI->email->print_debugger());
     }
 }
 ?>
