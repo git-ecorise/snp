@@ -22,6 +22,9 @@ function verify_hash($hash, $str, $salt = '')
 
 function generate_randomcode()
 {
+    // length ? define as parameter? or indicate in name ?
+    // length is fine but check it is not longer than maximum length ? 32 ? 44 / 43 ?
+
     $CI =& get_instance();
     $CI->load->helper('string');
     

@@ -24,15 +24,19 @@ class UserModel extends CI_Model implements IUserModel
         // Use class / iUserSignUp to insert into the database ?
         // Create db (insert/create/register/signup) model ? and do the mapping here ? - entities
 
-        
-        $this->UserModel->insert(array(
-            'email' => $email,
-            'passwordhash' => $passwordhash,
-            'firstname' => $firstname,
-            'lastname' => $lastname,
-            'activationcode' => $activationcode
-            ));
 
+        // lav seperat tabel for validation code der inkluderer id og activation/validtion-code ?
+
+
+
+        $user = array(
+            'email' => $signup->get_email(),
+            'passwordhash' => $signup->get_passwordhash(),
+            'passwordsalt' => $signup->get_passwordsalt(),
+            'firstname' => $signup->get_firstname(),
+            'lastname' => $signup->get_lastname(),
+            'activationcode' => $signup->get_activationcode());
+        
         // Insert into db
         $this->db->insert('user', $user);
 
