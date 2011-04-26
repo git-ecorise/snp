@@ -14,25 +14,55 @@ class EmailService implements IEmailService
 
         // Load the email library
         $this->CI->load->library('email');
-
-        // Load Config
-        $this->from = $config['from'];
-        $this->name = $config['name'];
-
-        // Setup defaults
-        //$this->CI->email->from($this->from, $this->name);
     }
     
     public function send_signup_email(IUserSignUp $user)
     {
+
+
+        $this->CI->email->to('super@lynhurtig.dk');
+
+        $this->CI->email->subject('It is working like it should 1234');
+        $this->CI->email->message('It is working like it is supposed to. But Sometimes it stalls for some weird reason. Work Please Work.');
+
+
+        $this->CI->email->send();
+
+
+
+
+
         // Create email
-        $this->CI->email->to($user->get_email());
+        //$this->CI->email->to($user->get_email());
 
 
-        echo $user->get_email();
+        //echo $user->get_email();
         
-        $this->CI->email->subject('This is the subject');
-        $this->CI->email->message('This is the message. Does it work as supposed ?');
+        //$this->CI->email->subject('This is the subject');
+        //$this->CI->email->message('This is the message. Does it work as supposed');
+
+
+/*
+        $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'carlsagangroup@gmail.com',
+            'smtp_pass' => 'CarlS1234',
+            'mailtype'  => 'html',
+            'charset'   => 'iso-8859-1'
+        );
+
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
+
+*/
+
+
+
+
+
+
 
 
 
@@ -50,9 +80,17 @@ class EmailService implements IEmailService
         //$this->CI->email->set_alt_message('Your validation code is: ' . $user->get_activationcode());
 
 
+
+
+
+
+
+
+
+        
         
         // Send the email
-        $success = $this->CI->email->send();
+        //$success = $this->CI->email->send();
 
 
         
