@@ -11,17 +11,11 @@ $config = Array(
     'mailtype'      => "html",
     'charset'       => "iso-8859-1",
     //'charset'     => 'utf-8',
-    'newline'       => "\r\n",
-    'crlf'          => "\r\n"
+    'newline'       => "\r\n",      // <-- double qoutes is very important because php really is fucked up!
+    'crlf'          => "\r\n",
 
-    // to
-    // name
-    
+    'from'          => "socialnetworkp@gmail.com",
+    'name'          => "The Social Network"   
 );
-
-
-
-//$config['smtp_user'] = 'carlsagangroup@gmail.com';
-//$config['smtp_pass'] = 'CarlS1234';
 
 ?>
