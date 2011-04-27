@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once (APPPATH . 'models/InputBase.php');
-require_once (APPPATH . 'libraries/EmailService/ISignUpEmail.php');
+require_once (APPPATH . 'libraries/email/ISignUpEmail.php');
 require_once 'ISignUpInput.php';
 
 // Change database
