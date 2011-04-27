@@ -6,6 +6,7 @@ a img { border:0; }
 .left{ float: left; width: 300px; }
 .right{ float: right; width: auto; }
 .clear{ clear: both; }
+.float-left{ float: left; width: auto;}
 
 #friends .left{ width: auto; padding: 14px;}
 
@@ -57,6 +58,8 @@ textarea.status-field{ width: 500px; height: 40px; }
 .update-date {font-size: 0.7em; color: darkgrey;}
 
 #profile-left { float: left; width: 200px; min-height: 100px;}
-#profile-right { float: left; width: auto; border-left: 1px solid #5599bb; padding: 14px;}
-#profile-pic { }
+#profile-right { float: left; width: auto; border-left: 1px solid; padding: 14px;}
+#profile-left-item { }
+#profile-left-item .float-left { padding: 8px; }
+.left-menu-line { border: 1px solid #eeeeee; width: auto;}
 /*--------------------------------------------------------------------------*/
