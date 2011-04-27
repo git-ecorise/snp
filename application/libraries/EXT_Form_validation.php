@@ -34,11 +34,8 @@ class EXT_Form_validation extends CI_Form_validation
 
     public function add_error($key, $error)
     {
-        // set_error
-        // Accept array ?
-        // Check parameters ?
-
         $this->_error_array[$key] = $error;
+        $this->_field_data[$key]['error'] = $error;
     }
 
     private function get_setting_value($setting, $key)
@@ -231,10 +228,10 @@ class EXT_Form_validation extends CI_Form_validation
                             if (!isset($this->CI->{$modelname}))
                             {
                                 // Load if not already loaded
-                                // little naive as it assumes variable name only referes to the model
                                 $this->CI->load->model($model);
-                                $callbackObj = $this->CI->{$modelname};
                             }
+
+                            $callbackObj = $this->CI->{$modelname};
 
                             continue;
                         }
@@ -244,23 +241,21 @@ class EXT_Form_validation extends CI_Form_validation
                     }                    
                 }
 
-
-                
                 if ($callbackObj == null)
                 {
                     // If set to null call global function
                     if (!function_exists($rule))
-                        continue;
-
-                    $result = $rule($postdata, $param);
+                        $result = FALSE;    //continue; do not allow to continue if not found
+                    else
+                        $result = $rule($postdata, $param);
                 }
                 else
-                {
+                {                   
                     // If not null call function on object
                     if (!method_exists($callbackObj, $rule))
-                        continue;
-
-                    $result = $callbackObj->$rule($postdata, $param);
+                        $result = FALSE;    // continue; do not allow to continue if not found
+                    else
+                        $result = $callbackObj->$rule($postdata, $param);
                 }
 
 
@@ -280,7 +275,7 @@ class EXT_Form_validation extends CI_Form_validation
 
                // --------------------------------------------------------------------
 
-
+                
                 
                 // Re-assign the result to the master data array
                 if ($_in_array == TRUE)
