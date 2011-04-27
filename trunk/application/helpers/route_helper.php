@@ -61,6 +61,10 @@ function my_profile_route()
     return site_url('profile/index');
 }
 
+function profile_route()
+{
+    return site_url('profile/index');
+}
 function settings_route()
 {
     return site_url('settings/index');
