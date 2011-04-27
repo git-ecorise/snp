@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once (APPPATH . 'models/InputBase.php');
+require_once (APPPATH . 'libraries/EmailService/ISignUpEmail.php');
 require_once 'ISignUpInput.php';
 
 // Change database
@@ -7,7 +8,7 @@ require_once 'ISignUpInput.php';
     // Salt = 40 chars ?
     // ValidationCode = 20 chars ?
 
-class UserSignUp extends InputBase implements ISignUpInput
+class UserSignUp extends InputBase implements ISignUpInput, ISignUpEmail
 {
     // Private fields
     private $email;
@@ -18,7 +19,7 @@ class UserSignUp extends InputBase implements ISignUpInput
     
     function __construct()
     {
-        parent::__construct('signup', $this);
+        parent::__construct('signup');
 
         $this->load->helper('crypto');
 
