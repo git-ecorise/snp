@@ -22,8 +22,6 @@ function verify_hash($hash, $str, $salt = '')
 
 function generate_randomcode($length = 32)
 {
-    // default length ? 32 vs 43/44 ? what ?
-
     $CI =& get_instance();
     $CI->load->helper('string');
     

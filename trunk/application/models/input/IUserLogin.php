@@ -1,13 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once (APPPATH . 'libraries/IValidatable.php');
+require_once 'IValidatable.php';
 
-interface IUserLogin extends IValidatable
+interface IUserLogin extends IValidatable       // ICredentials ?
 {
     public function get_email();
     public function get_password();
 
 
-    public function verify_credentials();
+
+
+    //public function verify_credentials();
 
     // Create ICredentials - email / password
     // let Membership / CommunityService / UserService use it - which checks against the db using the UserModel

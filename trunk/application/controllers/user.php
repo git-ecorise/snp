@@ -12,7 +12,7 @@ class User extends CI_Controller
             // Post request
 
             $this->load->model('input/UserSignUp');
-
+          
              // Check if input is valid
             if ($this->UserSignUp->is_valid())
             {
@@ -20,7 +20,7 @@ class User extends CI_Controller
 
                 // Insert into database
                 $this->load->model('db/UserModel');
-                $this->UserModel->insert($this->UserSignUp);
+                $this->UserModel->create($this->UserSignUp);
 
                 // Send signup email
                 $this->load->library('email/EmailService');
@@ -28,13 +28,6 @@ class User extends CI_Controller
 
                 // Set status message
                 set_status_message('You have signed up!');
-
-
-
-                // For presentation only - delete and change view (signup_success) ******
-                $this->session->set_flashdata('code', $activationcode);
-
-
 
                 // Redirct
                 return redirect(signup_success_route());
@@ -46,55 +39,18 @@ class User extends CI_Controller
         $this->template->load('user/signup');
     }
 
+
+    
     public function signupsuccess()
     {
         // Could make check that only people comming straight from signup is allowed to view this
         // use flashdata in signup - and check if it exists here.
+        // Use flashdata_keep to be able to refresh the page without getting an error
         
         $this->template->load('user/signup_success');
     }
 
 
-
-    // resetpassword - email
-    // create reset code and send email
-    // When link clicked go to page where code, new password + password confirm can be entered.
-    // 
-    // if reset attempted check if the code exists if yes - set new password... and login ? 
-
-
-
-
-
-
-
-
-
-
-    // is_unique_email ?
-    // is_email_unique
-    // email_exists
-
-
-    // is_email_unique ? - create function in model ...
-
-    // could also just call directly on db model ? and then set the message in the constructor
-
-
-            // Move the logic to function somewhere ...
-        // Put callback somewhere else ? base controller - core ?
-
-
-    // Simple callback validator for the email
-    public function is_email_available12342432($email)
-    {
-        // Set callback error message (could be set elsewhere - in cofig file)
-        //$this->form_validation->set_message('is_email_available', 'The %s is already signed up.');
-
-        // Check if email exists - Could use more optimal query
-        $this->load->model('db/UserModel');
-        return $this->UserModel->get_by_email($email) == null;
-    }
 
 
 
@@ -114,7 +70,7 @@ class User extends CI_Controller
             
             $this->load->model('input/UserLogin');
 
-            if ($this->UserLogin->Validate())
+            if ($this->UserLogin->is_valid())
             {
                 // Success
 
@@ -175,15 +131,15 @@ class User extends CI_Controller
                         // Success
 
                         // Check if already activated
-                        if (!$user->isactivated)        // function ? missing () ?
+                        if (!$user->isvalidated)                // works directly on result !?
                         {
                             // Set status message and redirect
-                            set_status_message('Please activate your Email.');
+                            set_status_message('Please validate your email.');
                             return redirect(validate_route());
                         }
 
                         // Login
-                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);
+                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);          // Should really not happen here should it !? - remember is_admin
                         $this->authentication->login($authUser);
 
                         // Set status message
@@ -209,80 +165,134 @@ class User extends CI_Controller
         // Logout
         $this->authentication->logout();
         // Set status message
-        $this->session->set_flashdata('status', 'You have been logged out!');
-
+        set_status_message('status', 'You have been logged out!');
+        // Redirect
         redirect(home_route());
     }
+
+
+
+
+    //***** IMPORTANT
+
+    // Lad IUserValidationInput arve fra IValidatable ?
+
+    // Så kan form_validation og resten drønes i model reelt ?
     
-    public function validate($code = '')
+    // Metoder Create / Validate i UserModel skal så bare starte med at tjekke - if input->is_valid() - hvis ikke return false - hvis true forsæt ... lav så tjek og hvis problemer set fejl ...
+    
+    // Virker det også for Signup ? Hvad med login
+
+
+    // DB structure - columns og size/length
+    // passwordhash = 50 chars
+    // passwordsalt = 40 chars
+
+
+    // Put Input as suffix to all input models
+    // All db models is renamed to UserDb ? or UserRepository, or UserService (in libraries)
+    
+    
+    
+    public function validate($email = '', $code = '')
     {
         $viewdata = array();
 
-        // Check if it was a Post
+        // If get request with email/code parameters treat it like a post
+        // This will be the case when people click the link in the email
+        if ($email != '')
+            $_POST['email'] = urldecode($email);
+        if ($code != '')
+            $_POST['validationcode'] = $code;             // also encode/decode this ?
+
+        // Check if there is any post data
         if ($_POST)
         {
-            // Set delimiters - hide this away somehow
-            $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+            // Post data is found
 
-            // Validate form input
-            if ($this->form_validation->run('validate'))
+            $this->load->model("input/UserValidation");
+
+            // Check if input is valid
+            if ($this->UserValidation->is_valid())
             {
-                // If valid get the input
-                $code = $this->input->post('validationcode', TRUE);
+                // Try to validate
+                $this->load->model('db/UserModel');
+                $success = $this->UserModel->validate($this->UserValidation);
+
+                if ($success)
+                {
+                    // Set status message
+                    set_status_message('Your email have been validated');
+
+                    // Could login directly here - but could be a security problem, if some hacker have got hold of the email (he still dont know the password)
+                    
+                    // Redirct
+                    return redirect(login_route());
+                }
+                
+                $this->form_validation->add_error('validationcode', 'The validation code is invalid.');     // move to usermodel / repository / service
+                
+                //set_status_message('The validation code is invalid.', $viewdata);
             }
-        }
-
-        if ($code != '')
-        {
-            // Try to validate
-            $this->load->model('db/UserModel');
-            $success = $this->UserModel->validate($code);
-
-            if ($success)
-            {
-                // Set status message
-                $this->session->set_flashdata('status', 'Your email have been validated.');
-
-                // Could login directly here - but could posses a security problem
-
-                // Redirct
-                return redirect(login_route());
-            }
-
-            // Not valid
-            $viewdata['status'] = 'The validation code is invalid.';
         }
         
         // Default fallback
         
         $this->template->load('user/validate', $viewdata);
     }
+
+
+
+
     
+    public function resetpassword()
+    {
+        // Pretty much a duplicate of validate email - except it should allow to enter new password / new password confirm
+
+        // Create validation rules ...
+        // Create view - resetcode, password, password confirm - hvor skal email være ? hidden input ? eller lad være felt også ?
+
+        // email kan bare være hidden - men hvis man ikke kommer fra email via link så er det vel et problem ? så skal den vises ... så bare vis skidtet
+
+
+
+        // adskil admin reset fra her ? den skal tage id ? ville være lettest hvis id bare sendes med ved reset istedet for email ... ???? !***********
+
+
+
+        // Remeber to delete reset code when used ? just create seperate tabel ...
+
+
+        // Should be possible for correct authroized user OR if ADMIN
+
+
+        // *************
+
+        // Add is_admin function til is authenticated / evt lav ny class ? eller lav en base class og så lav arv UserBase - derfra kommer så AnonymousUser, AuthenticatedUser, AdminUser osv...
+        // Fix login
+    }
+
+
+
     public function search($name = '')
     {
         // Ensure user is authorized to view the page
-        ensure_authorized();
+        ensure_authorized();                            // ensure_authenticated ?
 
         $viewdata = array();
 
         if ($_POST)
         {
-            // Post
-
-            // Set delimiters - hide this away (extend controller etc...)
-            $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+            $this->load->model("input/UserSearch");
 
             // Validate form input
-            if ($this->form_validation->run('search'))
+            if ($this->UserSearch->is_valid())
             {
                 // Success
-                
-                // Get search term
-                $term = $this->input->post('name');
 
                 // Search the database
                 $this->load->model('db/UserModel');
-                $result = $this->UserModel->get_all_by_name($term);
+                $result = $this->UserModel->get_all_by_name($this->UserSearch->get_name());     // Pass input model instead and use interface then it could be extended in the future
 
                 // If any results found add to the viewdata
                 if ($result != null)

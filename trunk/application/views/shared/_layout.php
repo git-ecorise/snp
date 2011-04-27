@@ -1,6 +1,7 @@
 <?
-    $flash = $this->session->flashdata('status');
-    $status = $flash ? $flash : (isset ($status) ? $status : '');
+
+$status = isset(${STATUS_KEY}) ? ${STATUS_KEY} : $this->session->flashdata(STATUS_KEY);
+
 ?>
 
 <!DOCTYPE html>

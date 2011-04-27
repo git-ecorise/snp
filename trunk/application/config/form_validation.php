@@ -58,6 +58,11 @@ $config = array(
 
              'validate' => array(
                                 array(
+                                        'field' => 'email',
+                                        'label' => 'Email',
+                                        'rules' => $emailRule . "|callback_email_exist[model={db/UserModel}, message={The %s does not exist.}]|callback_email_not_validated[model={db/UserModel}, message={The %s is already validated.}]"
+                                     ),
+                                array(
                                         'field' => 'validationcode',
                                         'label' => 'Validation Code',
                                         'rules' => $validationcodeRule

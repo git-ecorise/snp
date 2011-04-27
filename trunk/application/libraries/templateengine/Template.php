@@ -36,16 +36,16 @@ class Template implements ITemplate
         }
     }
 
-    function load($view = '', $view_data = array(), $return = FALSE)
+    function load($view = '', $viewdata = array(), $return = FALSE)
     {
         // Prepare data for template
         $this->data[$this->modelkey] = $this->model;
 
         // Make template model available to the view
-        $view_data[$this->modelkey] = $this->model;
+        $viewdata[$this->modelkey] = $this->model;
 
         // Load the view
-        $viewcontent = $this->CI->load->view($view, $view_data, TRUE);
+        $viewcontent = $this->CI->load->view($view, $viewdata, TRUE);
         
         // Make view available to the template
         $this->data[$this->viewkey] = $viewcontent;

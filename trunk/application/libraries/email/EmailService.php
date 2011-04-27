@@ -15,88 +15,45 @@ class EmailService implements IEmailService
         // Load the email library
         $this->CI->load->library('email');
     }
-    
-    public function send_signup_email(IUserSignUp $user)
+
+    protected function send_email($email, $subject, $html, $text)
     {
+        // prepare data
+        $subject = $subject . ' - The Social Network';
 
+        $this->CI->email->to($email);
 
-        $this->CI->email->to('super@lynhurtig.dk');
+        $this->CI->email->subject($subject);
+        $this->CI->email->message($html);
+        $this->CI->email->set_alt_message($text);
 
-        $this->CI->email->subject('It is working like it should 1234');
-        $this->CI->email->message('It is working like it is supposed to. But Sometimes it stalls for some weird reason. Work Please Work.');
-
-
-        $this->CI->email->send();
-
-
-
-
-
-        // Create email
-        //$this->CI->email->to($user->get_email());
-
-
-        //echo $user->get_email();
+        return $this->CI->email->send();
+    }
+    
+    public function send_signup_email(ISignUpEmailInput $input)
+    {
+        $email = $input->get_email();
+        $code = $input->get_validationcode();
         
-        //$this->CI->email->subject('This is the subject');
-        //$this->CI->email->message('This is the message. Does it work as supposed');
+        $subject = 'Validate your email';
+        $html = 'Thanks for signing up.<br />Your validation code is: ' . $code . '<br /><br /><a href="' . validate_route($email, $code) . '">Click here</a> to automatically validate your email.';
+        $text = 'Thanks for signing up.\r\nYour validation code is:' . $code;
 
-
-/*
-        $config = Array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'carlsagangroup@gmail.com',
-            'smtp_pass' => 'CarlS1234',
-            'mailtype'  => 'html',
-            'charset'   => 'iso-8859-1'
-        );
-
-        $this->load->library('email', $config);
-        $this->email->set_newline("\r\n");
-
-*/
-
-
-
-
-
-
-
-
-
-        // Include the id somehow, because it is needed when validating the email ?
-        // Split validationcode out into seperate table and delete when no longer needed ?
-
-        // but if id isnt found it will require you to enter both the validation code and your email to validate it - so it can look up the id ?
-
-        // Why not always use the email then ? its less predictable to ...
-
-
-        
-        //$this->CI->email->subject('Validate your email - ' . $this->name);
-        //$this->CI->email->message('Please validate your email.<br /><a href="' . validate_route($user->get_activationcode()) . '">Click here to validate</a>');
-        //$this->CI->email->set_alt_message('Your validation code is: ' . $user->get_activationcode());
-
-
-
-
-
-
-
-
-
-        
-        
         // Send the email
-        //$success = $this->CI->email->send();
+        $this->send_email($email, $subject, $html, $text);
+    }
 
+    public function send_reset_password_email(IResetPasswordEmailInput $input)
+    {
+        $email = $input->get_email();
+        $code = $input->get_password_reset_code();
 
-        
-        // Only in development !
-        //if (!$success)
-        //    show_error($this->CI->email->print_debugger());
+        $subject = 'Reset Password';
+        $html = 'You have requested to reset your password.<br />Your reset code is: ' . $code . '<br /><br /><a href="' . resetpassword_route($email, $code) . '">Click here</a> to automatically reset your password.';
+        $text = 'You have requested to reset your password.\r\nYour reset code is:' . $code;
+
+        // Send the email
+        $this->send_email($email, $subject, $html, $text);
     }
 }
 ?>

@@ -11,7 +11,7 @@ $config = Array(
     'mailtype'      => "html",
     'charset'       => "iso-8859-1",
     //'charset'     => 'utf-8',
-    'newline'       => "\r\n",      // <-- double qoutes is very important because php really is fucked up!
+    'newline'       => "\r\n",
     'crlf'          => "\r\n",
 
     'from'          => "socialnetworkp@gmail.com",
