@@ -93,12 +93,12 @@ function reset_password_success_route()
 
 function add_interests_route()
 {
-    return site_url('settings/interests');
+    return site_url('interests/index');
 }
 
 function search_interests_route()
 {
-    return site_url('settings/searchinterests');
+    return site_url('interests/searchinterests');
 }
 
 function add_as_friend_route($id)
