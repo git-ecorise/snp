@@ -14,7 +14,7 @@ class friends extends CI_Controller {
         //set flashdata
         $this->session->set_flashdata('status', 'friend has been added');
 
-        return redirect('profile/friends');
+        return redirect('settings/friends');
     }
 
     public function friends()
@@ -24,7 +24,7 @@ class friends extends CI_Controller {
 
         $data['friends'] = $this->ProfileUserModel->get_all_user_friends(get_user()->get_id());
 
-        $this->template->load('profile/friends', $data);
+        $this->template->load('settings/friends', $data);
     }
 }
 ?>

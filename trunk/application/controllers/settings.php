@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class profile extends CI_Controller {
+class settings extends CI_Controller {
 
     public function  __construct() {
         parent::__construct();
@@ -17,7 +17,7 @@ class profile extends CI_Controller {
     }
 
     public function index() {
-        $this->template->load('profile/myprofile');
+        $this->template->load('settings/index');
     }
 
     public function uploadpicture()
@@ -37,7 +37,7 @@ class profile extends CI_Controller {
         }
         else
         {
-            $this->template->load('profile/uploadpicture');
+            $this->template->load('settings/uploadpicture');
         }
     }
 
@@ -63,7 +63,7 @@ class profile extends CI_Controller {
                 $country = $this->input->post('country');
                 
                 //updates the user
-                $this->load->model('UserModel');
+                $this->load->model('user/UserModel', 'UserModel');
                 $this->UserModel->update($email, array(
                     //it fucks up if one tries to edit email
                     //why ??
@@ -82,13 +82,13 @@ class profile extends CI_Controller {
             }
 
         }
-            $this->load->model('UserModel');
+            $this->load->model('user/UserModel');
             
             //get AuthUser by email
             $viewdata['user'] = $this->UserModel->get_by_email(get_user()->get_email());
 
             //default fallback
-            $this->template->load('profile/edit', $viewdata);
+            $this->template->load('settings/edit', $viewdata);
    
     }
 }

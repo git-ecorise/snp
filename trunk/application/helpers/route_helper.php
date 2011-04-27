@@ -61,14 +61,19 @@ function my_profile_route()
     return site_url('profile/index');
 }
 
+function settings_route()
+{
+    return site_url('settings/index');
+}
+
 function upload_picture_route()
 {
-    return site_url('profile/uploadpicture');
+    return site_url('settings/uploadpicture');
 }
 
 function edit_profile_route()
 {
-    return site_url('profile/edit');
+    return site_url('settings/edit');
 }
 
 function profile_thumbnail_route($picture_url = '')
@@ -88,17 +93,17 @@ function reset_password_success_route()
 
 function add_interests_route()
 {
-    return site_url('profile/interests');
+    return site_url('settings/interests');
 }
 
 function search_interests_route()
 {
-    return site_url('profile/searchinterests');
+    return site_url('settings/searchinterests');
 }
 
 function add_as_friend_route($id)
 {
-    return site_url('profile/addfriend/'.$id);
+    return site_url('settings/addfriend/'.$id);
 }
 
 function update_status_route()
