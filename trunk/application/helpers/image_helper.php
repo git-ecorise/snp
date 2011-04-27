@@ -2,12 +2,12 @@
 
 function thumbnail_default_image()
 {
-    return image_content('thumbnail-default.jpg');      // Korrekte navn ?
+    return image_content('_default.jpg');      // Korrekte navn ?
 }
 
 function profile_default_image()
 {
-    return image_content('profile-default.jpg');      // Korrekte navn ?
+    return image_content('_default.jpg');      // Korrekte navn ?
 }
 
 function thumbnail_image($id)
