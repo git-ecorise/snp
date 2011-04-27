@@ -1,6 +1,6 @@
 <h3>Find friends with common interests</h3>
 <?php
-$this->load->view('profile/_interestpartial');
+$this->load->view('settings/_interestpartial');
 ?>
 <?if(isset($friends)):?>
     <h2>Results</h2>

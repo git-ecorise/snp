@@ -6,7 +6,7 @@ class interests extends CI_Controller{
         parent::__construct();
     }
 
-    public function interests()
+    public function index()
     {
         if($_POST)
         {
@@ -27,7 +27,7 @@ class interests extends CI_Controller{
             $this->session->set_flashdata('status', 'Your interests have been saved<br/>');
 
             //redirect to profile main page
-            return redirect(my_profile_route());
+            return redirect(settings_route());
         }
 
         $this->load->model('InterestUserModel');

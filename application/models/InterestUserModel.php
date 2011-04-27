@@ -136,7 +136,7 @@ class InterestUserModel extends CI_Model{
         $query = $this->db->get_where('userinterests', array('interestsid'=>$interest->id));
         $result = $query->row_array();
         $users = array();
-        $this->load->model('UserModel');
+        $this->load->model('user/UserModel');
         //get the users from userids
         
         foreach ($result as $row)

@@ -5,7 +5,7 @@
     <li><?=anchor('settings/uploadpicture', 'Upload Profile Picture');?></li>
     <li><?=anchor('settings/edit', 'Edit Information');?></li>
     <li><?=anchor('settings/resetpassword', 'Reset Password');?></li>
-    <li><?=anchor('interests/interests', 'Interests');?></li>
-    <li><?=anchor('friends/friends', 'See Friends');?></li>
+    <li><?=anchor('interests/index', 'Interests');?></li>
+    <li><?=anchor('friends/index', 'See Friends');?></li>
     <li><?=anchor('interests/searchinterests', 'Find friends with common interests');?></li>
 </ul>

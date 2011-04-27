@@ -28,7 +28,7 @@
             .autocomplete({
                 source: function( request, response ) {
                     
-                    $.getJSON( 'http://localhost/snp/profile/ajax_interests/'+extractLast( request.term ), {
+                    $.getJSON( 'http://localhost/snp/interests/ajax_interests/'+extractLast( request.term ), {
                         //data: extractLast( request.term ),
                         type: "GET"
                     }, response );
