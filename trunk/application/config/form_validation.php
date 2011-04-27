@@ -66,7 +66,7 @@ $config = array(
                                 ),
 
              'resetpassword' => array(
-                                array(
+                                    array(
                                         'field' => 'email',
                                         'label' => 'Email',
                                         'rules' => $emailRule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]"
