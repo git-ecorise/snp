@@ -33,7 +33,7 @@ function select_profile_image($id, $haspicture)        // navn ?
     if ($haspicture)
         return profile_image($id);
     else
-        return thumbnail_default_image();
+        return profile_default_image ();
 }
 
 ?>
