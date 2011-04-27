@@ -24,7 +24,7 @@ class User extends CI_Controller
 
                 // Send signup email
                 $this->load->library('email/EmailService');
-                $this->emailservice->send_signup_email($this->SignUpInput);
+                $this->emailservice->send_signup_email($this->SignUpInput->get_email(), $this->SignUpInput->get_validationcode());
 
                 // Set status message
                 set_status_message('You have signed up!');
