@@ -122,11 +122,13 @@ class User extends CI_Controller
                     // authentication should take iUser / some model / entity that contains the needed data for logging in
 
                     // create the db as entities and make it pssoble to return the entities in the model ?
-                    
 
-                    // Check the password - missing salt - create helper
-                    $inputpasswordhash = hash('sha256', $this->UserLogin->get_password());      // MiSSING SALT !!!!!!! load CryptoHelper
-                    if ($inputpasswordhash === $user->passwordhash)
+
+                    // Verify credentials
+                    $this->load->helper('crypto');
+                    $isvalidcredentials = verify_hash($user->passwordhash, $this->LoginInput->get_password(), $user->passwordsalt);
+
+                    if ($isvalidcredentials)
                     {
                         // Success
 
@@ -146,7 +148,7 @@ class User extends CI_Controller
                         set_status_message('You have been logged in!');
 
                         // Redirct - returns immediatly
-                        return redirect(usersearch_route());
+                        return redirect(usersearch_route());        // Should go to the wall /profile/
                     }
                 }
 
