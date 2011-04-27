@@ -3,6 +3,19 @@
 body { font-family: "Trebuchet MS", Arial, sans-serif; background: #eeeeee; }
 a img { border:0; }
 
+.left{ float: left; width: 300px; }
+.right{ float: right; width: auto; }
+.clear{ clear: both; }
+
+#friends .left{ width: auto; padding: 14px;}
+
+input{ padding: 2px 8px 2px 8px; font-size: 1.2em; border-radius: 3px; }
+input[type=text] { border: 1px solid #c8c5d2; height: 36px; width: 250px; line-height: 36px; }
+input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
+input[type=submit] { padding: 8px; cursor: pointer; }
+input:hover[type=submit] { padding: 8px; cursor: pointer; background-color: #c8c5d2; }
+textarea { width: 400px; height: 100px; }
+
 div.section { margin: 0 auto; overflow: hidden; width: 950px; }
 
 #header { background: #5599bb; border-bottom: 2px solid #e3e1ec; padding: 14px 0 6px 0; height: 40px; }
@@ -18,12 +31,15 @@ div.section { margin: 0 auto; overflow: hidden; width: 950px; }
 #view .input { margin: 16px 0 16px 0; }
 #view .input-submit{ margin: 16px 0 16px 0; }
 #view label { font-size: 0.8em; display: block; }
-#view input{ padding: 2px 8px 2px 8px; font-size: 1.2em; border-radius: 3px; }
-#view input[type=text] { border: 1px solid #c8c5d2; height: 36px; width: 250px; line-height: 36px; }
-#view input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
-#view input[type=submit] { padding: 8px; cursor: pointer; }
-#view input:hover[type=submit] { padding: 8px; cursor: pointer; background-color: #c8c5d2; }
 #view span.error { color:#9c2d2d; padding-left:12px; }
+#view.right {  }
+
+textarea.status-field{ width: 500px; height: 40px; }
+.update-field { padding: 14px; border-bottom: 1px dotted #999; cursor: pointer;}
+.update-field:hover { background-color: #e3e1ec; }
+.update-field-left { float: left; width: 70px;}
+.update-field-right { float: left; width: auto;}
+.update-date {font-size: 0.7em; color: darkgrey;}
 
 #footer { background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x; border-top: 2px solid #c8c5d2; text-align: center; padding: 10px; color: #000000; }
 
@@ -32,6 +48,8 @@ div#message-box {
     position:fixed; margin-left:-205px; left:50%; width:410px; top:100px;
     text-align: center; background:#f5e6b4; border:5px solid #ffffff; padding:24px; font-size:20px; z-index:1; box-shadow:0 0 20px #999; border-radius:8px;
 }
+
+.hidden_text {display: none;}
 
 /* Only for the search view - should go into a seperate css */
 #view ul.searchresult {}
