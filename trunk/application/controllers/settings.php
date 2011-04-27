@@ -122,7 +122,7 @@ class settings extends CI_Controller {
             $this->session->set_flashdata('status', 'Your changes have been saved');
 
             //redirects
-            return redirect(my_profile_route());
+            return redirect(settings_route());
             }
 
         }
