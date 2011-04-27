@@ -2,7 +2,7 @@
 
 class profile extends CI_Controller {
 
-    public function  __construct() {
+   public function  __construct() {
         parent::__construct();
 
         //check if user is logged in
@@ -19,8 +19,10 @@ class profile extends CI_Controller {
     public function index() 
     {
         $this->load->model('StatusModel');
+        $this->load->model('InterestUserModel');
 
         $data['updates'] = $this->StatusModel->get_all();
+        $data['interests'] = $this->InterestUserModel->user_interests_toString(get_user()->get_id());
 
         $this->template->load('profile/index', $data);
     }
