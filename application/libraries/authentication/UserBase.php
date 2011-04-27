@@ -9,8 +9,9 @@ abstract class UserBase implements IUser
     private $lastnasme;
     private $isauthenticated;
     private $isadmin;
+    private $haspicture;
 
-    function __construct($id, $email, $firstname, $lastname, $isauthenticated, $isadmin)
+    function __construct($id = NULL, $email = '', $firstname = '', $lastname = '', $isauthenticated = FALSE, $isadmin = FALSE, $haspicture = FALSE)
     {
         $this->id = $id;
         $this->email = $email;
@@ -18,6 +19,7 @@ abstract class UserBase implements IUser
         $this->lastnasme = $lastname;
         $this->isauthenticated = $isauthenticated;
         $this->isadmin = $isadmin;
+        $this->haspicture = $haspicture;
     }
 
     public function is_authenticated()
@@ -53,6 +55,11 @@ abstract class UserBase implements IUser
     public function get_fullname()
     {
         return $this->firstname . ' ' . $this->lastnasme;
+    }
+
+    public function has_picture()
+    {
+        return $this->haspicture;
     }
 }
 

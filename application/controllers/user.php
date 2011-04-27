@@ -39,8 +39,6 @@ class User extends CI_Controller
         $this->template->load('user/signup');
     }
 
-
-    
     public function signupsuccess()
     {
         // Could make check that only people comming straight from signup is allowed to view this
@@ -49,16 +47,6 @@ class User extends CI_Controller
         
         $this->template->load('user/signup_success');
     }
-
-
-
-
-
-// Refactor authentication_helper
-// ResetPassword
-// Image / Upload Service + config
-// Fix DB
-
     
     public function login()
     {
@@ -93,7 +81,7 @@ class User extends CI_Controller
                         // Success
 
                         // Login
-                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname, $user->isadmin);
+                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname, $user->isadmin, $user->haspicture);
                         $this->authenticationservice->login($authUser);
 
                         // Set status message
@@ -123,31 +111,7 @@ class User extends CI_Controller
         // Redirect
         redirect(home_route());
     }
-
-
-
-
-    //***** IMPORTANT
-
-    // Lad IUserValidationInput arve fra IValidatable ?
-
-    // Så kan form_validation og resten drønes i model reelt ?
-    
-    // Metoder Create / Validate i UserModel skal så bare starte med at tjekke - if input->is_valid() - hvis ikke return false - hvis true forsæt ... lav så tjek og hvis problemer set fejl ...
-    
-    // Virker det også for Signup ? Hvad med login
-
-
-    // DB structure - columns og size/length
-    // passwordhash = 50 chars
-    // passwordsalt = 40 chars
-
-
-    // Put Input as suffix to all input models
-    // All db models is renamed to UserDb ? or UserRepository, or UserService (in libraries)
-    
-    
-    
+   
     public function validate($email = '', $code = '')
     {
         $viewdata = array();
@@ -157,7 +121,7 @@ class User extends CI_Controller
         if ($email != '')
             $_POST['email'] = urldecode($email);
         if ($code != '')
-            $_POST['validationcode'] = $code;             // also encode/decode this ?
+            $_POST['validationcode'] = $code;                               // also encode/decode this ?
 
         // Check if there is any post data
         if ($_POST)
@@ -184,9 +148,7 @@ class User extends CI_Controller
                     return redirect(login_route());
                 }
                 
-                $this->form_validation->add_error('validationcode', 'The validation code is invalid.');     // move to usermodel / repository / service - wrapper omkring ?
-                
-                //set_status_message('The validation code is invalid.', $viewdata);
+                $this->form_validation->add_error('validationcode', 'The validation code is invalid.');                     // move to usermodel / repository / service - wrapper omkring ?
             }
         }
         
@@ -194,6 +156,46 @@ class User extends CI_Controller
         
         $this->template->load('user/validate', $viewdata);
     }
+
+
+
+
+
+
+// Refactor authentication_helper
+// ResetPassword
+// Image / Upload Service + config
+// Fix DB
+// FIX SØG - pænere opstilling med billede navn , og interests etc ... kan også bruges til søg efter interesse ????
+
+// Admin del til profile / wall
+// Set title i alle views...
+    
+
+
+
+
+    //***** IMPORTANT
+
+    // Lad IUserValidationInput arve fra IValidatable ?
+
+    // Så kan form_validation og resten drønes i model reelt ?
+
+    // Metoder Create / Validate i UserModel skal så bare starte med at tjekke - if input->is_valid() - hvis ikke return false - hvis true forsæt ... lav så tjek og hvis problemer set fejl ...
+
+    // Virker det også for Signup ? Hvad med login
+
+
+    // DB structure - columns og size/length
+    // passwordhash = 50 chars
+    // passwordsalt = 40 chars
+
+
+    // Put Input as suffix to all input models
+    // All db models is renamed to UserDb ? or UserRepository, or UserService (in libraries)
+
+    
+
 
 
 
