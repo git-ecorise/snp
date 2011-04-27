@@ -34,13 +34,6 @@ div.section { margin: 0 auto; overflow: hidden; width: 950px; }
 #view span.error { color:#9c2d2d; padding-left:12px; }
 #view.right {  }
 
-textarea.status-field{ width: 500px; height: 40px; }
-.update-field { padding: 14px; border-bottom: 1px dotted #999; cursor: pointer;}
-.update-field:hover { background-color: #e3e1ec; }
-.update-field-left { float: left; width: 70px;}
-.update-field-right { float: left; width: auto;}
-.update-date {font-size: 0.7em; color: darkgrey;}
-
 #footer { background: #eeeeee url('/snp/content/gfx/footer.gif') repeat-x; border-top: 2px solid #c8c5d2; text-align: center; padding: 10px; color: #000000; }
 
 div#message-box {
@@ -54,3 +47,12 @@ div#message-box {
 /* Only for the search view - should go into a seperate css */
 #view ul.searchresult {}
 #view ul.searchresult li { margin-left:24px; padding:6px; }
+
+/*----------------profile wall----------------------------------------------*/
+textarea.status-field{ width: 500px; height: 40px; }
+.update-field { padding: 14px; border-bottom: 1px dotted #999; cursor: pointer;}
+.update-field:hover { background-color: #e3e1ec; }
+.update-field-left { float: left; width: 70px;}
+.update-field-right { float: left; width: auto;}
+.update-date {font-size: 0.7em; color: darkgrey;}
+/*--------------------------------------------------------------------------*/
