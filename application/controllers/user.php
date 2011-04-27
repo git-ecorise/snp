@@ -11,20 +11,20 @@ class User extends CI_Controller
         {
             // Post request
 
-            $this->load->model('input/UserSignUp');
+            $this->load->model('user/SignUpInput');
           
              // Check if input is valid
-            if ($this->UserSignUp->is_valid())
+            if ($this->SignUpInput->is_valid())
             {
                 // Success
 
                 // Insert into database
-                $this->load->model('db/UserModel');
-                $this->UserModel->create($this->UserSignUp);
+                $this->load->model('user/UserModel');
+                $this->UserModel->create($this->SignUpInput);
 
                 // Send signup email
                 $this->load->library('email/EmailService');
-                $this->emailservice->send_signup_email($this->UserSignUp);
+                $this->emailservice->send_signup_email($this->SignUpInput);
 
                 // Set status message
                 set_status_message('You have signed up!');
@@ -68,9 +68,9 @@ class User extends CI_Controller
         {
             // Post request
             
-            $this->load->model('input/UserLogin');
+            $this->load->model('user/LoginInput');
 
-            if ($this->UserLogin->is_valid())
+            if ($this->LoginInput->is_valid())
             {
                 // Success
 
@@ -92,8 +92,8 @@ class User extends CI_Controller
 
 
                 // Try to get the user by email
-                $this->load->model('db/UserModel');
-                $user = $this->UserModel->get_by_email($this->UserLogin->get_email());
+                $this->load->model('user/UserModel');
+                $user = $this->UserModel->get_by_email($this->LoginInput->get_email());
 
 
 
@@ -125,7 +125,7 @@ class User extends CI_Controller
                     
 
                     // Check the password - missing salt - create helper
-                    $inputpasswordhash = hash('sha256', $this->UserLogin->get_password());
+                    $inputpasswordhash = hash('sha256', $this->UserLogin->get_password());      // MiSSING SALT !!!!!!! load CryptoHelper
                     if ($inputpasswordhash === $user->passwordhash)
                     {
                         // Success
@@ -139,7 +139,7 @@ class User extends CI_Controller
                         }
 
                         // Login
-                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);          // Should really not happen here should it !? - remember is_admin
+                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);          // Should really not happen here should it !? - remember is_admin UserService ? - til VerifyCredentials og lav ICredentials ?
                         $this->authentication->login($authUser);
 
                         // Set status message
@@ -210,14 +210,14 @@ class User extends CI_Controller
         {
             // Post data is found
 
-            $this->load->model("input/UserValidation");
+            $this->load->model("user/ValidationInput");
 
             // Check if input is valid
-            if ($this->UserValidation->is_valid())
+            if ($this->ValidationInput->is_valid())
             {
                 // Try to validate
-                $this->load->model('db/UserModel');
-                $success = $this->UserModel->validate($this->UserValidation);
+                $this->load->model('user/UserModel');
+                $success = $this->UserModel->validate($this->ValidationInput);
 
                 if ($success)
                 {
@@ -230,7 +230,7 @@ class User extends CI_Controller
                     return redirect(login_route());
                 }
                 
-                $this->form_validation->add_error('validationcode', 'The validation code is invalid.');     // move to usermodel / repository / service
+                $this->form_validation->add_error('validationcode', 'The validation code is invalid.');     // move to usermodel / repository / service - wrapper omkring ?
                 
                 //set_status_message('The validation code is invalid.', $viewdata);
             }
@@ -274,6 +274,8 @@ class User extends CI_Controller
 
 
 
+
+    // Should not be part of the User Controller - move somewhere else ... Profile ? 
     public function search($name = '')
     {
         // Ensure user is authorized to view the page
@@ -283,16 +285,16 @@ class User extends CI_Controller
 
         if ($_POST)
         {
-            $this->load->model("input/UserSearch");
+            $this->load->model("user/SearchInput");
 
             // Validate form input
-            if ($this->UserSearch->is_valid())
+            if ($this->SearchInput->is_valid())
             {
                 // Success
 
                 // Search the database
-                $this->load->model('db/UserModel');
-                $result = $this->UserModel->get_all_by_name($this->UserSearch->get_name());     // Pass input model instead and use interface then it could be extended in the future
+                $this->load->model('user/UserModel');
+                $result = $this->UserModel->get_all_by_name($this->SearchInput->get_name());     // Pass input model instead and use interface then it could be extended in the future
 
                 // If any results found add to the viewdata
                 if ($result != null)
