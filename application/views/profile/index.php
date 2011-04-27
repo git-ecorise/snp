@@ -2,9 +2,7 @@
 $template_model->set_title('Profile');
 ?>
 <div id="profile-left">
-    <div id="profile-pic">
-        <img src=""
-    </div>
+    <?$this->load->view('');?>
 </div>
 <div id="profile-right">
     <div class="status-update">
