@@ -10,6 +10,11 @@ function signup_route()
     return site_url('user/signup');
 }
 
+function signup_success_route()
+{
+    return site_url('user/signupsuccess');
+}
+
 function login_route()
 {
     return site_url('user/login');
@@ -18,11 +23,6 @@ function login_route()
 function logout_route()
 {
     return site_url('user/logout');
-}
-
-function usersearch_route()
-{
-    return site_url('user/search');
 }
 
 function validate_route($email = '', $code = '')
@@ -38,9 +38,14 @@ function validate_route($email = '', $code = '')
     return site_url($segments);
 }
 
-function resetpassword_route($email = '', $code = '')
+function reset_password_route()
 {
-    $segments = array('user', 'resetpassword');
+    return site_url('user/resetpassword');
+}
+
+function change_password_route($email = '', $code ='')
+{
+    $segments = array('user', 'changepassword');
 
     if ($email != '' && $code != '')
     {
@@ -51,10 +56,13 @@ function resetpassword_route($email = '', $code = '')
     return site_url($segments);
 }
 
-function signup_success_route()
+
+
+function usersearch_route()
 {
-    return site_url('user/signupsuccess');
+    return site_url('user/search');
 }
+
 
 function my_profile_route()
 {
