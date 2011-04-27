@@ -20,9 +20,11 @@ class profile extends CI_Controller {
     {
         $this->load->model('StatusModel');
         $this->load->model('InterestUserModel');
+        $this->load->model('ProfileuserModel');
 
         $data['updates'] = $this->StatusModel->get_all();
         $data['interests'] = $this->InterestUserModel->user_interests_toString(get_user()->get_id());
+        $data['friends'] = $this->ProfileuserModel->get_all_user_friends(get_user()->get_id());
 
         $this->template->load('profile/index', $data);
     }
