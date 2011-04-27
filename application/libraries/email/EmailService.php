@@ -30,7 +30,7 @@ class EmailService implements IEmailService
         return $this->CI->email->send();
     }
     
-    public function send_signup_email(ISignUpEmailInput $input)
+    public function send_signup_email(ISignUpEmail $input)
     {
         $email = $input->get_email();
         $code = $input->get_validationcode();
@@ -43,7 +43,7 @@ class EmailService implements IEmailService
         $this->send_email($email, $subject, $html, $text);
     }
 
-    public function send_reset_password_email(IResetPasswordEmailInput $input)
+    public function send_reset_password_email(IResetPasswordEmail $input)
     {
         $email = $input->get_email();
         $code = $input->get_password_reset_code();
