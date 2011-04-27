@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once (APPPATH . 'models/InputBase.php');
 
-class UserSearch extends InputBase
+class SearchInput extends InputBase
 {
     // Private fields
     private $name;
