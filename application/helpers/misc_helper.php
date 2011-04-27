@@ -23,7 +23,7 @@ function set_status_message($message, Array &$arr = null)
     }
 }
 
-($string)
+function procesTags($string)
 {
     $tags = explode(',', $string);
     $interests = array();
