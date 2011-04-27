@@ -7,7 +7,7 @@
 </a>
 <div id="navigation">
     <ul>
-        <li><a href="<?= home_route() ?>">Profile</a></li>
+        <li><a href="<?= profile_route() ?>">Profile</a></li>
         <?if (!$user->is_authenticated()):?>
             <li><a href="<?= signup_route() ?>">Sign up</a></li>
             <li><a href="<?= login_route() ?>">Login</a></li>
