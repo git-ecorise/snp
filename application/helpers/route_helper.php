@@ -56,4 +56,54 @@ function signup_success_route()
     return site_url('user/signupsuccess');
 }
 
+function my_profile_route()
+{
+    return site_url('profile/index');
+}
+
+function upload_picture_route()
+{
+    return site_url('profile/uploadpicture');
+}
+
+function edit_profile_route()
+{
+    return site_url('profile/edit');
+}
+
+function profile_thumbnail_route($picture_url = '')
+{
+    return site_url('content/img/uploads/thumbs/'.$picture_url);
+}
+
+function reset_password_route()
+{
+    return site_url('user/resetpassword');
+}
+
+function reset_password_success_route()
+{
+    return site_url('user/resetsuccess');
+}
+
+function add_interests_route()
+{
+    return site_url('profile/interests');
+}
+
+function search_interests_route()
+{
+    return site_url('profile/searchinterests');
+}
+
+function add_as_friend_route($id)
+{
+    return site_url('profile/addfriend/'.$id);
+}
+
+function update_status_route()
+{
+    return site_url('home/update_status/');
+}
+
 ?>
