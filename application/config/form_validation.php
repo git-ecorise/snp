@@ -6,6 +6,8 @@ $passwordRule = 'required|min_length[5]';
 $nameRule = 'trim|required|min_length[3]|alpha_dash';
 $validationcodeRule = 'trim|required';
 $fullnameRule = 'trim|required|min_length[3]';
+$nonumbersRule = 'trim|';
+$zipRule = 'trim|numeric|max_length[4]|';
 
 $config = array(
              'signup' => array(
@@ -68,7 +70,35 @@ $config = array(
                                         'rules' => $validationcodeRule
                                      )
 
-                                )
+                                ),
+             'updateprofile' => array(
+                                array(
+                                        'field' => 'firstname',
+                                        'label' => 'Firstname',
+                                        'rules' => $nameRule
+                                     ),
+                                array(
+                                        'field' => 'lastname',
+                                        'label' => 'Lastname',
+                                        'rules' => $nameRule
+                                     ),
+                                array(
+                                        'field' => 'city',
+                                        'label' => 'City',
+                                        'rules' => $nonumbersRule
+                                     ),
+                                array(
+                                        'field' => 'country',
+                                        'label' => 'Country',
+                                        'rules' => $nonumbersRule
+                                     ),
+                                array(
+                                        'field' => 'zip',
+                                        'label' => 'Zip',
+                                        'rules' => $zipRule
+                                     )
+                                     )
+
             );
 
 ?>
