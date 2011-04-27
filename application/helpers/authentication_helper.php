@@ -21,8 +21,13 @@ function is_authenticated()
 
 
 
+
 function is_authorized()
 {
+    // Refactor to is_authenticated ... og fjern ovenover ...
+
+
+
     // Take Boolean for IsAdmin check ? eller Rename her og nedenunder til is_authenticated  ? og lav en is_admin() 
 
     // Currently just requires user is authenticated to be authroized
@@ -32,6 +37,9 @@ function is_authorized()
 
 function ensure_authorized()
 {
+    // Refactor - ensure_is_authenticated / ensure_authenticated
+
+
     if (!is_authorized())
     {
         $CI =& get_instance();

@@ -15,8 +15,11 @@
         <input type="password" name="password" value="" />
         <?= form_error('password'); ?>
     </div>
-    <p><a href="<?=reset_password_route()?>" class="forgot_password">Forgot your password?</a></p>
     <div class="input-submit">
         <input type="submit" value="Login" />
     </div>
 </form>
+
+<a href="<?= reset_password_route() ?>">Forgot your password?</a>
+<br />
+<a href="<?= validate_route() ?>">Validate email?</a>

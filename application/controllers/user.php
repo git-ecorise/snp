@@ -54,10 +54,10 @@ class User extends CI_Controller
 
 
 
-
-    // RESET PASSWORD !!!!!!!
-    // FIX DB
-
+// Refactor authentication_helper
+// ResetPassword
+// Image / Upload Service + config
+// Fix DB
 
     
     public function login()
@@ -77,60 +77,13 @@ class User extends CI_Controller
             {
                 // Success
 
-
-                // UserLogin->verify_credentials() ....
-                // Hvordan tjekker jeg om isactivated ? skal den så hente dataene ind på UserLogin modellen så de er tilgængelige der ? eller hvordan ?
-
-                // Fix også lige db når du nu er igang ... length på columns og navne ... samt opret nye tabeller ...
-
-                // Lav helper metode til signin istedet for at kode direkte her ... så kald og send iUserLogin med eller noget ... data objekt der indeholder nødvendige data for at sign in !?
-                // Skal også bruge userid - brug iUserLogin eller lav seperat objekt / interface til den del !? - interface ihvertfald iUser skal den have ind ? men hvor skal mapping ske?
-                // Ville være smart hvis en / et eller andet kunne spytte en iUser tilbage som har alt der skal bruges
-
-
-
-                // Fremgår det tydeligt nok at Validate validerer input !? is_valid_input eller validate_input istedet?
-
-                
-
-
                 // Try to get the user by email
                 $this->load->model('user/UserModel');
                 $user = $this->UserModel->get_by_email($this->LoginInput->get_email());
-
-
-
                 
-                // Need to seperate some stuff here... someday
-                // Put Logic for validating the email somewhere else - right now logic for generating password is put in UserSignUp so could put check in UserLogin but it doesnt feel right
-                // Maybe create a helper somewhere that can be used for both generating the password and for checking - would be the right thing to do... 
-
-
-
-                
-                // Check if user was found
-                if ($user != null)
+                // Check if user was found                                          // NOT REALLY NEEDED !?!??!?!?!
+                if ($user != NULL)
                 {
-
-                    // Replace this - should use the user->validate_credentials() ...
-                    // could create interface that contains function for validate/verify/check _credentials
-                    // create service that login/authenticate any object containing the verify_credentials - if it returns true do the stuff...
-
-                    // checking if user is activated really isnt logic that should be here ...
-
-
-                    // Some service that can consume the userLogin and tell it is okay ...
-                    // the logic probably shouldnt be in the model ... then logic for logging in isnt keept in one place
-
-                    // authentication should take iUser / some model / entity that contains the needed data for logging in
-
-                    // create the db as entities and make it pssoble to return the entities in the model ?
-
-
-                    // Check email eksisterer?
-                    // Tilføj fejl som rød tekst istedet for stor popup ?
-
-
                     // Verify credentials
                     $this->load->helper('crypto');
                     $isvalidcredentials = verify_hash($user->passwordhash, $this->LoginInput->get_password(), $user->passwordsalt);
@@ -138,14 +91,6 @@ class User extends CI_Controller
                     if ($isvalidcredentials)
                     {
                         // Success
-
-                        // Check if already activated
-                        if (!$user->isvalidated)                            // works directly on result !?
-                        {
-                            // Set status message and redirect
-                            set_status_message('Please validate your email.');
-                            return redirect(validate_route());
-                        }
 
                         // Login
                         $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname, $user->isadmin);
@@ -155,7 +100,7 @@ class User extends CI_Controller
                         set_status_message('You have been logged in!');
 
                         // Redirct - returns immediatly
-                        return redirect(usersearch_route());        // Should go to the wall /profile/
+                        return redirect(usersearch_route());                   // Should go to the wall /profile/
                     }
                 }
 

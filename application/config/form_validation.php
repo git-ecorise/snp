@@ -42,7 +42,7 @@ $config = array(
                                 array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule
+                                        'rules' => $emailRule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]|callback_email_validated[model={user/UserModel}, message={The %s is not validated.}]"
                                      ),
                                 array(
                                         'field' => 'password',
