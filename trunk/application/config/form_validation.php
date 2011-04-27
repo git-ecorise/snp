@@ -12,7 +12,7 @@ $config = array(
                                 array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule . '|callback_is_unique_email[model={db/UserModel}, message={The %s is already signed up.}]'
+                                        'rules' => $emailRule . '|callback_is_unique_email[model={user/UserModel}, message={The %s is already signed up.}]'
                                      ),
                                 array(
                                         'field' => 'password',
@@ -60,7 +60,7 @@ $config = array(
                                 array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule . "|callback_email_exist[model={db/UserModel}, message={The %s does not exist.}]|callback_email_not_validated[model={db/UserModel}, message={The %s is already validated.}]"
+                                        'rules' => $emailRule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]|callback_email_not_validated[model={user/UserModel}, message={The %s is already validated.}]"
                                      ),
                                 array(
                                         'field' => 'validationcode',
