@@ -1,49 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once 'IUser.php';
+require_once 'UserBase.php';
 
-class AuthenticatedUser implements IUser
+class AuthenticatedUser Extends UserBase
 {
-    private $id;
-    private $email;
-    private $firstname;
-    private $lastnasme;
-
-    function __construct($id, $email, $firstname, $lastname)
+    function __construct($id, $email, $firstname, $lastname, $isadmin = FALSE)
     {
-        $this->id = $id;
-        $this->email = $email;
-        $this->firstname = $firstname;
-        $this->lastnasme = $lastname;
-    }
-
-    public function is_authenticated()
-    {
-        return true;
-    }
-
-    public function get_id()
-    {
-        return $this->id;
-    }
-
-    public function get_email()
-    {
-        return $this->email;
-    }
-
-    public function get_firstname()
-    {
-        return $this->firstname;
-    }
-
-    public function get_lastname()
-    {
-        return $this->lastname();
-    }
-
-    public function get_fullname()
-    {
-        return $this->firstname . ' ' . $this->lastnasme;
+        parent::__construct($id, $email, $firstname, $lastname, TRUE, $isadmin);
     }
 }
 

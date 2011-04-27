@@ -30,7 +30,7 @@ class User extends CI_Controller
                 set_status_message('You have signed up!');
 
                 // Redirct
-                return redirect(signup_success_route());
+                return redirect(signup_success_route());            // Login ?
             }
         }
 
@@ -54,6 +54,9 @@ class User extends CI_Controller
 
 
 
+
+    // RESET PASSWORD !!!!!!!
+    // FIX DB
 
 
     
@@ -137,7 +140,7 @@ class User extends CI_Controller
                         // Success
 
                         // Check if already activated
-                        if (!$user->isvalidated)                // works directly on result !?
+                        if (!$user->isvalidated)                            // works directly on result !?
                         {
                             // Set status message and redirect
                             set_status_message('Please validate your email.');
@@ -145,7 +148,7 @@ class User extends CI_Controller
                         }
 
                         // Login
-                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);          // Should really not happen here should it !? - remember is_admin UserService ? - til VerifyCredentials og lav ICredentials ?
+                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname, $user->isadmin);
                         $this->authenticationservice->login($authUser);
 
                         // Set status message

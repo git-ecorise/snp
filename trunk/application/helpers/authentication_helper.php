@@ -8,8 +8,23 @@ function get_user()
     return $CI->authenticationservice->get_user();
 }
 
+function is_admin()
+{
+    return get_user()->is_admin();
+}
+
+function is_authenticated()
+{
+    return get_user()->is_authenticated();
+}
+
+
+
+
 function is_authorized()
 {
+    // Take Boolean for IsAdmin check ? eller Rename her og nedenunder til is_authenticated  ? og lav en is_admin() 
+
     // Currently just requires user is authenticated to be authroized
     $user = get_user();
     return $user->is_authenticated();
