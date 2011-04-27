@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'session', 'form_validation', 'authen
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'route', 'content', 'authentication', 'misc');   // form helper is automatically included when form_validation library is included
+$autoload['helper'] = array('url', 'route', 'content', 'authentication', 'misc', 'thumbnail');
 
 
 /*
