@@ -35,7 +35,7 @@ class interests extends CI_Controller{
         $data['action'] = add_interests_route();
         $data['submit_value'] = "Save";
         //default fallback
-        $this->template->load('profile/addInterestView', $data);
+        $this->template->load('settings/addInterestView', $data);
     }
 
     public function searchinterests()
@@ -62,7 +62,7 @@ class interests extends CI_Controller{
         $data['submit_value'] = "Search";
 
         //default fallback
-        $this->template->load('profile/searchInterestView', $data);
+        $this->template->load('settings/searchInterestView', $data);
 
     }
 
