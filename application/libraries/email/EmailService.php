@@ -30,11 +30,8 @@ class EmailService implements IEmailService
         return $this->CI->email->send();
     }
     
-    public function send_signup_email(ISignUpEmail $input)
+    public function send_signup_email($email, $code)
     {
-        $email = $input->get_email();
-        $code = $input->get_validationcode();
-        
         $subject = 'Validate your email';
         $html = 'Thanks for signing up.<br />Your validation code is: ' . $code . '<br /><br /><a href="' . validate_route($email, $code) . '">Click here</a> to automatically validate your email.';
         $text = 'Thanks for signing up.\r\nYour validation code is:' . $code;
@@ -43,11 +40,8 @@ class EmailService implements IEmailService
         $this->send_email($email, $subject, $html, $text);
     }
 
-    public function send_reset_password_email(IResetPasswordEmail $input)
+    public function send_reset_password_email($email, $code)
     {
-        $email = $input->get_email();
-        $code = $input->get_password_reset_code();
-
         $subject = 'Reset Password';
         $html = 'You have requested to reset your password.<br />Your reset code is: ' . $code . '<br /><br /><a href="' . resetpassword_route($email, $code) . '">Click here</a> to automatically reset your password.';
         $text = 'You have requested to reset your password.\r\nYour reset code is:' . $code;
