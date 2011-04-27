@@ -3,9 +3,10 @@
 // Shared rules
 $emailRule = 'trim|required|valid_email';
 $passwordRule = 'required|min_length[5]';
-$nameRule = 'trim|required|min_length[3]|alpha_dash';
+$nameRule = 'trim|required|alpha_dash';
 $validationcodeRule = 'trim|required';
-$fullnameRule = 'trim|required|min_length[3]';
+$fullnameRule = 'trim|required';
+
 $nonumbersRule = 'trim|';
 $zipRule = 'trim|numeric|max_length[4]|';
 
@@ -50,13 +51,6 @@ $config = array(
                                         'rules' => $passwordRule
                                      )
                                 ),
-             'search' => array(
-                                array(
-                                        'field' => 'name',
-                                        'label' => 'Name',
-                                        'rules' => $fullnameRule
-                                     )
-                                ),
 
              'validate' => array(
                                 array(
@@ -69,8 +63,24 @@ $config = array(
                                         'label' => 'Validation Code',
                                         'rules' => $validationcodeRule
                                      )
-
                                 ),
+
+             'resetpassword' => array(
+                                array(
+                                        'field' => 'email',
+                                        'label' => 'Email',
+                                        'rules' => $emailRule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]"
+                                     )
+                                ),
+
+             'search' => array(
+                                array(
+                                        'field' => 'name',
+                                        'label' => 'Name',
+                                        'rules' => $fullnameRule
+                                     )
+                                ),
+
              'updateprofile' => array(
                                 array(
                                         'field' => 'firstname',
