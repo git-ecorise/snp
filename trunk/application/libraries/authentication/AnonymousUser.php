@@ -5,7 +5,7 @@ class AnonymousUser extends UserBase
 {
     function __construct()
     {
-        parent::__construct(0, '', '', '', FALSE, FALSE);
+        parent::__construct();
     }
 }
 
