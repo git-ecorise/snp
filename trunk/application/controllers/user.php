@@ -124,6 +124,10 @@ class User extends CI_Controller
                     // create the db as entities and make it pssoble to return the entities in the model ?
 
 
+                    // Check email eksisterer?
+                    // Tilføj fejl som rød tekst istedet for stor popup ?
+
+
                     // Verify credentials
                     $this->load->helper('crypto');
                     $isvalidcredentials = verify_hash($user->passwordhash, $this->LoginInput->get_password(), $user->passwordsalt);
@@ -142,7 +146,7 @@ class User extends CI_Controller
 
                         // Login
                         $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname);          // Should really not happen here should it !? - remember is_admin UserService ? - til VerifyCredentials og lav ICredentials ?
-                        $this->authentication->login($authUser);
+                        $this->authenticationservice->login($authUser);
 
                         // Set status message
                         set_status_message('You have been logged in!');
@@ -165,9 +169,9 @@ class User extends CI_Controller
     public function logout()
     {
         // Logout
-        $this->authentication->logout();
+        $this->authenticationservice->logout();
         // Set status message
-        set_status_message('status', 'You have been logged out!');
+        set_status_message('You have been logged out!');
         // Redirect
         redirect(home_route());
     }
