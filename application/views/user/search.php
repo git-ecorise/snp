@@ -27,7 +27,11 @@ if (isset($result))
     foreach ($result as $row)
     {
     ?>
-        <li><?= $row->firstname . ' ' . $row->lastname ?></li>
+    <li><?= $row->firstname . ' ' . $row->lastname ?>
+    <?if(!is_friend($row->id)):?>
+        <a href="<?= add_as_friend_route($row->id)?>">add as friend</a>
+    <?endif;?>
+    </li>
     <?
     }
     ?>
@@ -35,3 +39,4 @@ if (isset($result))
 <?
 }
 ?>
+<a href="<?= search_interests_route();?>">Find friends with common interests</a>
