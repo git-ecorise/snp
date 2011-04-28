@@ -8,7 +8,7 @@
 
 <ul>
     <li>
-        <a href="<?= edit_profile_route() ?>">Edit Profile Information</a>
+        <a href="<?= settings_edit_route() ?>">Edit Profile Information</a>
     </li>
     
     <li>
@@ -16,15 +16,11 @@
     </li>
     
     <li>
-        <a href="<?= reset_password_route() ?>">Reset Password ------- AUTOMATICALLY REQUEST RESET ? IF ALREDAY LOGGED IN?</a>
+        <a href="<?= reset_password_route() ?>">Reset Password ------- Virker lige nu med reset code for user der ikke er logged ind - fix hvis logged in user skal kunne bruge det</a>
     </li>
 
     <li>
-        <a href="<??>">Manage Interests</a>
-    </li>
-    
-    <li>
-        <a href="<?= edit_interests_route() ?>">Edit Interests</a>
+        <a href="<?= interests_edit_route() ?>">Manage Interests</a>
     </li>
 
     <li>
@@ -32,11 +28,6 @@
     </li>
     
     <li>
-        <a href="<?= search_interests_route() ?>">Find Friends by interest</a>
+        <a href="<?= interests_search_route() ?>">Find Friends by interest</a>
     </li>
-
-
-
-    <li><?=anchor('interests/index', 'Interests');?></li>
-    <li><?=anchor('friends/index', 'See Friends');?></li>
 </ul>

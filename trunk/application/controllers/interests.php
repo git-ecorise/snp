@@ -12,9 +12,6 @@ class interests extends CI_Controller
 
     public function index()
     {
-        // Burde hedde Edit ? /interests/edit ?
-
-
         if($_POST)
         {
             //TODO: add input validation
@@ -39,7 +36,7 @@ class interests extends CI_Controller
 
         $this->load->model('InterestUserModel');
         $data['interests'] = $this->InterestUserModel->user_interests_toString(get_user()->get_id());
-        $data['action'] = edit_interests_route();
+        $data['action'] = interests_edit_route();
         $data['submit_value'] = "Save";
 
         //default fallback
@@ -65,9 +62,10 @@ class interests extends CI_Controller
 
             $data['friends'] = $friends;
         }
+        
         //set action method for form in partial view
-        $data['action'] = search_interests_route();
-        $data['submit_value'] = "Search";
+        $data['action'] = interests_search_route();             // ikke nødvendig er det ? partial og view kan ligges sammen
+        $data['submit_value'] = "Search";                       // det samme her - bruges det flere steder?
 
         //default fallback
         $this->template->load('settings/searchInterestView', $data);
