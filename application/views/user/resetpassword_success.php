@@ -2,7 +2,7 @@
     $template_model->set_title('Reset Password - Success');
 ?>
 
-<h1>Password reset code have been sent by email</h1>
+<h1>We have send you an email</h1>
 <div>
     We have sent you an email with the reset code needed to reset your password.
     <br />

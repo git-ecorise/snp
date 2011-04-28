@@ -46,8 +46,6 @@ class SignUpInput extends InputBase implements ISignUpInput
         return $this->lastname;
     }
 
-    // Flyt så den laves i db ? og kan sættes ?
-
     public function get_validationcode()
     {
         return $this->validationcode != null ? $this->validationcode : ($this->validationcode = generate_randomcode(20));

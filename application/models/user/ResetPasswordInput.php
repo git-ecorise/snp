@@ -25,7 +25,7 @@ class ResetPasswordInput extends InputBase implements IResetPasswordInput
         return $this->email;
     }
 
-    public function get_reset_code()
+    public function get_resetcode()
     {
         return $this->resetcode != null ? $this->resetcode : ($this->resetcode = generate_randomcode(20));
     }

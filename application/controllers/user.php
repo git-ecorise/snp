@@ -243,6 +243,11 @@ class User extends CI_Controller
         $this->template->load('user/resetpassword');
     }
 
+    public function resetpasswordsuccess()
+    {
+        $this->template->load('user/resetpassword_success');
+    }
+
     public function changepassword($email = '', $code = '')
     {
         // If get request with email/code parameters treat it like a post

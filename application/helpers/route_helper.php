@@ -45,7 +45,7 @@ function reset_password_route()
 
 function reset_password_success_route()
 {
-    return site_url('user/resetsuccess');               // BEHOLD !?!?!?!?!???! eller bare redirect direkte til changepassword og brug status message ?
+    return site_url('user/resetpasswordsuccess');           // Behold eller redirect direkte ?
 }
 
 function change_password_route($email = '', $code ='')
