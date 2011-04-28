@@ -103,9 +103,7 @@ class UserModel extends CI_Model implements IUserModel
         // Search all by name - alle lige gyldig om venner eller ej ? 
 
 
-        // Improve this - look at active record - like
-        // Always look up from the start of the word ? or match anywhere in the name?
-
+        
         // Split all by space
         $names = explode(' ', $fullname);
 
@@ -116,7 +114,11 @@ class UserModel extends CI_Model implements IUserModel
             $this->db->or_like('LOWER(lastname)', strtolower($name));
         }
 
+        // Should be validated
         $this->db->where('isvalidated', TRUE);
+        // Should not be yourself (logged in user)
+        $this->db->where('id !=', get_user()->get_id());
+
         $query = $this->db->get('users');
 
         return $query->result();

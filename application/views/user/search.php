@@ -40,4 +40,8 @@ if (isset($result))
 <?
 }
 ?>
+<br />
+<br />
 <a href="<?= interests_search_route(); ?>">Find friends with common interests</a>
+<br />
+<br />
