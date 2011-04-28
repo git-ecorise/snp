@@ -58,7 +58,7 @@ class InterestUserModel extends CI_Model{
             if(!in_array($value['value'], $new_interests))
             {
                 //delete from db
-                $this->db->delete('userinterests', array('userid' => $user_id, 'interestsid'=> $value['interestsid']));
+                $this->db->delete('userinterests', array('userid' => $user_id, 'interestid'=> $value['interestsid']));
             }
         }
     }
@@ -71,7 +71,7 @@ class InterestUserModel extends CI_Model{
             //prepare data for insert
             $data = array(
                 'userid' => $user_id,
-                'interestsid' => $interest_id
+                'interestid' => $interest_id
             );
             //add interest into db for user
             $this->db->insert('userinterests', $data);
@@ -80,7 +80,7 @@ class InterestUserModel extends CI_Model{
 
     public function is_interest_added_for_user($interest_id, $user_id)
     {
-        return $this->db->get_where('userinterests', array('userid'=>$user_id, 'interestsid'=>$interest_id))->num_rows() > 0;
+        return $this->db->get_where('userinterests', array('userid'=>$user_id, 'interestid'=>$interest_id))->num_rows() > 0;
     }
 
     public function get_interest_by_value($value)
@@ -99,7 +99,7 @@ class InterestUserModel extends CI_Model{
         $this->db->select('*');
         $this->db->from('userinterests');
         $this->db->where('userid',$user_id);
-        $this->db->join('interests','interests.id = userinterests.interestsid','left');
+        $this->db->join('interests','interests.id = userinterests.interestid','left');
         $query = $this->db->get();
 
         return $query->result_array();
@@ -133,7 +133,7 @@ class InterestUserModel extends CI_Model{
         $interest = $this->get_interest_by_term($term);
 
         //get all maching userids
-        $query = $this->db->get_where('userinterests', array('interestsid'=>$interest->id));
+        $query = $this->db->get_where('userinterests', array('interestid'=>$interest->id));
         $result = $query->row_array();
         $users = array();
         $this->load->model('user/UserModel');
