@@ -16,7 +16,7 @@ class SearchInput extends InputBase
 
     public function get_name()
     {
-        return $this->email;
+        return $this->name;
     }
 }
 

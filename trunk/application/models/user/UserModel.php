@@ -87,12 +87,22 @@ class UserModel extends CI_Model implements IUserModel
 
 
 
+    public function search_friends($fullname)
+    {
+        // Søg efter folk der ikke allerede er venner
+    }
+
+    
+
     // Rename to search_by_name ? eller bare search ? - skal også være en search_by_interests
 
     // Flyt til egen search model ... eller SearchRepository...
 
     public function get_all_by_name($fullname)
     {
+        // Search all by name - alle lige gyldig om venner eller ej ? 
+
+
         // Improve this - look at active record - like
         // Always look up from the start of the word ? or match anywhere in the name?
 

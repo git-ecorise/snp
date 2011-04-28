@@ -45,6 +45,9 @@ class interests extends CI_Controller
 
     public function searchinterests()
     {
+        // Husk skal ikke inkluderer en selv i søgningen
+
+
         if($_POST)
         {
             //get input from form

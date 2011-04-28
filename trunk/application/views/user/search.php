@@ -21,16 +21,17 @@
 if (isset($result))
 {
 ?>
-<h2>Results</h2>
+<h3>Results</h3>
 <ul class="searchresult">
     <?
     foreach ($result as $row)
     {
     ?>
-    <li><?= $row->firstname . ' ' . $row->lastname ?>
-    <?if(!is_friend($row->id)):?>
-        <a href="<?= add_as_friend_route($row->id)?>">add as friend</a>
-    <?endif;?>
+    <li>
+        <?= $row->firstname . ' ' . $row->lastname ?>
+        <?if(!is_friend($row->id)):?>                                                   <!-- Nødvendig ? skal resultat ikke kun inkluderer folk der ikke allerede er venner ? -->
+            <a href="<?= friends_add_route($row->id) ?>">add as friend</a>
+        <? endif; ?>
     </li>
     <?
     }
@@ -39,4 +40,4 @@ if (isset($result))
 <?
 }
 ?>
-<a href="<?= search_interests_route();?>">Find friends with common interests</a>
+<a href="<?= interests_search_route(); ?>">Find friends with common interests</a>
