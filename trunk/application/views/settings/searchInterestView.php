@@ -1,3 +1,7 @@
+<?
+    $template_model->set_title('Search interests');
+?>
+
 <h3>Find friends with common interests</h3>
 <?php
 $this->load->view('settings/_interestpartial');

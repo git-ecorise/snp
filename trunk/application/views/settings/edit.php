@@ -1,3 +1,7 @@
+<?
+    $template_model->set_title('Edit profile');
+?>
+
 <div class="left">
     <form action="<?=  edit_profile_route();?>" method="POST">
     <div class="input">
