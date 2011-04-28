@@ -32,7 +32,7 @@ class EmailService implements IEmailService
     
     public function send_signup_email($email, $code)
     {
-        $subject = 'Validate your email';
+        $subject = 'Validate Email';
         $html = 'Thanks for signing up.<br />Your validation code is: ' . $code . '<br /><br /><a href="' . validate_route($email, $code) . '">Click here</a> to automatically validate your email.';
         $text = 'Thanks for signing up.\r\nYour validation code is:' . $code;
 
@@ -43,7 +43,7 @@ class EmailService implements IEmailService
     public function send_reset_password_email($email, $code)
     {
         $subject = 'Reset Password';
-        $html = 'You have requested to reset your password.<br />Your reset code is: ' . $code . '<br /><br /><a href="' . resetpassword_route($email, $code) . '">Click here</a> to automatically reset your password.';
+        $html = 'You have requested to reset your password.<br />Your reset code is: ' . $code . '<br /><br /><a href="' . change_password_route($email, $code) . '">Click here</a> to automatically reset your password.';
         $text = 'You have requested to reset your password.\r\nYour reset code is:' . $code;
 
         // Send the email

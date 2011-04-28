@@ -20,17 +20,17 @@ function profile_image($id)
     return image_content($id . '/profile.jpg');
 }
 
-function select_thumbnail_image($id, $haspicture)        // navn ?
+function select_thumbnail_image($id, $hasimage)
 {
-    if ($haspicture)
+    if ($hasimage)
         return thumbnail_image($id);
     else
         return thumbnail_default_image();
 }
 
-function select_profile_image($id, $haspicture)        // navn ?
+function select_profile_image($id, $hasimage)
 {
-    if ($haspicture)
+    if ($hasimage)
         return profile_image($id);
     else
         return profile_default_image ();

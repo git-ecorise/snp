@@ -2,11 +2,6 @@
 require_once (APPPATH . 'models/InputBase.php');
 require_once 'ISignUpInput.php';
 
-// Change database
-    // Password = 50 chars ?
-    // Salt = 40 chars ?
-    // ValidationCode = 20 chars ?
-
 class SignUpInput extends InputBase implements ISignUpInput
 {
     // Private fields
@@ -50,6 +45,8 @@ class SignUpInput extends InputBase implements ISignUpInput
     {
         return $this->lastname;
     }
+
+    // Flyt så den laves i db ? og kan sættes ?
 
     public function get_validationcode()
     {
