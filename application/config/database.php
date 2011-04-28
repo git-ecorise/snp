@@ -42,9 +42,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'ec2-46-137-99-126.eu-west-1.compute.amazonaws.com:3008';
-$db['default']['username'] = 'socialproject';
-$db['default']['password'] = 'carlsagangroup';
-$db['default']['database'] = 'socialnetworkdb';
+$db['default']['username'] = 'thesocialnetwork';
+$db['default']['password'] = 'carlsagan';
+$db['default']['database'] = 'thesocialnetwork';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
