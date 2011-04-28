@@ -18,29 +18,9 @@ function is_authenticated()
     return get_user()->is_authenticated();
 }
 
-
-
-
-
-function is_authorized()
+function ensure_authenticated()
 {
-    // Refactor to is_authenticated ... og fjern ovenover ...
-
-
-
-    // Take Boolean for IsAdmin check ? eller Rename her og nedenunder til is_authenticated  ? og lav en is_admin() 
-
-    // Currently just requires user is authenticated to be authroized
-    $user = get_user();
-    return $user->is_authenticated();
-}
-
-function ensure_authorized()
-{
-    // Refactor - ensure_is_authenticated / ensure_authenticated
-
-
-    if (!is_authorized())
+    if (!is_authenticated())
     {
         $CI =& get_instance();
         $CI->session->set_flashdata('status', 'You are not allowed to view the page. Please login.');

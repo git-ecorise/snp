@@ -247,7 +247,7 @@ class User extends CI_Controller
     public function search($name = '')
     {
         // Ensure user is authorized to view the page
-        ensure_authorized();                            // ensure_authenticated ?
+        ensure_authenticated();
 
         $viewdata = array();
 
