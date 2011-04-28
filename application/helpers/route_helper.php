@@ -43,6 +43,11 @@ function reset_password_route()
     return site_url('user/resetpassword');
 }
 
+function reset_password_success_route()
+{
+    return site_url('user/resetsuccess');               // BEHOLD !?!?!?!?!???! eller bare redirect direkte til changepassword og brug status message ?
+}
+
 function change_password_route($email = '', $code ='')
 {
     $segments = array('user', 'changepassword');
@@ -91,11 +96,6 @@ function edit_profile_route()
 function profile_thumbnail_route($picture_url = '')
 {
     return site_url('content/img/uploads/thumbs/'.$picture_url);
-}
-
-function reset_password_success_route()
-{
-    return site_url('user/resetsuccess');
 }
 
 function add_interests_route()

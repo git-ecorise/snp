@@ -68,15 +68,35 @@ class UserModel extends CI_Model implements IUserModel
         // passwordresetcode in db - 20 chars (NOT VARCHAR!)
 
         $this->db->where('email', $input->get_email());
-        $this->db->update('user', array('passwordresetcode' => $input->get_reset_code()));
+        $this->db->update('user', array('passwordresetcode' => $input->get_resetcode()));
 
         return $this->db->affected_rows() > 0;
     }
 
+    public function change_password(IChangePasswordInput $input)
+    {
 
 
 
-    
+        // Opdater passwordhash og passwordsalt (samt resetcode = null)
+
+
+        
+        // Prepare data
+        $this->load->helper('crypto');
+        $passwordsalt = generate_salt();
+        $passwordhash = generate_hash($input->get_password(), $passwordsalt);
+
+        $this->db->where('email', $input->get_email());
+        $this->db->where('passwordresetcode', $input->get_resetcode());
+
+        $this->db->update('user', array('passwordresetcode' => NULL));  // + HASH OG SALT !
+
+        return $this->db->affected_rows() > 0;
+
+    }
+
+
 
     public function get_by_email($email)
     {
