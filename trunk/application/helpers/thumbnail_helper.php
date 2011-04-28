@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 function profile_thumbnail($picture_url)
 {
     //set default picture
@@ -23,4 +24,5 @@ function profile_thumbnail($picture_url)
         }
     }
 }
+
 ?>
