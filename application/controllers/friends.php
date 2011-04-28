@@ -20,15 +20,17 @@ class friends extends CI_Controller
         $this->template->load('settings/friends', $data);
     }
 
-    public function addfriend($id)
+    public function add($id)
     {
+        // Check id ikke er sig selv ?
+
         $this->load->model('ProfileUserModel');
         $this->ProfileUserModel->add_friend($id, get_user()->get_id());
 
         // Set status message
         set_status_message('Friend have been added');
 
-        return redirect('friends/');
+        return redirect('friends');
     }
 
 

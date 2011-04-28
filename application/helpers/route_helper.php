@@ -105,6 +105,11 @@ function friends_route()
     return site_url('friends');
 }
 
+function friends_add_route($id)
+{
+    return site_url('friends/add/'.$id);
+}
+
 
 
 
@@ -141,10 +146,6 @@ function profile_thumbnail_route($picture_url = '')
 
 
 
-function add_as_friend_route($id)           // friends_add_route ?
-{
-    return site_url('friends/addfriend/'.$id);
-}
 
 function update_status_route()
 {
