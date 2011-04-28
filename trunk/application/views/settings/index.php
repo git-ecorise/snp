@@ -5,6 +5,7 @@
 <h1>Settings</h1>
 <br />
 <h2>Your have the following options:</h2>
+
 <ul>
     <li>
         <a href="<?= edit_profile_route() ?>">Edit Profile Information</a>
