@@ -41,7 +41,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'ec2-46-137-99-126.eu-west-1.compute.amazonaws.com:3008';
+$db['default']['hostname'] = 'ec2-46-137-99-127.eu-west-1.compute.amazonaws.com:3080';
 $db['default']['username'] = 'thesocialnetwork';
 $db['default']['password'] = 'carlsagan';
 $db['default']['database'] = 'thesocialnetwork';
