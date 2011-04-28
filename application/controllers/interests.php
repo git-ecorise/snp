@@ -41,6 +41,7 @@ class interests extends CI_Controller
         $data['interests'] = $this->InterestUserModel->user_interests_toString(get_user()->get_id());
         $data['action'] = edit_interests_route();
         $data['submit_value'] = "Save";
+
         //default fallback
         $this->template->load('settings/addInterestView', $data);
     }
@@ -77,6 +78,7 @@ class interests extends CI_Controller
     {
         $this->load->model('InterestUserModel');
         $result = $this->InterestUserModel->search_interests_by_term($term);
+        
         return print json_encode($result);
     }
 }

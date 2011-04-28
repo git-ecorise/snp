@@ -28,7 +28,7 @@
     </li>
 
     <li>
-        <a href="<? ?>">Manage Friends</a>
+        <a href="<?= friends_route() ?>">Manage Friends</a>
     </li>
     
     <li>
