@@ -154,59 +154,6 @@ class User extends CI_Controller
         
         $this->template->load('user/validate');
     }
-
-
-
-
-    // TEST AT RESET CODE OG CHANGE PASSWORD VIRKER EFTER HENSIGTEN ... FÆRDIG
-    // REFACTOR ...
-
-    // FIX SØG ...
-
-    // IS ADMIN DEL TIL LAYOUT - SÅ ADMIN KAN RESETTE PASSWORD (Skal bare kalde resetpassword metoden med brugerens email)
-    // Samt sende over til Update profile hvor der skal tests på om man er authenticated bruger som profilen tilhører eller admin ....
-
-    // Det er vigtigt at der er sikkerheds tjek på om det id man prøver at opdaterer hænger sammen med det ID man er signed ind som ... LAV HELPER
-
-
-
-    
-
-
-// Refactor authentication_helper
-// ResetPassword
-// Image / Upload Service + config
-// Fix DB
-// FIX SØG - pænere opstilling med billede navn , og interests etc ... kan også bruges til søg efter interesse ????
-
-// Admin del til profile / wall
-// Set title i alle views...
-    
-
-
-//***** IMPORTANT
-
-// Lad IUserValidationInput arve fra IValidatable ?
-
-// Så kan form_validation og resten drønes i model reelt ?
-
-// Metoder Create / Validate i UserModel skal så bare starte med at tjekke - if input->is_valid() - hvis ikke return false - hvis true forsæt ... lav så tjek og hvis problemer set fejl ...
-
-// Virker det også for Signup ? Hvad med login
-
-
-    
-// DB structure - columns og size/length
-// passwordhash = 50 chars
-// passwordsalt = 40 chars
-
-// Put Input as suffix to all input models
-// All db models is renamed to UserDb ? or UserRepository, or UserService (in libraries)
-
-
-
-
-
     
     public function resetpassword()
     {
