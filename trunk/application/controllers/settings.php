@@ -127,9 +127,7 @@ class settings extends CI_Controller
 
             //default fallback
             $this->template->load('settings/edit', $viewdata);
-   
     }
-
 }
 
 ?>

@@ -5,13 +5,16 @@ class interests extends CI_Controller
     function  __construct()
     {
         parent::__construct();
+
+        // Make sure user is authorized - all actions
+        ensure_authenticated();
     }
 
     public function index()
     {
-        // Make sure user is authorized to view the page
-        ensure_authenticated();
-        
+        // Burde hedde Edit ? /interests/edit ?
+
+
         if($_POST)
         {
             //TODO: add input validation
@@ -27,9 +30,9 @@ class interests extends CI_Controller
             $this->load->Model('InterestUserModel');
             $this->InterestUserModel->update_interests($interests, get_user()->get_id());
 
-            //set flashdata message
-            $this->session->set_flashdata('status', 'Your interests have been saved<br/>');
-
+            // Set status message
+            set_status_message('Your interests have been saved');
+    
             //redirect to profile main page
             return redirect(settings_route());
         }
@@ -44,9 +47,6 @@ class interests extends CI_Controller
 
     public function searchinterests()
     {
-        // Make sure the user is authorized to view the page
-        ensure_authenticated();
-
         if($_POST)
         {
             //get input from form

@@ -5,6 +5,9 @@ class friends extends CI_Controller
     function  __construct()
     {
         parent::__construct();
+
+        // Make sure the user is authorized - all actions
+        ensure_authenticated();
     }
 
     public function index()
@@ -22,14 +25,19 @@ class friends extends CI_Controller
         $this->load->model('ProfileUserModel');
         $this->ProfileUserModel->add_friend($id, get_user()->get_id());
 
-        //set flashdata
-        $this->session->set_flashdata('status', 'friend has been added');
+        // Set status message
+        set_status_message('Friend have been added');
 
-        return redirect('friends/index');
+        return redirect('friends/');
     }
 
+
+    
     public function friends()
     {
+        // Hvad er forskellen på denne og index () !?!??!?!?! slet ?
+
+
         //get all friends for logged_in user
         $this->load->model('ProfileUserModel');
 
