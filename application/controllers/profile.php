@@ -1,19 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class profile extends CI_Controller {
-
-   public function  __construct() {
+class profile extends CI_Controller
+{
+   public function  __construct()
+    {
         parent::__construct();
 
-        //check if user is logged in
-        if( !is_authorized() )
-        {
-            //set flash data
-            $this->session->set_flashdata('status', 'Your have to be logged in to view this page!');
-
-            //redirect to login page
-            redirect(login_route());
-        }
+        // Ensure user is authorized - all actions
+        ensure_authenticated();
     }
 
     public function index() 
