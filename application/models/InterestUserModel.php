@@ -1,12 +1,9 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * Description of InterestUserModel
- *
- * @author BigSlott
- */
-class InterestUserModel extends CI_Model{
-    function  __construct() {
+class InterestUserModel extends CI_Model
+{
+    function  __construct()
+    {
         parent::__construct();
     }
 
@@ -174,4 +171,5 @@ class InterestUserModel extends CI_Model{
         return $string;
     }
 }
+
 ?>

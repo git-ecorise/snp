@@ -1,11 +1,7 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * Description of ProfileUserModel
- *
- * @author BigSlott
- */
-class ProfileUserModel extends CI_Model{
+class ProfileUserModel extends CI_Model
+{
     function __construct()
     {
         parent::__construct();
@@ -13,6 +9,9 @@ class ProfileUserModel extends CI_Model{
 
     public function insert_picture_url($id, $picture_url)
     {
+        // update user image ... TRUE FALSE SOM PARAMETER ...
+        // kan reelt bare bede om current user og så brugerden bare get_user
+
         $this->db->where('id', $id);
         $this->db->update('users', array('pictureurl'=>$picture_url));
     }
@@ -46,4 +45,5 @@ class ProfileUserModel extends CI_Model{
         return $query->num_rows > 0;
     }
 }
+
 ?>
