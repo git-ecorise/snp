@@ -4,6 +4,9 @@
 
 function home_route()
 {
+    if (is_authenticated())
+        return profile_route();
+
     return base_url();
 }
 
