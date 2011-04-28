@@ -58,7 +58,20 @@ class UserModel extends CI_Model implements IUserModel
         return $this->db->affected_rows() > 0;
     }
 
+    public function reset_password(IResetPasswordInput $input)
+    {
+        // put resetcode in seperate tabel if time is available...
 
+        // Store date for last reset or something ...
+
+        
+        // passwordresetcode in db - 20 chars (NOT VARCHAR!)
+
+        $this->db->where('email', $input->get_email());
+        $this->db->update('user', array('passwordresetcode' => $input->get_reset_code()));
+
+        return $this->db->affected_rows() > 0;
+    }
 
 
 
@@ -98,6 +111,34 @@ class UserModel extends CI_Model implements IUserModel
 
         return $query->result();
     }
+
+
+
+
+
+
+
+
+    // tilføj til interface...
+
+
+    //updates user
+    public function update($email, $user)
+    {
+        $this->db->where('email', $email);
+        $this->db->update('user', $user);
+    }
+
+    //get user by id
+    public function get_by_id($id)
+    {
+        $query = $this->db->get_where('user', array('id' => $id), 1);
+        return $query->row();
+    }
+
+
+
+
 
 
 
@@ -147,19 +188,5 @@ class UserModel extends CI_Model implements IUserModel
     public function is_unique_email($email)
     {
         return !($this->email_exist($email));
-    }
-
-    //updates user
-    public function update($email, $user)
-    {
-        $this->db->where('email', $email);
-        $this->db->update('user', $user);
-    }
-
-    //get user by id
-    public function get_by_id($id)
-    {
-        $query = $this->db->get_where('user', array('id' => $id), 1);
-        return $query->row();
     }
 }
