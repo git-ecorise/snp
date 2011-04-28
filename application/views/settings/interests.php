@@ -1,4 +1,8 @@
-<form action="<?=  interests_route();?>" method="POST" >
+<?
+    $template_model->set_title('Add interests');
+?>
+
+<form action="<?= interests_route(); ?>" method="POST" >
     <div class="input">
         <div class="ui-widget">
             <label for="interests">Interest: </label>
