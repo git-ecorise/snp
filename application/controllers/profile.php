@@ -38,7 +38,7 @@ class profile extends CI_Controller {
         $this->StatusModel->create($status_update, get_user()->get_id());
         $data['updates'] = $this->StatusModel->get_all();
 
-        $this->template->load("profile/index", $data);
+        return redirect(profile_route());
     }
 }
 

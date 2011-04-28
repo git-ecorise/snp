@@ -15,7 +15,7 @@ class StatusModel extends CI_Model {
         {
             $this->load->helper('misc_helper');
             //check if it is a friend
-            if(is_friend($row->userid))
+            if(is_friend($row->userid) OR $row->userid == get_user()->get_id())
                 array_push($users, $this->prep_status($row));
         }
 
@@ -25,7 +25,7 @@ class StatusModel extends CI_Model {
     public function prep_status($status)
     {
         //find user from userid
-        $this->load->model('UserModel');
+        $this->load->model('user/UserModel', 'UserModel');
         $user = $this->UserModel->get_by_id($status->userid);
 
         //create the status object
