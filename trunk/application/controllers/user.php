@@ -119,7 +119,7 @@ class User extends CI_Controller
         if ($email != '')
             $_POST['email'] = urldecode($email);
         if ($code != '')
-            $_POST['validationcode'] = $code;                               // also encode/decode this ?
+            $_POST['validationcode'] = $code;
 
         // Check if there is any post data
         if ($_POST)
@@ -255,9 +255,9 @@ class User extends CI_Controller
         if ($email != '')
             $_POST['email'] = urldecode($email);
         if ($code != '')
-            $_POST['resetcode'] = $code;                                                // also encode/decode this ?
+            $_POST['resetcode'] = $code;
 
-        // Check if there is any post data
+        // If there is any post data and it is a post request
         if ($_POST)
         {
             // Post data is found
@@ -274,7 +274,7 @@ class User extends CI_Controller
                 if ($success)
                 {
                     // Set status message
-                    set_status_message('Your password have been changed. Please login');            // INGEN SUCCESS PAGE !?
+                    set_status_message('Your password have been changed. Please login');        // Succes Page? hvad hvis man allerede er logged in ?
 
                     // Redirct
                     return redirect(login_route());
