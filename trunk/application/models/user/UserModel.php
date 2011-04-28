@@ -6,6 +6,14 @@ require_once 'IUserModel.php';
 
 // Rename to UserDB or UserRepository ... or UserService and put in Libraries ?
 
+
+// Lad ResetCode / ValidationCode blive genereret her istedet for i Input models ?
+
+// Put validationcode and resetcode in seperate tabel ?
+// Save dates - when created, validated, reset ?
+
+
+
 class UserModel extends CI_Model implements IUserModel
 {
     function __construct()
@@ -15,11 +23,6 @@ class UserModel extends CI_Model implements IUserModel
 
     public function create(ISignUpInput $input)
     {
-        // create / insert / signup ?
-        // Use entity class instead ?
-
-        // reset code herind istedet ?
-
         // Prepare data
         $this->load->helper('crypto');
         $passwordsalt = generate_salt();
@@ -34,25 +37,12 @@ class UserModel extends CI_Model implements IUserModel
             'validationcode' => $input->get_validationcode(),
             'isvalidated' => FALSE);
 
-        // Date Created ?
-
         // Insert into db
         $this->db->insert('users', $user);
-
-
-        
-        // Get the inserted id
-        //$userid = $this->db->insert_id();
-
-        // Update the user
-        //$input->set_id($userid);
     }
 
     public function validate(IValidationInput $input)
     {
-        // put validation code into seperate tabel delete when validated ?
-        // datevalidated / validateddate ? 
-               
         $this->db->where('isvalidated', FALSE);
         $this->db->where('email', $input->get_email());
         $this->db->where('validationcode', $input->get_validationcode());
@@ -64,13 +54,6 @@ class UserModel extends CI_Model implements IUserModel
 
     public function reset_password(IResetPasswordInput $input)
     {
-        // put resetcode in seperate tabel if time is available...
-
-        // Store date for last reset or something ...
-
-        
-        // passwordresetcode in db - 20 chars (NOT VARCHAR!)
-
         $this->db->where('email', $input->get_email());
         $this->db->update('users', array('passwordresetcode' => $input->get_resetcode()));
 
@@ -79,13 +62,6 @@ class UserModel extends CI_Model implements IUserModel
 
     public function change_password(IChangePasswordInput $input)
     {
-
-
-
-        // Opdater passwordhash og passwordsalt (samt resetcode = null)
-
-
-        
         // Prepare data
         $this->load->helper('crypto');
         $passwordsalt = generate_salt();
@@ -94,13 +70,10 @@ class UserModel extends CI_Model implements IUserModel
         $this->db->where('email', $input->get_email());
         $this->db->where('passwordresetcode', $input->get_resetcode());
 
-        $this->db->update('users', array('passwordresetcode' => NULL));  // + HASH OG SALT !
+        $this->db->update("users", array("passwordresetcode" => NULL, "passwordhash" => $passwordhash, "passwordsalt" => $passwordsalt));
 
         return $this->db->affected_rows() > 0;
-
     }
-
-
 
     public function get_by_email($email)
     {
@@ -115,6 +88,9 @@ class UserModel extends CI_Model implements IUserModel
 
 
     // Rename to search_by_name ? eller bare search ? - skal også være en search_by_interests
+
+    // Flyt til egen search model ... eller SearchRepository...
+
     public function get_all_by_name($fullname)
     {
         // Improve this - look at active record - like

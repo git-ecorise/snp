@@ -7,7 +7,7 @@ class ChangePasswordInput extends InputBase implements IChangePasswordInput
     // Private fields
     private $email;
     private $password;
-    private $resetcode = null;
+    private $resetcode;
 
     function __construct()
     {
@@ -18,6 +18,7 @@ class ChangePasswordInput extends InputBase implements IChangePasswordInput
         // Load data
         $this->email = $this->input->post('email');
         $this->password = $this->input->post('password');
+        $this->resetcode = $this->input->post('resetcode');
     }
 
     // Getter and Setters
@@ -32,13 +33,9 @@ class ChangePasswordInput extends InputBase implements IChangePasswordInput
         return $this->password;
     }
 
-
-    
-    // Lav i UserModel istedet og brug get/set ?
-
     public function get_resetcode()
     {
-        return $this->resetcode != null ? $this->resetcode : ($this->resetcode = generate_randomcode(20));
+        return $this->resetcode;
     }
 }
 

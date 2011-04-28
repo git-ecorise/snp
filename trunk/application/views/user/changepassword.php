@@ -11,12 +11,12 @@
         <?= form_error('email'); ?>
     </div>
     <div class="input">
-        <label for="password">Password:</label>
+        <label for="password">New password:</label>
         <input type="password" name="password" value=""/>
         <?= form_error('password'); ?>
     </div>
     <div class="input">
-        <label for="paswordconfirm">Confirm password:</label>
+        <label for="paswordconfirm">Confirm new password:</label>
         <input type="password" name="passwordconfirm" value=""/>
         <?= form_error('passwordconfirm'); ?>
     </div>
