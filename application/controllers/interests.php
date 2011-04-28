@@ -1,6 +1,7 @@
 <?php
 
-class interests extends CI_Controller{
+class interests extends CI_Controller
+{
 
     function  __construct() {
         parent::__construct();
@@ -32,7 +33,7 @@ class interests extends CI_Controller{
 
         $this->load->model('InterestUserModel');
         $data['interests'] = $this->InterestUserModel->user_interests_toString(get_user()->get_id());
-        $data['action'] = add_interests_route();
+        $data['action'] = edit_interests_route();
         $data['submit_value'] = "Save";
         //default fallback
         $this->template->load('settings/addInterestView', $data);

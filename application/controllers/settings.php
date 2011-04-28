@@ -20,7 +20,7 @@ class settings extends CI_Controller {
         $this->template->load('settings/index');
     }
 
-    public function uploadpicture()
+    public function uploadimage()
     {
         if ($_POST) {
 
@@ -37,7 +37,7 @@ class settings extends CI_Controller {
         }
         else
         {
-            $this->template->load('settings/uploadpicture');
+            $this->template->load('settings/uploadimage');
         }
     }
 

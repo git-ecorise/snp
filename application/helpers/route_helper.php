@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+// USER
+
 function home_route()
 {
     return base_url();
@@ -63,6 +65,41 @@ function change_password_route($email = '', $code ='')
 
 
 
+// SETTINGS
+
+function settings_route()
+{
+    return site_url('settings');
+}
+
+function edit_profile_route()
+{
+    return site_url('settings/edit');
+}
+
+function upload_image_route()
+{
+    return site_url('settings/uploadimage');
+}
+
+
+
+
+function edit_interests_route()
+{
+    return site_url('interests');
+}
+
+
+
+
+
+// CLEAN UP !?!?!??!?!?!
+
+
+
+
+
 function usersearch_route()
 {
     return site_url('user/search');
@@ -78,30 +115,15 @@ function profile_route()
 {
     return site_url('profile/index');
 }
-function settings_route()
-{
-    return site_url('settings/index');
-}
 
-function upload_picture_route()
-{
-    return site_url('settings/uploadpicture');
-}
 
-function edit_profile_route()
-{
-    return site_url('settings/edit');
-}
 
 function profile_thumbnail_route($picture_url = '')
 {
     return site_url('content/img/uploads/thumbs/'.$picture_url);
 }
 
-function add_interests_route()
-{
-    return site_url('interests/index');
-}
+
 
 function search_interests_route()
 {

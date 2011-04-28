@@ -1,6 +1,7 @@
 <?php
-$template_model->set_title('Profile');
+    $template_model->set_title('Profile');
 ?>
+
 <div id="profile-left">
     <?$this->load->view('profile/_profile_left');?>
 </div>
