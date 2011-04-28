@@ -31,9 +31,9 @@ class ProfileUserModel extends CI_Model{
     public function get_all_user_friends($user_id)
     {
         $this->db->select('*');
-        $this->db->from('user');
+        $this->db->from('users');
         $this->db->where('userid',$user_id);
-        $this->db->join('userfriends','user.id = userfriends.friendid','left');
+        $this->db->join('userfriends','users.id = userfriends.friendid','left');
         $query = $this->db->get();
 
         return $query->result();
