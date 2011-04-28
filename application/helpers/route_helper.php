@@ -93,7 +93,7 @@ function interests_edit_route()
 
 function interests_search_route()
 {
-    return site_url('interests/searchinterests');
+    return site_url('interests/search');
 }
 
 

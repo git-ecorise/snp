@@ -113,20 +113,20 @@ class settings extends CI_Controller
             ));
 
             //success confirm message to user
-            $this->session->set_flashdata('status', 'Your changes have been saved');
+            set_status_message('Your changes have been saved');
 
             //redirects
             return redirect(settings_route());
             }
 
         }
-            $this->load->model('user/UserModel', 'UserModel');
-            
-            //get AuthUser by email
-            $viewdata['user'] = $this->UserModel->get_by_email(get_user()->get_email());
 
-            //default fallback
-            $this->template->load('settings/edit', $viewdata);
+        // Get authenticated user by email
+        $this->load->model('user/UserModel', 'UserModel');
+        $viewdata['user'] = $this->UserModel->get_by_email(get_user()->get_email());
+
+        // default fallback
+        $this->template->load('settings/edit', $viewdata);
     }
 }
 

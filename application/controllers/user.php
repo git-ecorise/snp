@@ -88,7 +88,7 @@ class User extends CI_Controller
                         set_status_message('You have been logged in!');
 
                         // Redirct - returns immediatly
-                        return redirect(usersearch_route());                                // Should go to the wall /profile/
+                        return redirect(profile_route());
                     }
                 }
 
@@ -241,6 +241,9 @@ class User extends CI_Controller
 
 
 
+
+
+    // Søg efter interesse og søg efter navn - resultat skal være det samme - lav partial til at vise søge resultat
 
     // Should not be part of the User Controller - move somewhere else ... Profile ?
     

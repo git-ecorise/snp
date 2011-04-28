@@ -43,9 +43,13 @@ class interests extends CI_Controller
         $this->template->load('settings/addInterestView', $data);
     }
 
-    public function searchinterests()
+    public function search()
     {
-        // Husk skal ikke inkluderer en selv i søgningen
+        // Husk skal ikke inkluderer en selv i søgningen where id != get_user()->get_id() !?
+
+        // Fejler hvis søgning ikke finder noget resultat
+
+        // Fejler hvis man prøver add friend man allerede er ven med - skal ikke inkluderer venner eller fjerne add friend url for personer man er ven med
 
 
         if($_POST)
