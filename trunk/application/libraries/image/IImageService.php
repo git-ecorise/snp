@@ -2,6 +2,8 @@
 
 interface IImageService
 {
+    // upload image
+    // 
     // generate_thumbnail()
     // more...
 }

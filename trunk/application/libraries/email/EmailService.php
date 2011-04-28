@@ -50,4 +50,5 @@ class EmailService implements IEmailService
         $this->send_email($email, $subject, $html, $text);
     }
 }
+
 ?>
