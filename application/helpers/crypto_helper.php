@@ -20,12 +20,11 @@ function verify_hash($hash, $str, $salt = '')
     return $hash === $newhash;
 }
 
-function generate_randomcode($length = 32)
+function generate_randomcode($length = 20)
 {
     $CI =& get_instance();
     $CI->load->helper('string');
-    
-    //$code = random_string('unique');
+ 
     $code = random_string('encrypt');
 
     return substr($code, 0, $length);
