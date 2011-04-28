@@ -92,6 +92,12 @@ function edit_interests_route()
 
 
 
+function friends_route()
+{
+    return site_url('friends');
+}
+
+
 
 
 // CLEAN UP !?!?!??!?!?!
