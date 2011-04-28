@@ -5,7 +5,7 @@ function generate_salt()
     $CI =& get_instance();
     $CI->load->helper('string');
 
-    return random_string('encrypt');
+    return substr(random_string('encrypt'), 20);
 }
 
 function generate_hash($str, $salt = '')
