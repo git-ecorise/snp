@@ -18,6 +18,8 @@ class UserModel extends CI_Model implements IUserModel
         // create / insert / signup ?
         // Use entity class instead ?
 
+        // reset code herind istedet ?
+
         // Prepare data
         $this->load->helper('crypto');
         $passwordsalt = generate_salt();
@@ -37,6 +39,8 @@ class UserModel extends CI_Model implements IUserModel
         // Insert into db
         $this->db->insert('users', $user);
 
+
+        
         // Get the inserted id
         //$userid = $this->db->insert_id();
 

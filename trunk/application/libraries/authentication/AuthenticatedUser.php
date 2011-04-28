@@ -3,9 +3,9 @@ require_once 'UserBase.php';
 
 class AuthenticatedUser Extends UserBase
 {
-    function __construct($id, $email, $firstname, $lastname, $isadmin = FALSE, $haspicture = FALSE)
+    function __construct($id, $email, $firstname, $lastname, $isadmin = FALSE, $hasimage = FALSE)
     {
-        parent::__construct($id, $email, $firstname, $lastname, TRUE, $isadmin, $haspicture);
+        parent::__construct($id, $email, $firstname, $lastname, TRUE, $isadmin, $hasimage);
     }
 }
 

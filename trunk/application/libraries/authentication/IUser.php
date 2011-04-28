@@ -10,7 +10,7 @@ interface IUser
     public function get_firstname();
     public function get_lastname();
     public function get_fullname();
-    public function has_picture();
+    public function has_image();
 }
 
 ?>
