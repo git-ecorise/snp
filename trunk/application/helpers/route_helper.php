@@ -87,7 +87,7 @@ function upload_image_route()
 
 function edit_interests_route()
 {
-    return site_url('interests');
+    return site_url('interests');                   // burde være /interests/edit ??? - /interest/ burde bare være oversigt oversine interests ? hvro man kan slette ?
 }
 
 

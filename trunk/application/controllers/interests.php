@@ -1,14 +1,17 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class interests extends CI_Controller
 {
-
-    function  __construct() {
+    function  __construct()
+    {
         parent::__construct();
     }
 
     public function index()
     {
+        // Make sure user is authorized to view the page
+        ensure_authenticated();
+        
         if($_POST)
         {
             //TODO: add input validation
@@ -41,6 +44,9 @@ class interests extends CI_Controller
 
     public function searchinterests()
     {
+        // Make sure the user is authorized to view the page
+        ensure_authenticated();
+
         if($_POST)
         {
             //get input from form
