@@ -11,13 +11,6 @@ class ProfileUserModel extends CI_Model{
         parent::__construct();
     }
 
-    //updates the user
-    public function update($email, $user)
-    {
-        $this->db->where('email', $email);
-        $this->db->update('user', $user);
-    }
-
     public function insert_picture_url($id, $picture_url)
     {
         $this->db->where('id', $id);
