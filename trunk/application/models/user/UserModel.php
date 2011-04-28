@@ -155,4 +155,11 @@ class UserModel extends CI_Model implements IUserModel
         $this->db->where('email', $email);
         $this->db->update('user', $user);
     }
+
+    //get user by id
+    public function get_by_id($id)
+    {
+        $query = $this->db->get_where('user', array('id' => $id), 1);
+        return $query->row();
+    }
 }

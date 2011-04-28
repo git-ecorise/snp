@@ -110,12 +110,12 @@ function search_interests_route()
 
 function add_as_friend_route($id)
 {
-    return site_url('settings/addfriend/'.$id);
+    return site_url('friends/addfriend/'.$id);
 }
 
 function update_status_route()
 {
-    return site_url('home/update_status/');
+    return site_url('profile/update_status/');
 }
 
 ?>
