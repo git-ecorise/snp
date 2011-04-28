@@ -3,8 +3,16 @@ require_once 'IImageService.php';
 
 class ImageService implements IImageService
 {
-    function __construct()
+    // Private fields
+    private $location;
+
+
+    function __construct($config = array())
     {
+        // Load configuration
+        $this->location = $config["location"];
+
+        // More - or just store the config array 
     }
 }
 
