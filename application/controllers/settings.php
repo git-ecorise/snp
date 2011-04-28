@@ -20,11 +20,11 @@ class settings extends CI_Controller
 
             if(!$this->do_upload())
             {
-                $this->session->set_flashdata('status', 'Something went wrong with your upload');
+                set_status_message('Something went wrong with your upload');
             }
             else
             {
-                $this->session->set_flashdata('status', 'You have uploaded your picture');
+                set_status_message('Your picture have been uploaded');
             }
 
             return redirect(settings_route());

@@ -1,9 +1,9 @@
 <?
-    $template_model->set_title('Edit profile');
+    $template_model->set_title('Edit Information');
 ?>
 
 <div class="left">
-    <form action="<?=  edit_profile_route();?>" method="POST">
+    <form action="<?= settings_edit_route(); ?>" method="POST">
     <div class="input">
         <label for="firstname">First name</label>
         <input type="text" name="firstname" value="<?=$user->firstname;?>" />

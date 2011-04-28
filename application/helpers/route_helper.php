@@ -72,7 +72,7 @@ function settings_route()
     return site_url('settings');
 }
 
-function edit_profile_route()
+function settings_edit_route()
 {
     return site_url('settings/edit');
 }
@@ -84,13 +84,21 @@ function upload_image_route()
 
 
 
+// INTERESTS
 
-function edit_interests_route()
+function interests_edit_route()
 {
     return site_url('interests');                   // burde være /interests/edit ??? - /interest/ burde bare være oversigt oversine interests ? hvro man kan slette ?
 }
 
+function interests_search_route()
+{
+    return site_url('interests/searchinterests');
+}
 
+
+
+// Friends
 
 function friends_route()
 {
@@ -131,12 +139,9 @@ function profile_thumbnail_route($picture_url = '')
 
 
 
-function search_interests_route()
-{
-    return site_url('interests/searchinterests');
-}
 
-function add_as_friend_route($id)
+
+function add_as_friend_route($id)           // friends_add_route ?
 {
     return site_url('friends/addfriend/'.$id);
 }
