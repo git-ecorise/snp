@@ -35,7 +35,7 @@ class UserModel extends CI_Model implements IUserModel
         // Date Created ?
 
         // Insert into db
-        $this->db->insert('user', $user);
+        $this->db->insert('users', $user);
 
         // Get the inserted id
         //$userid = $this->db->insert_id();
@@ -53,7 +53,7 @@ class UserModel extends CI_Model implements IUserModel
         $this->db->where('email', $input->get_email());
         $this->db->where('validationcode', $input->get_validationcode());
         
-        $this->db->update('user', array('isvalidated' => TRUE));    // + DateValidated ?
+        $this->db->update('users', array('isvalidated' => TRUE));    // + DateValidated ?
 
         return $this->db->affected_rows() > 0;
     }
@@ -68,7 +68,7 @@ class UserModel extends CI_Model implements IUserModel
         // passwordresetcode in db - 20 chars (NOT VARCHAR!)
 
         $this->db->where('email', $input->get_email());
-        $this->db->update('user', array('passwordresetcode' => $input->get_resetcode()));
+        $this->db->update('users', array('passwordresetcode' => $input->get_resetcode()));
 
         return $this->db->affected_rows() > 0;
     }
@@ -90,7 +90,7 @@ class UserModel extends CI_Model implements IUserModel
         $this->db->where('email', $input->get_email());
         $this->db->where('passwordresetcode', $input->get_resetcode());
 
-        $this->db->update('user', array('passwordresetcode' => NULL));  // + HASH OG SALT !
+        $this->db->update('users', array('passwordresetcode' => NULL));  // + HASH OG SALT !
 
         return $this->db->affected_rows() > 0;
 
@@ -100,7 +100,7 @@ class UserModel extends CI_Model implements IUserModel
 
     public function get_by_email($email)
     {
-        $query = $this->db->get_where('user', array('email' => $email));
+        $query = $this->db->get_where('users', array('email' => $email));
 
         return $query->row();
     }
@@ -127,7 +127,7 @@ class UserModel extends CI_Model implements IUserModel
         }
 
         $this->db->where('isvalidated', TRUE);
-        $query = $this->db->get('user');
+        $query = $this->db->get('users');
 
         return $query->result();
     }
@@ -146,13 +146,13 @@ class UserModel extends CI_Model implements IUserModel
     public function update($email, $user)
     {
         $this->db->where('email', $email);
-        $this->db->update('user', $user);
+        $this->db->update('users', $user);
     }
 
     //get user by id
     public function get_by_id($id)
     {
-        $query = $this->db->get_where('user', array('id' => $id), 1);
+        $query = $this->db->get_where('users', array('id' => $id), 1);
         return $query->row();
     }
 
@@ -176,7 +176,7 @@ class UserModel extends CI_Model implements IUserModel
     // Validate email
     public function email_exist($email)
     {
-        $this->db->select('1', FALSE)->from('user')->where('email', $email)->limit(1);
+        $this->db->select('1', FALSE)->from('users')->where('email', $email)->limit(1);
         $query = $this->db->get();
 
         return $query->num_rows() > 0;
@@ -186,7 +186,7 @@ class UserModel extends CI_Model implements IUserModel
     {
         // is_email_validated ?
 
-        $this->db->select('1', FALSE)->from('user')->where('email', $email)->where('isvalidated', TRUE)->limit(1);
+        $this->db->select('1', FALSE)->from('users')->where('email', $email)->where('isvalidated', TRUE)->limit(1);
         $query = $this->db->get();
 
         return $query->num_rows() > 0;
