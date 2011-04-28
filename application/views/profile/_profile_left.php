@@ -29,3 +29,24 @@
     <div class="clear"></div>
     <div class="left-menu-line"></div>
 </div>
+
+<?
+if (get_user()->is_admin())
+{
+?>
+<div id="profile-left-item">
+    <div class="float-left">
+        <h3>Admin options</h3>
+        <div>
+            <a href="">Edit Profile Settings</a>
+        </div>
+        <div>
+            <a href="">Reset Password</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="left-menu-line"></div>
+</div>
+<?
+}
+?>
