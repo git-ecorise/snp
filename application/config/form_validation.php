@@ -1,26 +1,27 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 // Shared rules
-$emailRule = 'trim|required|valid_email';
-$passwordRule = 'required|min_length[5]';
-$nameRule = 'trim|required|alpha_dash';
-$validationcodeRule = 'trim|required';
-$fullnameRule = 'trim|required';
+$email_rule = 'trim|required|valid_email';
+$password_rule = 'required|min_length[5]';
+$name_rule = 'trim|required|alpha_dash';
+$fullname_rule = 'trim|required';
 
-$nonumbersRule = 'trim|';
-$zipRule = 'trim|numeric|max_length[4]|';
+$code_rule = 'trim|required';
+
+$nonumbers_rule = 'trim|';                           // hvad menes der ? der er validators for dette ?
+$zipcode_rule = 'trim|numeric|max_length[4]|';
 
 $config = array(
              'signup' => array(
                                 array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule . '|callback_is_unique_email[model={user/UserModel}, message={The %s is already signed up.}]'
+                                        'rules' => $email_rule . '|callback_is_unique_email[model={user/UserModel}, message={The %s is already signed up.}]'
                                      ),
                                 array(
                                         'field' => 'password',
                                         'label' => 'Password',
-                                        'rules' => $passwordRule
+                                        'rules' => $password_rule
                                      ),
                                 array(
                                         'field' => 'passwordconfirm',
@@ -30,12 +31,12 @@ $config = array(
                                 array(
                                         'field' => 'firstname',
                                         'label' => 'Firstname',
-                                        'rules' => $nameRule
+                                        'rules' => $name_rule
                                      ),
                                 array(
                                         'field' => 'lastname',
                                         'label' => 'Lastname',
-                                        'rules' => $nameRule
+                                        'rules' => $name_rule
                                      )
                                 ),
     
@@ -43,12 +44,12 @@ $config = array(
                                 array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]|callback_email_validated[model={user/UserModel}, message={The %s is not validated.}]"
+                                        'rules' => $email_rule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]|callback_email_validated[model={user/UserModel}, message={The %s is not validated.}]"
                                      ),
                                 array(
                                         'field' => 'password',
                                         'label' => 'Password',
-                                        'rules' => $passwordRule
+                                        'rules' => $password_rule
                                      )
                                 ),
 
@@ -56,12 +57,12 @@ $config = array(
                                 array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]|callback_email_not_validated[model={user/UserModel}, message={The %s is already validated.}]"
+                                        'rules' => $email_rule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]|callback_email_not_validated[model={user/UserModel}, message={The %s is already validated.}]"
                                      ),
                                 array(
                                         'field' => 'validationcode',
                                         'label' => 'Validation Code',
-                                        'rules' => $validationcodeRule
+                                        'rules' => $code_rule
                                      )
                                 ),
 
@@ -69,7 +70,30 @@ $config = array(
                                     array(
                                         'field' => 'email',
                                         'label' => 'Email',
-                                        'rules' => $emailRule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]"
+                                        'rules' => $email_rule . "|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]"
+                                     )
+                                ),
+
+             'changepassword' => array(
+                                array(
+                                        'field' => 'email',
+                                        'label' => 'Email',
+                                        'rules' => $email_rule . '|callback_email_exist[model={user/UserModel}, message={The %s does not exist.}]'
+                                     ),
+                                array(
+                                        'field' => 'password',
+                                        'label' => 'Password',
+                                        'rules' => $password_rule
+                                     ),
+                                array(
+                                        'field' => 'passwordconfirm',
+                                        'label' => 'Password Confirmation',
+                                        'rules' => 'required|matches[password]'
+                                     ),
+                                array(
+                                        'field' => 'resetcode',
+                                        'label' => 'Reset code',
+                                        'rules' => $code_rule
                                      )
                                 ),
 
@@ -77,7 +101,7 @@ $config = array(
                                 array(
                                         'field' => 'name',
                                         'label' => 'Name',
-                                        'rules' => $fullnameRule
+                                        'rules' => $fullname_rule
                                      )
                                 ),
 
@@ -85,27 +109,27 @@ $config = array(
                                 array(
                                         'field' => 'firstname',
                                         'label' => 'Firstname',
-                                        'rules' => $nameRule
+                                        'rules' => $name_rule
                                      ),
                                 array(
                                         'field' => 'lastname',
                                         'label' => 'Lastname',
-                                        'rules' => $nameRule
+                                        'rules' => $name_rule
                                      ),
                                 array(
                                         'field' => 'city',
                                         'label' => 'City',
-                                        'rules' => $nonumbersRule
+                                        'rules' => $nonumbers_rule
                                      ),
                                 array(
                                         'field' => 'country',
                                         'label' => 'Country',
-                                        'rules' => $nonumbersRule
+                                        'rules' => $nonumbers_rule
                                      ),
                                 array(
                                         'field' => 'zip',
                                         'label' => 'Zip',
-                                        'rules' => $zipRule
+                                        'rules' => $zipcode_rule
                                      )
                                      )
 
