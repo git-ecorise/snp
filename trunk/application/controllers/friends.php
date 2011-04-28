@@ -32,12 +32,12 @@ class friends extends CI_Controller
     }
 
 
-    
+
+    // Hvad er forskellen på denne og index () !?!??!?!?! slet ?
+
+    /*
     public function friends()
     {
-        // Hvad er forskellen på denne og index () !?!??!?!?! slet ?
-
-
         //get all friends for logged_in user
         $this->load->model('ProfileUserModel');
 
@@ -45,6 +45,7 @@ class friends extends CI_Controller
 
         $this->template->load('settings/friends', $data);
     }
+    */
 }
 
 ?>
