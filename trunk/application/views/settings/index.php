@@ -28,7 +28,7 @@
     </li>
 
     <li>
-        <a href="<??>">Manage Friends</a>
+        <a href="<? ?>">Manage Friends</a>
     </li>
     
     <li>
