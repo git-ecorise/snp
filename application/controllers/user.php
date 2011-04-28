@@ -68,8 +68,8 @@ class User extends CI_Controller
                 // Try to get the user by email
                 $this->load->model('user/UserModel');
                 $user = $this->UserModel->get_by_email($this->LoginInput->get_email());
-                
-                // Check if user was found                                          // NOT REALLY NEEDED !?!??!?!?!
+
+                // Check if user was found                                                          // NOT REALLY NEEDED !?!??!?!?!
                 if ($user != NULL)
                 {
                     // Verify credentials
@@ -81,14 +81,14 @@ class User extends CI_Controller
                         // Success
 
                         // Login
-                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname, $user->isadmin, $user->haspicture);
+                        $authUser = new AuthenticatedUser($user->id, $user->email, $user->firstname, $user->lastname, $user->isadmin, $user->hasimage);
                         $this->authenticationservice->login($authUser);
 
                         // Set status message
                         set_status_message('You have been logged in!');
 
                         // Redirct - returns immediatly
-                        return redirect(usersearch_route());                   // Should go to the wall /profile/
+                        return redirect(usersearch_route());                                // Should go to the wall /profile/
                     }
                 }
 
@@ -114,8 +114,6 @@ class User extends CI_Controller
    
     public function validate($email = '', $code = '')
     {
-        $viewdata = array();
-
         // If get request with email/code parameters treat it like a post
         // This will be the case when people click the link in the email
         if ($email != '')
@@ -154,12 +152,25 @@ class User extends CI_Controller
         
         // Default fallback
         
-        $this->template->load('user/validate', $viewdata);
+        $this->template->load('user/validate');
     }
 
 
 
 
+    // TEST AT RESET CODE OG CHANGE PASSWORD VIRKER EFTER HENSIGTEN ... FÆRDIG
+    // REFACTOR ...
+
+    // FIX SØG ...
+
+    // IS ADMIN DEL TIL LAYOUT - SÅ ADMIN KAN RESETTE PASSWORD (Skal bare kalde resetpassword metoden med brugerens email)
+    // Samt sende over til Update profile hvor der skal tests på om man er authenticated bruger som profilen tilhører eller admin ....
+
+    // Det er vigtigt at der er sikkerheds tjek på om det id man prøver at opdaterer hænger sammen med det ID man er signed ind som ... LAV HELPER
+
+
+
+    
 
 
 // Refactor authentication_helper
@@ -173,28 +184,24 @@ class User extends CI_Controller
     
 
 
+//***** IMPORTANT
 
+// Lad IUserValidationInput arve fra IValidatable ?
 
-    //***** IMPORTANT
+// Så kan form_validation og resten drønes i model reelt ?
 
-    // Lad IUserValidationInput arve fra IValidatable ?
+// Metoder Create / Validate i UserModel skal så bare starte med at tjekke - if input->is_valid() - hvis ikke return false - hvis true forsæt ... lav så tjek og hvis problemer set fejl ...
 
-    // Så kan form_validation og resten drønes i model reelt ?
+// Virker det også for Signup ? Hvad med login
 
-    // Metoder Create / Validate i UserModel skal så bare starte med at tjekke - if input->is_valid() - hvis ikke return false - hvis true forsæt ... lav så tjek og hvis problemer set fejl ...
-
-    // Virker det også for Signup ? Hvad med login
-
-
-    // DB structure - columns og size/length
-    // passwordhash = 50 chars
-    // passwordsalt = 40 chars
-
-
-    // Put Input as suffix to all input models
-    // All db models is renamed to UserDb ? or UserRepository, or UserService (in libraries)
 
     
+// DB structure - columns og size/length
+// passwordhash = 50 chars
+// passwordsalt = 40 chars
+
+// Put Input as suffix to all input models
+// All db models is renamed to UserDb ? or UserRepository, or UserService (in libraries)
 
 
 
@@ -203,35 +210,88 @@ class User extends CI_Controller
     
     public function resetpassword()
     {
-        // Pretty much a duplicate of validate email - except it should allow to enter new password / new password confirm
+        // Check if there is any post data
+        if ($_POST)
+        {
+            // Post data is found
 
-        // Create validation rules ...
-        // Create view - resetcode, password, password confirm - hvor skal email være ? hidden input ? eller lad være felt også ?
+            $this->load->model("user/ResetPasswordInput");
 
-        // email kan bare være hidden - men hvis man ikke kommer fra email via link så er det vel et problem ? så skal den vises ... så bare vis skidtet
+            // Check if input is valid
+            if ($this->ResetPasswordInput->is_valid())
+            {
+                // Success
 
+                // Insert reset code into database
+                $this->load->model('user/UserModel');
+                $this->UserModel->reset_password($this->ResetPasswordInput);
 
+                // Send reset password email
+                $this->load->library('email/EmailService');
+                $this->emailservice->send_reset_password_email($this->ResetPasswordInput->get_email(), $this->ResetPasswordInput->get_resetcode());
 
-        // adskil admin reset fra her ? den skal tage id ? ville være lettest hvis id bare sendes med ved reset istedet for email ... ???? !***********
+                // Set status message
+                //set_status_message('You have been sent an email with the reset code.');
 
+                // Redirct
+                return redirect(reset_password_success_route());        // Jump directly to change password page and just show status message ?
+            }
+        }
+   
+        // Default fallback
 
+        $this->template->load('user/resetpassword');
+    }
 
-        // Remeber to delete reset code when used ? just create seperate tabel ...
+    public function changepassword($email = '', $code = '')
+    {
+        // If get request with email/code parameters treat it like a post
+        // This will be the case when people click the link in the email
+        if ($email != '')
+            $_POST['email'] = urldecode($email);
+        if ($code != '')
+            $_POST['resetcode'] = $code;                                                // also encode/decode this ?
 
+        // Check if there is any post data
+        if ($_POST)
+        {
+            // Post data is found
 
-        // Should be possible for correct authroized user OR if ADMIN
+            $this->load->model("user/ChangePasswordInput");
 
+            // Check if input is valid
+            if ($this->ChangePasswordInput->is_valid())
+            {
+                // Try to validate
+                $this->load->model('user/UserModel');
+                $success = $this->UserModel->change_password($this->ChangePasswordInput);
 
-        // *************
+                if ($success)
+                {
+                    // Set status message
+                    set_status_message('Your password have been changed. Please login');            // INGEN SUCCESS PAGE !?
 
-        // Add is_admin function til is authenticated / evt lav ny class ? eller lav en base class og så lav arv UserBase - derfra kommer så AnonymousUser, AuthenticatedUser, AdminUser osv...
-        // Fix login
+                    // Redirct
+                    return redirect(login_route());
+                }
+
+                $this->form_validation->add_error('resetcode', 'The reset code is invalid.');
+            }
+        }
+
+        // Default fallback
+
+        $this->template->load('user/changepassword');
     }
 
 
 
 
-    // Should not be part of the User Controller - move somewhere else ... Profile ? 
+
+
+
+    // Should not be part of the User Controller - move somewhere else ... Profile ?
+    
     public function search($name = '')
     {
         // Ensure user is authorized to view the page
