@@ -14,7 +14,7 @@ class ProfileUserModel extends CI_Model{
     public function insert_picture_url($id, $picture_url)
     {
         $this->db->where('id', $id);
-        $this->db->update('user', array('pictureurl'=>$picture_url));
+        $this->db->update('users', array('pictureurl'=>$picture_url));
     }
 
     public function add_friend($id, $user_id)
