@@ -139,7 +139,7 @@ class UserModel extends CI_Model implements IUserModel
 
 
 
-    // tilføj til interface...
+    // tilføj til interface... ?
 
 
     //updates user
@@ -184,8 +184,6 @@ class UserModel extends CI_Model implements IUserModel
 
     public function email_validated($email)
     {
-        // is_email_validated ?
-
         $this->db->select('1', FALSE)->from('users')->where('email', $email)->where('isvalidated', TRUE)->limit(1);
         $query = $this->db->get();
 
@@ -195,13 +193,6 @@ class UserModel extends CI_Model implements IUserModel
     public function email_not_validated($email)
     {
         return !$this->email_validated($email);
-
-        /*
-        $this->db->select('1', FALSE)->from('user')->where('email', $email)->where('isvalidated', FALSE)->limit(1);
-        $query = $this->db->get();
-
-        return $query->num_rows() > 0;
-        */
     }
     
     // Sign up
