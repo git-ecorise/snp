@@ -31,20 +31,6 @@ class UploadService implements IUploadService
 
     public function recieve_profile_image_upload($id)
     {
-        // handle profile image upload ? skal den i controller sende videre ? eller skal den gøre det her ? til image resize
-
-        // lad upload service bruge image resize service !?!?!??!
-  
-
- 
-        // Should do some temp stuff and not move before success ?
-        // Tilføj extensions til filnavn her ?
-
-
-        // gem først som temp i en temp mappe eller lignende ? og lad derefter flytte ?
-
-
-
         // Setup configuration
         // Include id in upload_path and get folder name
         $config = $this->profile_image_cfg;
@@ -59,11 +45,6 @@ class UploadService implements IUploadService
 
         // Recieve the upload and return result
         return $this->CI->upload->do_upload();
-
-
-
-        // Call the image service here ? and create the two pictures ...
-
     }
 
     protected function create_empty_folder($folder)
@@ -80,17 +61,6 @@ class UploadService implements IUploadService
         // Try to create folder
         if (!mkdir($folder))
             return false;
-    }
-
-    private function rrmdir($dir)
-    {
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
-
-        foreach ($files as $fileinfo)
-        {
-            $todo = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
-            $todo($fileinfo->getRealPath());
-        }
     }
 }
 

@@ -25,22 +25,7 @@ class ImageService implements IImageService
     {
         return $this->CI->image_lib->display_errors();
     }
-
-
-    // Resize
-    // Billeder
-
-    // Admin
-
-    // Update profile kager fuldstændig i det ... formentlig where sætning ... opdaterer alle brugerer med navn
-
-    // Rapport
-
-
-    // CLEAN UP ALL COMMENTS .... ! MOVE AROUND STUFF !? 
-
-
-    
+   
     public function generate_profile_image($source)
     {
         $profilecfg = $this->profile_cfg;
