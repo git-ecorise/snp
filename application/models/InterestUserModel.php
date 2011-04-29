@@ -16,7 +16,6 @@ class InterestUserModel extends CI_Model
 
     public function update_interests($interests, $user_id)
     {
-
         foreach($interests as $interest)
         {
             //remove whitespace
@@ -117,8 +116,7 @@ class InterestUserModel extends CI_Model
             {
                 if($user!=null)
                     $all_users[$key] = $user;
-            }
-            
+            }  
         }
 
         return $all_users;
@@ -144,7 +142,6 @@ class InterestUserModel extends CI_Model
 
         //return all the users with this interest
         return $users;
-
     }
 
     public function get_interest_by_term($term)

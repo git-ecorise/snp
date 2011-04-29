@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Put into Controller (base impl) instead ? or rename to Controller helper ?
-
 function is_post()
 {
     $CI =& get_instance();

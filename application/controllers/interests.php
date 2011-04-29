@@ -14,9 +14,6 @@ class interests extends CI_Controller
     {
         if($_POST)
         {
-            //TODO: add input validation
-
-            $this->load->helper('misc_helper');
             //gets the interests from the request
             $interests = $this->input->post('interests');
 
@@ -45,20 +42,12 @@ class interests extends CI_Controller
 
     public function search()
     {
-        // Husk skal ikke inkluderer en selv i søgningen where id != get_user()->get_id() !?
-
-        // Fejler hvis søgning ikke finder noget resultat
-
-        // Fejler hvis man prøver add friend man allerede er ven med - skal ikke inkluderer venner eller fjerne add friend url for personer man er ven med
-
-
         if($_POST)
         {
             //get input from form
             $interests = $this->input->post('interests');
 
             //seperate string into array
-            $this->load->helper('misc_helper');
             $terms = procesTags($interests);
 
             //load model
@@ -71,12 +60,11 @@ class interests extends CI_Controller
         }
         
         //set action method for form in partial view
-        $data['action'] = interests_search_route();             // ikke nødvendig er det ? partial og view kan ligges sammen
-        $data['submit_value'] = "Search";                       // det samme her - bruges det flere steder?
+        $data['action'] = interests_search_route();
+        $data['submit_value'] = "Search";
 
         //default fallback
         $this->template->load('settings/searchInterestView', $data);
-
     }
 
     public function ajax_interests($term)
