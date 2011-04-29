@@ -15,8 +15,6 @@ class ProfileUserModel extends CI_Model
         return $this->db->affected_rows() > 0;
     }
 
-    
-
     public function add_friend($id, $user_id)
     {
         //add friend to users list of friends
