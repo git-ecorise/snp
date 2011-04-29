@@ -7,7 +7,7 @@ $config = array(
             //'create_thumb' => TRUE,
             'maintain_ratio' => TRUE,
             //'master_dim' => 'auto',
-            'width' => 80,
+            'width' => 180,
             //'height' => 200,
             //'quality' => '90'
         ),
