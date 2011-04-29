@@ -12,7 +12,7 @@
 <? foreach ($updates as $update): ?>
     <div class="update-field">
         <div class="update-field-left">
-            <img src="<?= profile_thumbnail($update['user']->pictureurl); ?>" alt="profile picture" width="40px"/>
+            <img src="<?= select_thumbnail_image($update['user']->id, $update['user']->hasimage); ?>" alt="profile picture" width="40px"/>
         </div>
         <div class="update-field-right">
             <h3><?= $update['user']->firstname; ?> <?= $update['user']->lastname; ?></h3>
