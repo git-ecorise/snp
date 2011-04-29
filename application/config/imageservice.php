@@ -6,7 +6,7 @@ $config = array(
             //'create_thumb' => TRUE,
             'maintain_ratio' => TRUE,
             'width' => 180,
-            //'height' => 200,
+            'height' => 300,
             'master_dim' => 'width',
             //'quality' => '90'
         ),
