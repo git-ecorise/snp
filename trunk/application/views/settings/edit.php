@@ -31,6 +31,7 @@
     </div>
     <div class="input-submit">
         <input type="hidden" name="id" value="<?=$user->id;?>" />
+        <input type="hidden" name="email" value="<?=$user->email;?>" />
         <input type="submit" name="submit" value="save changes" />
     </div>
 </form>
