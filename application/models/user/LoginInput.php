@@ -2,8 +2,6 @@
 require_once (APPPATH . 'models/InputBase.php');
 require_once 'ILoginInput.php';
 
-// ICredentials ? istedet ?
-
 class LoginInput extends InputBase implements ILoginInput
 {
     // private fields
