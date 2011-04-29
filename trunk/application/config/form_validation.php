@@ -5,10 +5,8 @@ $email_rule = 'trim|required|valid_email';
 $password_rule = 'required|min_length[5]';
 $name_rule = 'trim|required|alpha_dash';
 $fullname_rule = 'trim|required';
-
 $code_rule = 'trim|required';
 
-$nonumbers_rule = 'trim|';                           // hvad menes der ? der er validators for dette ?
 $zipcode_rule = 'trim|numeric|max_length[4]|';
 
 $config = array(
@@ -119,12 +117,12 @@ $config = array(
                                 array(
                                         'field' => 'city',
                                         'label' => 'City',
-                                        'rules' => $nonumbers_rule
+                                        'rules' => 'trim'
                                      ),
                                 array(
                                         'field' => 'country',
                                         'label' => 'Country',
-                                        'rules' => $nonumbers_rule
+                                        'rules' => 'trim'
                                      ),
                                 array(
                                         'field' => 'zip',
