@@ -216,6 +216,9 @@ class User extends CI_Controller
                 // Send reset password email
                 $this->load->library('email/EmailService');
                 $this->emailservice->send_reset_password_email($this->ResetPasswordInput->get_email(), $this->ResetPasswordInput->get_resetcode());
+
+                // Set status message
+                set_status_message('Email with password reset code have been sent.');
             }
         }
 

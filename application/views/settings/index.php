@@ -16,10 +16,6 @@
     </li>
     
     <li>
-        <a href="<?= reset_password_route() ?>">Reset Password ------- Virker lige nu med reset code for user der ikke er logged ind - fix hvis logged in user skal kunne bruge det</a>
-    </li>
-
-    <li>
         <a href="<?= interests_edit_route() ?>">Manage Interests</a>
     </li>
 
