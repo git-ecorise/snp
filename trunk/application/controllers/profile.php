@@ -63,13 +63,13 @@ class profile extends CI_Controller
         //get the prober values
         $comment = $this->input->post('comment');
         $comment_userid = $this->input->post('comment_userid');
-        $status_userid = $this->input->post('status_userid');
+        $status_id = $this->input->post('status_id');
 
         //load the model
         $this->load->model('StatusModel');
 
         //add comment to statusUpdate
-        $this->StatusModel->add_comment($comment, $comment_userid, $status_userid);
+        $this->StatusModel->add_comment($comment, $comment_userid, $status_id);
 
         //return to the profile page
         return redirect(profile_route($status_userid));
