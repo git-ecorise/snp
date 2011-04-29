@@ -22,7 +22,7 @@
                 <?foreach($update['comments'] as $comment):?>
                 <div class="comment">
                     <div class="float-left">
-                        <img src="<?= select_thumbnail_image($comment['userid'], has_image($comment['userid']))?>" width="30px;" />
+                        <img src="<?= select_thumbnail_image($comment['userid'], has_image($comment['userid']))?>" width="40px;" />
                     </div>
                     <div class="float-left">
                         <span class="comment_name"><?=$comment['user']->firstname.' '.$comment['user']->lastname?></span>

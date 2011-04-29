@@ -15,8 +15,8 @@ $config = array(
             //'create_thumb' => TRUE,
             //'maintain_ratio' => TRUE,
             //'master_dim' => 'auto',
-            'width' => 30,
-            'height' => 30,
+            'width' => 40,
+            'height' => 40,
             //'quality' => '90'
         )
 );
