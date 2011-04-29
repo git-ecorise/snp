@@ -16,7 +16,7 @@ class profile extends CI_Controller
         $userid = get_user()->get_id();
 
         //check if id is sent with request and set userid
-        if( $id != "")
+        if($id != "")
         {
             $userid = $id;
         }
@@ -26,9 +26,6 @@ class profile extends CI_Controller
         $this->load->model('InterestUserModel');
         $this->load->model('ProfileuserModel');
         $this->load->model('user/UserModel');
-
-        //load helper
-        $this->load->helper('image_helper');
 
         //get all updates
         $data['updates'] = $this->StatusModel->get_all();
@@ -60,7 +57,7 @@ class profile extends CI_Controller
 
     public function add_comment()
     {
-        //get the prober values
+        //get the post data
         $comment = $this->input->post('comment');
         $status_id = $this->input->post('status_id');
 
