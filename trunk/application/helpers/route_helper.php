@@ -169,7 +169,10 @@ function profile_thumbnail_route($picture_url = '')
     return site_url('content/img/uploads/thumbs/'.$picture_url);
 }
 
-
+function add_comment_route()
+{
+    return site_url('profile/add_comment/');
+}
 
 
 
