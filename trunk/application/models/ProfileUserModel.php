@@ -43,6 +43,14 @@ class ProfileUserModel extends CI_Model
 
         return $query->num_rows > 0;
     }
+
+    public function has_image($id)
+    {
+        $this->db->select('hasimage');
+        $query = $this->db->get_where('users', array('id'=>$id));
+        $result = $query->row();
+        return $result->hasimage;
+    }
 }
 
 ?>

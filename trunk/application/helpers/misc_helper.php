@@ -47,4 +47,13 @@ function is_friend($friend_id)
 
     return $CI->ProfileUserModel->is_friend(get_user()->get_id(), $friend_id);
 }
+
+function has_image($id)
+{
+    $CI =& get_instance();
+
+    $CI->load->model('ProfileUserModel');
+
+    return $CI->ProfileUserModel->has_image($id);
+}
 ?>
