@@ -25,7 +25,7 @@
                     <div class="float-left">
                         <img src="<?= select_thumbnail_image($comment['userid'], has_image($comment['userid']))?>" width="40px;" alt="" />
                     </div>
-                    <div class="float-left" style="width:300px;">
+                    <div class="float-left comment-width">
                         <span class="comment_name"><?=$comment['user']->firstname.' '.$comment['user']->lastname?></span>
                         <span class="comment_text"><?=$comment['comment']?></span><br/>
                         <span class="update-date"><?=$comment['date']?></span>

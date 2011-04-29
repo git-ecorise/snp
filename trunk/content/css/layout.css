@@ -46,6 +46,7 @@ div#message-box {
 .right{ float: right; width: auto; }
 .clear{ clear: both; }
 .float-left{ float: left; width: auto;}
+.comment-width { width:310px; }
 
 #friends .left{ width: auto; padding: 14px;}
 
