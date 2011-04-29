@@ -72,18 +72,14 @@ class UploadService implements IUploadService
         if(file_exists($folder))
         {
             // Exists - delete folder and all content
-            $this->rrmdir($folder);
+            // $this->rrmdir($folder);
+
+            return;
         }
-
-        // ELSE DO NOT MK DIR IF ExISTS JUST OVERWRITE !
-
-        echo $folder;
 
         // Try to create folder
         if (!mkdir($folder))
             return false;
-
-        return true;
     }
 
     private function rrmdir($dir)

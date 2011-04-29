@@ -79,24 +79,16 @@ class settings extends CI_Controller
                     // Show confirmation
                     set_status_message('Your image have been uploaded');
 
-                    //return redirect(profile_route());
+                    return redirect(profile_route());
                 }
                 else
                 {
                     $this->update_profile_image(FALSE);
                 }
             }
-
-
             
             // Fail
-
-            // Show error message about what went wrong...
-            // use status message or display some form like error in red ?
-
             set_status_message('Something went wrong with your upload', $viewdata);
-
-            $viewdata["errors"] = $this->uploadservice->get_errors();       // use for something in view ? add to viewdata  use form_validation add error og helpers til fejl ?
         }
 
         // Fallback
