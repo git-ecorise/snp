@@ -129,11 +129,10 @@ class settings extends CI_Controller
 
 
 
-    public function edit()
+    public function edit($id = "")
     {
         // Should work with is_admin -> should be allowed to change settings for everyone
         
-
         if($_POST)
         {
             //Post request
@@ -173,10 +172,18 @@ class settings extends CI_Controller
             }
 
         }
+        //Set userid
+        $userid = get_user()->get_id();
+
+        //check if id is sent with request and set userid
+        if( $id != "")
+        {
+            $userid = $id;
+        }
 
         // Get authenticated user by email
         $this->load->model('user/UserModel', 'UserModel');
-        $viewdata['user'] = $this->UserModel->get_by_email(get_user()->get_email());
+        $viewdata['user'] = $this->UserModel->get_by_id($userid);
 
         // default fallback
         $this->template->load('settings/edit', $viewdata);

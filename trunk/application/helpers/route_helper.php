@@ -75,9 +75,17 @@ function settings_route()
     return site_url('settings');
 }
 
-function settings_edit_route()
+function settings_edit_route($id = "")
 {
-    return site_url('settings/edit');
+    if($id == "")
+    {
+        return site_url('settings/edit');
+    }
+    else
+    {
+        return site_url('settings/edit/'.$id);
+    }
+    
 }
 
 function upload_image_route()
@@ -131,6 +139,11 @@ function usersearch_route()
 function my_profile_route()
 {
     return site_url('profile/index');
+}
+
+function friend_profile_route($id)
+{
+    return site_url('profile/index/'.$id);
 }
 
 function profile_route()
