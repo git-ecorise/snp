@@ -66,20 +66,35 @@ class UploadService implements IUploadService
 
     }
 
-    private function create_empty_folder($folder)
+    protected function create_empty_folder($folder)
     {
         // Find out if folder already exists
         if(file_exists($folder))
         {
             // Exists - delete folder and all content
-            rmdir($folder);
+            $this->rrmdir($folder);
         }
+
+        // ELSE DO NOT MK DIR IF ExISTS JUST OVERWRITE !
+
+        echo $folder;
 
         // Try to create folder
         if (!mkdir($folder))
             return false;
 
         return true;
+    }
+
+    private function rrmdir($dir)
+    {
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
+
+        foreach ($files as $fileinfo)
+        {
+            $todo = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
+            $todo($fileinfo->getRealPath());
+        }
     }
 }
 
