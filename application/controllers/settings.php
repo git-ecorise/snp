@@ -147,7 +147,7 @@ class settings extends CI_Controller
                 
                 //updates the user
                 $this->load->model('user/UserModel', 'UserModel');
-                $this->UserModel->update($email, array(
+                $this->UserModel->update($id, array(
                     //it fucks up if one tries to edit email
                     //why ??
                     'firstname' => $firstname,
