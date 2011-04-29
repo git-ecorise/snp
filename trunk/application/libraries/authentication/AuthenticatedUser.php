@@ -7,6 +7,11 @@ class AuthenticatedUser Extends UserBase
     {
         parent::__construct($id, $email, $firstname, $lastname, TRUE, $isadmin, $hasimage);
     }
+
+    public function set_has_image($hasimage)
+    {
+        $this->hasimage = $hasimage;
+    }
 }
 
 ?>

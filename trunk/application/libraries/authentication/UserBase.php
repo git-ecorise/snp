@@ -9,7 +9,7 @@ abstract class UserBase implements IUser
     private $lastnasme;
     private $isauthenticated;
     private $isadmin;
-    private $hasimage;
+    protected $hasimage;
 
     function __construct($id = NULL, $email = '', $firstname = '', $lastname = '', $isauthenticated = FALSE, $isadmin = FALSE, $hasimage = FALSE)
     {

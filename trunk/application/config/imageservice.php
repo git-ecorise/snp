@@ -13,10 +13,9 @@
 // lav upload service ?
 
 $config = array(
-    'location'  => "./content/img/",
-    'formats'   => "gif|jpg|png",
-    'thumbnail' => array("width" => 90, "height" => 90),
+    
     'profile'   => array("width" => 200, "height" => 200)
+    'thumbnail' => array("width" => 90, "height" => 90),
 );
 
 ?>
