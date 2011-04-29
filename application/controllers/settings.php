@@ -69,19 +69,6 @@ class settings extends CI_Controller
                 // Check if it is an image
                 if ($data['is_image'])
                 {
-
-
-                    //could inject the imageservice into the upload service ? but then i should be using the loader!? or pass arguments ? or create default constructor
-
-
-
-                            // Check for return ??? true false ? ikke fejl ? ved fejl skal den jo ikke opdaterer db men istedet sætte til FALSE ? for brugeren
-                            // Bare gem boolean og send med til update ...
-
-
-                    echo $data['full_path'];
-
-
                     // Create images
                     $this->load->library('image/ImageService');
                     $this->imageservice->generate_profile_image($data['full_path']);
