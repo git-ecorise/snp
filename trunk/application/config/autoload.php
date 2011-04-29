@@ -64,7 +64,7 @@ $autoload['libraries'] = array('authentication/AuthenticationService', 'database
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'route', 'content', 'authentication', 'misc', 'thumbnail');
+$autoload['helper'] = array('url', 'route', 'content', 'authentication', 'misc', 'image');
 
 
 /*
