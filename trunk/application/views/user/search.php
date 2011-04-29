@@ -28,8 +28,11 @@ if (isset($result))
     {
     ?>
     <li>
-        <?= $row->firstname . ' ' . $row->lastname ?>
-        <?if(!is_friend($row->id)):?>                                                   <!-- Nødvendig ? skal resultat ikke kun inkluderer folk der ikke allerede er venner ? -->
+        <a href="<?= profile_route($row->id) ?>">
+            <img src="<?= select_thumbnail_image($row->id, $row->hasimage) ?>" alt="" />
+        </a>
+        <a href="<?= profile_route($row->id)?>"><?= $row->firstname . ' ' . $row->lastname ?></a>
+        <?if(!is_friend($row->id)):?>
             <a href="<?= friends_add_route($row->id) ?>">add as friend</a>
         <? endif; ?>
     </li>
