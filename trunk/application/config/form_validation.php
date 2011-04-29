@@ -3,7 +3,7 @@
 // Shared rules
 $email_rule = 'trim|required|valid_email';
 $password_rule = 'required|min_length[5]';
-$name_rule = 'trim|required|alpha_dash';
+$name_rule = 'trim|required';
 $fullname_rule = 'trim|required';
 $code_rule = 'trim|required';
 
