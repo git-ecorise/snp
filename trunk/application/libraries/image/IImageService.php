@@ -2,10 +2,10 @@
 
 interface IImageService
 {
-    // upload image
-    // 
-    // generate_thumbnail()
-    // more...
+    public function get_errors();
+
+    public function generate_profile_image($data);
+    public function generate_thumbnail_image($data);
 }
 
 ?>
