@@ -177,8 +177,6 @@ class User extends CI_Controller
                 $this->load->library('email/EmailService');
                 $this->emailservice->send_reset_password_email($this->ResetPasswordInput->get_email(), $this->ResetPasswordInput->get_resetcode());
 
-                // Set status message
-                //set_status_message('You have been sent an email with the reset code.');
 
                 // Redirct
                 return redirect(reset_password_success_route());        // Jump directly to change password page and just show status message ?
@@ -188,6 +186,44 @@ class User extends CI_Controller
         // Default fallback
 
         $this->template->load('user/resetpassword');
+    }
+
+    public function resetpasswordadmin($id)
+    {
+        // Check user is admin
+        if (!is_admin() || is_nan($id))
+            return redirect (profile_route());
+
+        // Look up email
+        $this->load->model('user/UserModel');
+        $user = $this->UserModel->get_by_id($id);
+
+        if ($user != null)
+        {
+            // User found
+            
+            // Put into Post to load ResetPasswordInput
+            if ($email != '')
+                $_POST['email'] = $user->email;
+
+            $this->load->model("user/ResetPasswordInput");
+
+            if ($this->ResetPasswordInput->is_valid())
+            {
+                // Insert reset code into database
+                $this->UserModel->reset_password($this->ResetPasswordInput);
+
+                // Send reset password email
+                $this->load->library('email/EmailService');
+                $this->emailservice->send_reset_password_email($this->ResetPasswordInput->get_email(), $this->ResetPasswordInput->get_resetcode());
+            }
+        }
+
+        // Always redirect back to the profile page
+        if ($id == get_user()->get_id())
+            return redirect (profile_route());
+
+        return redirect(friend_profile_route($id));
     }
 
     public function resetpasswordsuccess()

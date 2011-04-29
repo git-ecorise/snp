@@ -47,7 +47,7 @@ class UserModel extends CI_Model implements IUserModel
         $this->db->where('email', $input->get_email());
         $this->db->where('validationcode', $input->get_validationcode());
         
-        $this->db->update('users', array('isvalidated' => TRUE));    // + DateValidated ?
+        $this->db->update('users', array('isvalidated' => TRUE));
 
         return $this->db->affected_rows() > 0;
     }
