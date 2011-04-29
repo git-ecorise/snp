@@ -72,7 +72,7 @@ class profile extends CI_Controller
         $this->StatusModel->add_comment($comment, $comment_userid, $status_userid);
 
         //return to the profile page
-        return redirect(profile_route());
+        return redirect(profile_route($status_userid));
     }
 }
 
