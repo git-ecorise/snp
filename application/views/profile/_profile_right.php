@@ -26,7 +26,7 @@
                     </div>
                     <div class="float-left">
                         <span class="comment_name"><?=$comment['user']->firstname.' '.$comment['user']->lastname?></span>
-                        <span class="comment_text">"<?=$comment['comment']?></span><br/>
+                        <span class="comment_text"><?=$comment['comment']?></span><br/>
                         <span class="update-date"><?=$comment['date']?></span>
                     </div>
                     <div class="clear"></div>
