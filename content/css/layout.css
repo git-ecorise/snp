@@ -3,6 +3,11 @@
 body { font-family: "Trebuchet MS", Arial, sans-serif; background: #eeeeee; }
 a img { border:0; }
 
+a { text-decoration:none; color:#10659a; }
+	a:link, a:active {}
+	a:visited {}
+	a:hover { text-decoration:underline; color:#a4155c; }
+
 input{ padding: 2px 8px 2px 8px; font-size: 1.2em; border-radius: 3px; }
 input[type=text] { border: 1px solid #c8c5d2; height: 36px; width: 250px; line-height: 36px; }
 input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
@@ -41,6 +46,7 @@ div#message-box {
 /* Only for the search view - should go into a seperate css */
 #view ul.searchresult { list-style-type:none; padding:0; margin:0; }
 #view ul.searchresult li { margin-left:0px; padding:6px; }
+#view ul.searchresult li img { padding-right: 6px; }
 
 .left{ float: left; width: 300px; }
 .right{ float: right; width: auto; }

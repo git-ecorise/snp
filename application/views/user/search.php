@@ -28,10 +28,10 @@ if (isset($result))
     {
     ?>
     <li>
-        <a href="<?= profile_route($row->id) ?>">
-            <img src="<?= select_thumbnail_image($row->id, $row->hasimage) ?>" alt="" />
+        <a href="<?=profile_route($row->id) ?>">
+            <img src="<?=select_thumbnail_image($row->id, $row->hasimage) ?>" alt="" />
         </a>
-        <a href="<?= profile_route($row->id)?>"><?= $row->firstname . ' ' . $row->lastname ?></a>
+        <a href="<?= profile_route($row->id)?>"><?=$row->firstname . ' ' . $row->lastname ?></a>
         <?if(!is_friend($row->id)):?>
             <a href="<?= friends_add_route($row->id) ?>">add as friend</a>
         <? endif; ?>
