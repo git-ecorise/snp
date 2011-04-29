@@ -1,19 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'IUserModel.php';
 
-// Update interface ? or just remove it? doesnt make any sense , we are not going to inject it anyway ?
-// could create UserService which requires a IUserModel injected - then UserService is just a wrapper around UserModel ?
-
-// Rename to UserDB or UserRepository ... or UserService and put in Libraries ?
-
-
-// Lad ResetCode / ValidationCode blive genereret her istedet for i Input models ?
-
-// Put validationcode and resetcode in seperate tabel ?
-// Save dates - when created, validated, reset ?
-
-
-
 class UserModel extends CI_Model implements IUserModel
 {
     function __construct()
@@ -82,28 +69,8 @@ class UserModel extends CI_Model implements IUserModel
         return $query->row();
     }
 
-
-
-
-
-
-    public function search_friends($fullname)
-    {
-        // Søg efter folk der ikke allerede er venner
-    }
-
-    
-
-    // Rename to search_by_name ? eller bare search ? - skal også være en search_by_interests
-
-    // Flyt til egen search model ... eller SearchRepository...
-
     public function get_all_by_name($fullname)
-    {
-        // Search all by name - alle lige gyldig om venner eller ej ? 
-
-
-        
+    {       
         // Split all by space
         $names = explode(' ', $fullname);
 
@@ -124,47 +91,20 @@ class UserModel extends CI_Model implements IUserModel
         return $query->result();
     }
 
-
-
-
-
-
-
-
-    // tilføj til interface... ?
-
-
-    //updates user
     public function update($id, $user)
     {
         $this->db->where('id', $id);
         $this->db->update('users', $user);
     }
 
-    //get user by id
     public function get_by_id($id)
     {
         $query = $this->db->get_where('users', array('id' => $id), 1);
         return $query->row();
     }
 
-
-
-
-
-
-
-
     // Used in callbacks for validation
     
-    // Move somewhere else ? on input models ? which then calls here ? or create UserService which have all the callbacks ? or should it be in the controller ?
-    // Lav standard metoder her og så flyt callbacks ud ? email_validated / is_email_valdiated ?
-
-    // Behøver ihvertfald ikke at være en del af et interface da der kaldes direkte
-    // Kunne også bare lave en model kun til callbacks ...
-
-    
-
     // Validate email
     public function email_exist($email)
     {
