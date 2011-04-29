@@ -43,7 +43,7 @@ if (get_user()->is_admin())
             <a href="<?=settings_edit_route($user->id)?>">Edit Profile Settings</a>
         </div>
         <div>
-            <a href="">Reset Password</a>
+            <a href="<?=reset_password_admin_route($id);?>">Reset Password</a>
         </div>
     </div>
     <div class="clear"></div>
