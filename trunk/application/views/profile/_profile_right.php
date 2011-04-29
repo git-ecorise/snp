@@ -19,12 +19,13 @@
                 <h3><?= $update['user']->firstname; ?> <?= $update['user']->lastname; ?></h3>
                 <p><?= $update['status']->comment; ?></p>
                 <p class="update-date"><?= $update['status']->date; ?></p>
+
                 <?foreach($update['comments'] as $comment):?>
                 <div class="comment">
                     <div class="float-left">
-                        <img src="<?= select_thumbnail_image($comment['userid'], has_image($comment['userid']))?>" width="40px;" />
+                        <img src="<?= select_thumbnail_image($comment['userid'], has_image($comment['userid']))?>" width="40px;" alt="" />
                     </div>
-                    <div class="float-left">
+                    <div class="float-left" style="width:300px;">
                         <span class="comment_name"><?=$comment['user']->firstname.' '.$comment['user']->lastname?></span>
                         <span class="comment_text"><?=$comment['comment']?></span><br/>
                         <span class="update-date"><?=$comment['date']?></span>
@@ -32,8 +33,9 @@
                     <div class="clear"></div>
                 </div>
                 <?  endforeach;?>
+                
                 <div class="comment">
-                    <form action="<?=  add_comment_route()?>" method="POST" >
+                    <form action="<?= add_comment_route() ?>" method="POST" >
                         <input type="text" name="comment" />
                         <input type="submit" value="add comment" />
                         <input type="hidden" value="<?=$update['status']->id;?>" name="status_id" />
