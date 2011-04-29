@@ -1,10 +1,9 @@
 <div class="status-update">
-    <h3>What's going on?</h3>
+    <h3>What's Up?</h3>
     <form action="<?= update_status_route() ?>" method="POST" >
         <div class="input">
-            <textarea class="status-field" name="statusupdate" cols="" rows="" ></textarea><br/>
-        </div>
-        <div class="input-submit">
+<!--            <textarea class="status-field" name="statusupdate" cols="" rows="" ></textarea><br/>-->
+            <input class="status-field" name="statusupdate" type="text" />
             <input type="submit" name="sbmit-update" value="Update" />
         </div>
     </form>

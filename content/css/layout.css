@@ -51,15 +51,17 @@ div#message-box {
 
 /*----------------profile wall----------------------------------------------*/
 textarea.status-field{ width: 500px; height: 40px; }
-.update-field { padding: 14px; border-bottom: 1px dotted #999; cursor: pointer;}
+.update-field { padding: 8px; border-bottom: 1px dotted #999; cursor: pointer;}
 .update-field:hover { background-color: #e3e1ec; }
 .update-field-left { float: left; width: 70px;}
 .update-field-right { float: left; width: auto;}
 .update-date {font-size: 0.7em; color: darkgrey;}
 
 #profile-left { float: left; width: 200px; min-height: 100px;}
-#profile-right { float: left; width: auto; border-left: 1px solid; padding: 14px; min-height: 400px;}
+#profile-right { float: left; width: auto; border-left: 1px solid #c8c5d2; padding: 0 14px 14px 14px; min-height: 400px;}
 #profile-left-item { }
 #profile-left-item .float-left { padding: 8px; }
 .left-menu-line { border: 1px solid #eeeeee; width: auto;}
+input[type=text].status-field { width: 500px; }
+.status-update .input { padding-bottom: 20px; }
 /*--------------------------------------------------------------------------*/
