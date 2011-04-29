@@ -148,8 +148,16 @@ function friend_profile_route($id)
     return site_url('profile/'.$id);
 }
 
-function profile_route()
+function profile_route($id = "")
 {
+    if($id == "")
+    {
+        return site_url('profile/index');
+    }
+    else
+    {
+        return site_url('profile/index/'.$id);
+    }
     return site_url('profile');
 }
 
