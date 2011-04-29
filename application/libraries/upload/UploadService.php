@@ -16,7 +16,10 @@ class UploadService implements IUploadService
         $this->profile_image_cfg = $config["profile_image"];
 
         // Load upload library
-        $this->load->library('upload');
+        $this->CI->load->library('upload');
+
+
+        // could accept IImageService as dependency injection ... 
     }
 
     public function get_errors()
@@ -26,11 +29,13 @@ class UploadService implements IUploadService
 
     public function get_upload_data()
     {
-        return $this->CI->upload();
+        return $this->CI->upload->data();
     }
 
     public function recieve_profile_image_upload($id)
     {
+        // handle profile image upload ? skal den i controller sende videre ? eller skal den gøre det her ? til image resize
+
         // lad upload service bruge image resize service !?!?!??!
 
         
@@ -51,28 +56,35 @@ class UploadService implements IUploadService
         $folder = $config["upload_path"] . $id . '/';
         $config["upload_path"] = $folder;
 
-        echo folder . '<---- FOLDER IS HERE';
+        // Create folder
+        $this->create_empty_folder($folder);
 
+        // Init
+        $this->CI->upload->initialize($config);
+
+        // Recieve the upload and return result
+        return $this->CI->upload->do_upload();
+
+
+
+        // Call the image service here ? and create the two pictures ...
+
+    }
+
+    private function create_empty_folder($folder)
+    {
         // Find out if folder already exists
         if(file_exists($folder))
         {
             // Exists - delete folder and all content
-
-            
-            //rmdir($folder);
+            rmdir($folder);
         }
 
-        // Try to create folder     // is it even needed - will upload do it for me ?
-        //if (!mkdir($folder))
-        //    return false;
+        // Try to create folder
+        if (!mkdir($folder))
+            return false;
 
-
-        
-        // Init
-        $this->CI->upload->initialzie($config);     
-
-        // Recieve the upload and return result
-        return $this->CI->upload->do_upload();
+        return true;
     }
 }
 
