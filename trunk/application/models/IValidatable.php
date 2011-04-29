@@ -2,7 +2,7 @@
 
 interface IValidatable
 {
-    public function is_valid();     // validate ?
+    public function is_valid();
 }
 
 ?>

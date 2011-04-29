@@ -32,22 +32,6 @@ class friends extends CI_Controller
 
         return redirect('friends');
     }
-
-
-
-    // Hvad er forskellen på denne og index () !?!??!?!?! slet ?
-
-    /*
-    public function friends()
-    {
-        //get all friends for logged_in user
-        $this->load->model('ProfileUserModel');
-
-        $data['friends'] = $this->ProfileUserModel->get_all_user_friends(get_user()->get_id());
-
-        $this->template->load('settings/friends', $data);
-    }
-    */
 }
 
 ?>

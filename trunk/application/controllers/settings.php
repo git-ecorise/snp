@@ -15,42 +15,6 @@ class settings extends CI_Controller
         $this->template->load('settings/index');
     }
 
-
-    // Not used anywhere yet
-    public function deleteimage()
-    {
-        // check that user hasimage / or folder even exists ?
-
-        // Delete folder
-        // rmdir
-
-        // Update user in database
-        $this->load->model('ProfileUserModel','model');
-        $this->model->update_profile_image_status(get_user()->get_id(), FALSE);
-
-        // check if ok ? or just assume it
-
-        // update logged in user
-
-        // show status message
-        // redirect ....
-    }
-
-
-
-    // Links på search til profile ...
-    // Links på search by interest ?
-    
-    // Korrekte billede helpers over det hele
-
-    // Add friend under profile ?
-
-
-    // RYDT OP ... SLET COMMENTS ...
-
-    
-
-
     public function uploadimage()
     {
         $viewdata = array();
