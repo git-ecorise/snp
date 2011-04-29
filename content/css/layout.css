@@ -39,8 +39,8 @@ div#message-box {
 .hidden_text { display: none; }
 
 /* Only for the search view - should go into a seperate css */
-#view ul.searchresult {}
-#view ul.searchresult li { margin-left:24px; padding:6px; }
+#view ul.searchresult { list-style-type:none; padding:0; margin:0; }
+#view ul.searchresult li { margin-left:0px; padding:6px; }
 
 .left{ float: left; width: 300px; }
 .right{ float: right; width: auto; }
