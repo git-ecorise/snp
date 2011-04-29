@@ -38,5 +38,5 @@
 </div>
 
 <div class="left">
-    <img src="<?= profile_thumbnail($user->pictureurl);?>" alt="profile picture" />
+    <img src="<?= select_profile_image($user->id, $user->hasimage); ?>" alt="profile picture" />
 </div>
