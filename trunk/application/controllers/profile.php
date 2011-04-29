@@ -10,16 +10,39 @@ class profile extends CI_Controller
         ensure_authenticated();
     }
 
-    public function index() 
+    public function index($id = "")
     {
+        //Set userid
+        $userid = get_user()->get_id();
+
+        //check if id is sent with request and set userid
+        if( $id != "")
+        {
+            $userid = $id;
+        }
+
+        //load models
         $this->load->model('StatusModel');
         $this->load->model('InterestUserModel');
         $this->load->model('ProfileuserModel');
+        $this->load->model('user/UserModel');
 
+        //load helper
+        $this->load->helper('image_helper');
+
+        //get all updates
         $data['updates'] = $this->StatusModel->get_all();
-        $data['interests'] = $this->InterestUserModel->user_interests_toString(get_user()->get_id());
-        $data['friends'] = $this->ProfileuserModel->get_all_user_friends(get_user()->get_id());
 
+        //get the user
+        $data['user'] = $this->UserModel->get_by_id($userid);
+
+        //get the users interests
+        $data['interests'] = $this->InterestUserModel->user_interests_toString($userid);
+
+        //get users friends
+        $data['friends'] = $this->ProfileuserModel->get_all_user_friends($userid);
+
+        //load profile view
         $this->template->load('profile/index', $data);
     }
 
