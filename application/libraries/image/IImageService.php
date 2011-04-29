@@ -3,8 +3,7 @@
 interface IImageService
 {
     public function get_errors();
-
-    public function generate_profile_image($data);
+    public function generate_profile_image($source);
 }
 
 ?>
