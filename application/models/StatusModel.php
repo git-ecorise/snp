@@ -56,16 +56,6 @@ class StatusModel extends CI_Model
         return $comments;
     }
 
-    public function get_status($user_id)
-    {
-        
-    }
-
-    public function get_all_for_user($id)
-    {
-        
-    }
-
     public function create($status_update, $user_id)
     {
         //create date
@@ -78,11 +68,6 @@ class StatusModel extends CI_Model
             'date' => $sGMTMySqlString
         );
         $this->db->insert('statusupdates', $data);
-    }
-
-    public function delete($status_id)
-    {
-        
     }
 
     public function add_comment($comment, $statusid)
@@ -99,11 +84,6 @@ class StatusModel extends CI_Model
         );
 
         $this->db->insert('comments', $data);
-    }
-
-    public function delete_comment()
-    {
-        
     }
 }
 ?>

@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Shared ? istedet for view?
-
 class LayoutModel //extends CI_Model
 {
     private $title = '';

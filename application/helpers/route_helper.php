@@ -71,8 +71,6 @@ function change_password_route($email = '', $code ='')
     return site_url($segments);
 }
 
-
-
 // SETTINGS
 
 function settings_route()
@@ -98,8 +96,6 @@ function upload_image_route()
     return site_url('settings/uploadimage');
 }
 
-
-
 // INTERESTS
 
 function interests_edit_route()
@@ -112,9 +108,7 @@ function interests_search_route()
     return site_url('interests/search');
 }
 
-
-
-// Friends
+// FRIENDS
 
 function friends_route()
 {
@@ -127,16 +121,10 @@ function friends_add_route($id)
 }
 
 
-
-
-
-
-
 function usersearch_route()
 {
     return site_url('user/search');
 }
-
 
 function my_profile_route()
 {
@@ -161,9 +149,6 @@ function profile_route($id = "")
     return site_url('profile');
 }
 
-
-// Not needed anymore ?
-
 function profile_thumbnail_route($picture_url = '')
 {
     return site_url('content/img/uploads/thumbs/'.$picture_url);
@@ -173,9 +158,6 @@ function add_comment_route()
 {
     return site_url('profile/add_comment/');
 }
-
-
-
 
 function update_status_route()
 {
