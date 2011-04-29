@@ -34,7 +34,7 @@ class StatusModel extends CI_Model
         $status_object = array(
             'status' => $status,
             'user' => $user,
-            'comemnts' => "" //TODO
+            'comments' => $this->get_status_comments($status->id)
         );
 
         return $status_object;
@@ -42,7 +42,16 @@ class StatusModel extends CI_Model
 
     public function get_status_comments($status_id)
     {
-        
+        $query = $this->db->get_where('comments', array('wallid'=>$status_id));
+        $comments = $query->result_array();
+        foreach ($comments as $key=>$comment)
+        {
+           //load model
+           $this->load->model('user/UserModel');
+
+           $comments[$key]['user'] = $this->UserModel->get_by_id($comment['userid']);
+        }
+        return $comments;
     }
 
     public function get_status($user_id)
