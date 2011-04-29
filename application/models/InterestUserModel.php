@@ -124,24 +124,31 @@ class InterestUserModel extends CI_Model
 
     public function get_users_by_term($term)
     {
+
         //get the interestobject from db by term
         $interest = $this->get_interest_by_term($term);
-
-        //get all maching userids
-        $query = $this->db->get_where('userinterests', array('interestid'=>$interest->id));
-        $result = $query->row_array();
-        $users = array();
-        $this->load->model('user/UserModel');
-        //get the users from userids
-        
-        foreach ($result as $row)
+        if(isset($interest->id))
         {
-            $user = $this->UserModel->get_by_id($row['id']);
-            $users[$row['id']] = $user;
-        }
+            //get all maching userids
+            $query = $this->db->get_where('userinterests', array('interestid'=>$interest->id));
+            $result = $query->row_array();
+            $users = array();
+            $this->load->model('user/UserModel');
+            //get the users from userids
 
-        //return all the users with this interest
-        return $users;
+            foreach ($result as $row)
+            {
+                $user = $this->UserModel->get_by_id($row['id']);
+                $users[$row['id']] = $user;
+            }
+
+            //return all the users with this interest
+            return $users;
+        }
+        else
+        {
+            return array();
+        }
     }
 
     public function get_interest_by_term($term)
