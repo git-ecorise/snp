@@ -14,7 +14,9 @@
         <h3>Friends</h3>
         <div id="friends-thumbs">
             <?foreach($friends as $friend):?>
-            <img src="<?= select_thumbnail_image($friend->id, $user->hasimage);?>"  width="30px;" alt="<?=$friend->firstname.' '.$friend->lastname?>"/>
+            <a href="<?=friend_profile_route($friend->id);?>">
+                <img src="<?= select_thumbnail_image($friend->id, $user->hasimage);?>"  width="30px;" alt="<?=$friend->firstname.' '.$friend->lastname?>"/>
+            </a>
             <?endforeach;?>
         </div>
     </div>
@@ -38,10 +40,10 @@ if (get_user()->is_admin())
     <div class="float-left">
         <h3>Admin options</h3>
         <div>
-            <a href="">Edit Profile Settings</a>
+            <a href="<?=settings_edit_route($user->id)?>">Edit Profile Settings</a>
         </div>
         <div>
-            <a href="">Reset Password</a>
+            <a href="<?=reset_password_route();?>">Reset Password</a>
         </div>
     </div>
     <div class="clear"></div>
