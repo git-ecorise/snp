@@ -74,9 +74,20 @@ class StatusModel extends CI_Model
         
     }
 
-    public function add_comment()
+    public function add_comment($comment, $comment_userid, $statusid)
     {
-        
+        //create date
+        $tUnixTime = time();
+        $sGMTMySqlString = gmdate("Y-m-d H:i:s", $tUnixTime);
+
+        $data = array(
+            'userid' => $comment_userid ,
+            'comment' => $comment ,
+            'date' => $sGMTMySqlString,
+            'wallid' => $statusid
+        );
+
+        $this->db->insert('comments', $data);
     }
 
     public function delete_comment()
