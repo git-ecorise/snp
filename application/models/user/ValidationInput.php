@@ -2,9 +2,6 @@
 require_once (APPPATH . 'models/InputBase.php');
 require_once 'IValidationInput.php';
 
-// EmailValidationInput ?
-// IValidationInput / IValidationData ?
-
 class ValidationInput extends InputBase implements IValidationInput
 {
     // Private fields
