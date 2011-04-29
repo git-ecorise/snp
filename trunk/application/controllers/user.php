@@ -30,7 +30,7 @@ class User extends CI_Controller
                 set_status_message('You have signed up!');
 
                 // Redirct
-                return redirect(signup_success_route());            // Login ?
+                return redirect(signup_success_route());
             }
         }
 
@@ -41,10 +41,6 @@ class User extends CI_Controller
 
     public function signupsuccess()
     {
-        // Could make check that only people comming straight from signup is allowed to view this
-        // use flashdata in signup - and check if it exists here.
-        // Use flashdata_keep to be able to refresh the page without getting an error
-        
         $this->template->load('user/signup_success');
     }
     
@@ -69,7 +65,7 @@ class User extends CI_Controller
                 $this->load->model('user/UserModel');
                 $user = $this->UserModel->get_by_email($this->LoginInput->get_email());
 
-                // Check if user was found                                                          // NOT REALLY NEEDED !?!??!?!?!
+                // Check if user was found
                 if ($user != NULL)
                 {
                     // Verify credentials
@@ -108,13 +104,14 @@ class User extends CI_Controller
         $this->authenticationservice->logout();
         // Set status message
         set_status_message('You have been logged out!');
+
         // Redirect
         redirect(home_route());
     }
    
     public function validate($email = '', $code = '')
     {
-        // If get request with email/code parameters treat it like a post
+        // If GET request with email/code parameters treat it like a post
         // This will be the case when people click the link in the email
         if ($email != '')
             $_POST['email'] = urldecode($email);
@@ -146,7 +143,7 @@ class User extends CI_Controller
                     return redirect(login_route());
                 }
                 
-                $this->form_validation->add_error('validationcode', 'The validation code is invalid.');                     // move to usermodel / repository / service - wrapper omkring ?
+                $this->form_validation->add_error('validationcode', 'The validation code is invalid.');
             }
         }
         
@@ -177,9 +174,8 @@ class User extends CI_Controller
                 $this->load->library('email/EmailService');
                 $this->emailservice->send_reset_password_email($this->ResetPasswordInput->get_email(), $this->ResetPasswordInput->get_resetcode());
 
-
                 // Redirct
-                return redirect(reset_password_success_route());        // Jump directly to change password page and just show status message ?
+                return redirect(reset_password_success_route());
             }
         }
    
@@ -243,7 +239,7 @@ class User extends CI_Controller
         if ($code != '')
             $_POST['resetcode'] = $code;
 
-        // If there is any post data and it is a post request
+        // If there is any post data
         if ($_POST)
         {
             // Post data is found
@@ -260,7 +256,7 @@ class User extends CI_Controller
                 if ($success)
                 {
                     // Set status message
-                    set_status_message('Your password have been changed. Please login');        // Succes Page? hvad hvis man allerede er logged in ?
+                    set_status_message('Your password have been changed. Please login');
 
                     // Redirct
                     return redirect(login_route());
@@ -275,19 +271,10 @@ class User extends CI_Controller
         $this->template->load('user/changepassword');
     }
 
-
-
-
-
-
-
-
-    // Søg efter interesse og søg efter navn - resultat skal være det samme - lav partial til at vise søge resultat
-
-    // Should not be part of the User Controller - move somewhere else ... Profile ?
-    
     public function search($name = '')
     {
+        // Should be moved into another controller
+
         // Ensure user is authorized to view the page
         ensure_authenticated();
 
