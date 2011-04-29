@@ -3,7 +3,6 @@
 $config = array(
     "profile" => array(
             'new_image' => 'profile.jpg',
-            //'create_thumb' => TRUE,
             'maintain_ratio' => TRUE,
             'width' => 180,
             'height' => 300,
@@ -12,11 +11,10 @@ $config = array(
         ),
     "thumbnail" => array(
             'new_image' => 'thumbnail.jpg',
-            //'create_thumb' => TRUE,
-            //'maintain_ratio' => TRUE,
-            //'master_dim' => 'auto',
+            'maintain_ratio' => FALSE,
             'width' => 40,
             'height' => 40,
+            'master_dim' => 'auto',
             //'quality' => '90'
         )
 );
