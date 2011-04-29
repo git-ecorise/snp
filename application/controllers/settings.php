@@ -20,38 +20,71 @@ class settings extends CI_Controller
     // Når det her er lavet så lav så admin kan resette password og opdaterer profil
     // Så er all done reelt set ...
 
+    // Hvad mere ? delete image / change password
 
-    
+
+
+
+
+    // Not used anywhere yet
+    public function deleteimage()
+    {
+        // check that user hasimage / or folder even exists ?
+
+        // Delete folder
+        // rmdir
+
+        // Update user in database
+        $this->load->model('ProfileUserModel','model');
+        $this->model->update_profile_image_status(get_user()->get_id(), FALSE);
+
+        // check if ok ? or just assume it
+
+        // update logged in user
+
+        // show status message
+        // redirect ....
+    }
+
+
+
+
+
     public function uploadimage()
     {
         $viewdata = array();
 
-        if ($_POST) 
+        if ($_POST)
         {
             $this->load->library('upload/UploadService');
-            
+
             // Try to Recieve the image
             if ($this->uploadservice->recieve_profile_image_upload(get_user()->get_id()))
             {
                 // Success
 
+
+
                 // Create thumnail and profile image
                 // Update database
 
-                $this->do_resize($this->uploadservice->get_upload_data());
+                $this->do_resize($this->uploadservice->get_upload_data());      // be part of the upload service ?
+                //could inject the imageservice into the upload service ? but then i should be using the loader!? or pass arguments ? or create default constructor
+
+
 
                 // Update user in database
                 $this->load->model('ProfileUserModel','model');
-                $this->model->insert_picture_url(get_user()->get_id(), $data['upload_data']['file_name']);
+                $this->model->update_profile_image_status(get_user()->get_id(), TRUE);    // insert_picture_url(get_user()->get_id(), $data['upload_data']['file_name']);
 
 
-                
+
                 // Also need to update current logged in user ! <- hasimage = true !
 
 
 
                 set_status_message('Your picture have been uploaded');
-                
+
                 return redirect(settings_route());  // route is wrong - go to profile instead or ?
             }
 
@@ -72,43 +105,14 @@ class settings extends CI_Controller
 
 
 
+
+
+
+
+
     // upload service
         // recieve_image_upload()       // laver settings for upload og kalder CI upload->do_upload()
             // Sørger for at oprette mappe til billederne hvis ikke allerede eksisterer
-
-    
-
-
-
-
-    //move to image-service
-    private function do_upload()
-    {
-        $config['upload_path'] = 'content/img/uploads/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '100000';
-        $config['max_width'] = '102400';
-        $config['max_height'] = '768000';
-
-        $this->load->library('upload', $config);
-        if (!$this->upload->do_upload())
-        {
-            $data = array('error' => $this->upload->display_errors());
-            return false;
-        }
-        else
-        {
-            $data = array('upload_data' => $this->upload->data());
-            $image_data = $this->upload->data();
-            $this->do_resize($image_data);
-
-            $this->load->model('ProfileUserModel','model');
-            
-            //save the picture_url to db
-            $this->model->insert_picture_url(get_user()->get_id(), $data['upload_data']['file_name']);
-            return true;
-        }
-    }
 
     //move to image-service
     private function do_resize($image_data)
@@ -125,6 +129,7 @@ class settings extends CI_Controller
         $this->load->library('image_lib', $config);
         $this->image_lib->resize();
     }
+
 
 
 

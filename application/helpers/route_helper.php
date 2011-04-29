@@ -140,17 +140,17 @@ function usersearch_route()
 
 function my_profile_route()
 {
-    return site_url('profile/index');
+    return site_url('profile');
 }
 
 function friend_profile_route($id)
 {
-    return site_url('profile/index/'.$id);
+    return site_url('profile/'.$id);
 }
 
 function profile_route()
 {
-    return site_url('profile/index');
+    return site_url('profile');
 }
 
 
