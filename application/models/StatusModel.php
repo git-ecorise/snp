@@ -9,6 +9,7 @@ class StatusModel extends CI_Model
 
     public function get_all()
     {
+        $this->db->order_by("date", "desc");
         $query = $this->db->get('statusupdates');
 
         $users = array();
@@ -42,6 +43,7 @@ class StatusModel extends CI_Model
 
     public function get_status_comments($status_id)
     {
+        $this->db->order_by("date", "desc");
         $query = $this->db->get_where('comments', array('wallid'=>$status_id));
         $comments = $query->result_array();
         foreach ($comments as $key=>$comment)
