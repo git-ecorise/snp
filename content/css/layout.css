@@ -3,13 +3,6 @@
 body { font-family: "Trebuchet MS", Arial, sans-serif; background: #eeeeee; }
 a img { border:0; }
 
-.left{ float: left; width: 300px; }
-.right{ float: right; width: auto; }
-.clear{ clear: both; }
-.float-left{ float: left; width: auto;}
-
-#friends .left{ width: auto; padding: 14px;}
-
 input{ padding: 2px 8px 2px 8px; font-size: 1.2em; border-radius: 3px; }
 input[type=text] { border: 1px solid #c8c5d2; height: 36px; width: 250px; line-height: 36px; }
 input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
@@ -43,18 +36,25 @@ div#message-box {
     text-align: center; background:#f5e6b4; border:5px solid #ffffff; padding:24px; font-size:20px; z-index:1; box-shadow:0 0 20px #999; border-radius:8px;
 }
 
-.hidden_text {display: none;}
+.hidden_text { display: none; }
 
 /* Only for the search view - should go into a seperate css */
 #view ul.searchresult {}
 #view ul.searchresult li { margin-left:24px; padding:6px; }
+
+.left{ float: left; width: 300px; }
+.right{ float: right; width: auto; }
+.clear{ clear: both; }
+.float-left{ float: left; width: auto;}
+
+#friends .left{ width: auto; padding: 14px;}
 
 /*----------------profile wall----------------------------------------------*/
 textarea.status-field{ width: 500px; height: 40px; }
 .update-field { padding: 8px; border-bottom: 1px dotted #999; cursor: pointer;}
 .update-field:hover { background-color: #e3e1ec; }
 .update-field-left { float: left; width: 70px;}
-.update-field-right { float: left; width: auto;}
+.update-field-right { float: left; width:400px; }
 .update-field-right input[type=text] { height: 20px; font-size: 0.6em; padding: 0px; margin: 0;  }
 .update-field-right input[type=submit] { height: 20px; font-size: 0.6em; padding: 0;}
 .update-date {font-size: 0.7em; color: darkgrey;}
@@ -66,7 +66,7 @@ textarea.status-field{ width: 500px; height: 40px; }
 .comment_text {font-size: 0.8em;}
 
 #profile-left { float: left; width: 200px; min-height: 100px;}
-#profile-right { float: left; width: auto; border-left: 1px solid #c8c5d2; padding: 0 14px 14px 14px; min-height: 400px; width: 600px;}
+#profile-right { float: left; width: auto; border-left: 1px solid #c8c5d2; padding: 0 28px 14px 14px; min-height: 400px; width: 700px;}
 #profile-left-item { }
 #profile-left-item .float-left { padding: 8px; }
 .left-menu-line { border: 1px solid #eeeeee; width: auto;}
