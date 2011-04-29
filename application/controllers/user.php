@@ -203,7 +203,7 @@ class User extends CI_Controller
             // User found
             
             // Put into Post to load ResetPasswordInput
-            if ($email != '')
+            if ($user->email != '')
                 $_POST['email'] = $user->email;
 
             $this->load->model("user/ResetPasswordInput");
@@ -223,7 +223,7 @@ class User extends CI_Controller
         if ($id == get_user()->get_id())
             return redirect (profile_route());
 
-        return redirect(friend_profile_route($id));
+        return redirect(friend_profile_route($id));        
     }
 
     public function resetpasswordsuccess()
