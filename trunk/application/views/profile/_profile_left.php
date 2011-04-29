@@ -15,7 +15,7 @@
         <div id="friends-thumbs">
             <?foreach($friends as $friend):?>
             <a href="<?=profile_route($friend->id);?>">
-                <img src="<?= select_thumbnail_image($friend->id, $friend->hasimage);?>" width="30px;" alt="<?=$friend->firstname.' '.$friend->lastname?>"/>
+                <img src="<?= select_thumbnail_image($friend->id, $friend->hasimage);?>" width="40px;" alt="<?=$friend->firstname.' '.$friend->lastname?>"/>
             </a>
             <?endforeach;?>
         </div>
