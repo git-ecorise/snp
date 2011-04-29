@@ -7,14 +7,15 @@ class ProfileUserModel extends CI_Model
         parent::__construct();
     }
 
-    public function insert_picture_url($id, $picture_url)
+    public function update_profile_image_status($id, $hasimage)
     {
-        // update user image ... TRUE FALSE SOM PARAMETER ...
-        // kan reelt bare bede om current user og så brugerden bare get_user
-
         $this->db->where('id', $id);
-        $this->db->update('users', array('pictureurl'=>$picture_url));
+        $this->db->update('users', array('hasimage' => $hasimage));
+
+        return $this->db->affected_rows() > 0;
     }
+
+    
 
     public function add_friend($id, $user_id)
     {
