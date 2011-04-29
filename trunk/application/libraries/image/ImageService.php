@@ -41,48 +41,21 @@ class ImageService implements IImageService
 
 
     
-    public function generate_profile_image($data)
+    public function generate_profile_image($source)
     {
-        // pass in full_path instead?
-        // destination path / + file name = or create it here ... just pass it to the create image ?
+        $profilecfg = $this->profile_cfg;
+        $thumbcfg = $this->thumbnail_cfg;
 
-        if ($data['is_image'])
-        {
+        $profilecfg['source_image'] = $source;
+        $thumbcfg['source_image'] = $source;
 
-            // fix name osv ...
-            // istedet for config .. kan man så ikke baer have noget hardcoded ?
+        // Generate profile picture
+        $result = $this->generate_image($profilecfg);
 
-            // lav en private metode der klarer det ?
+        // Generate thumbnail picture
+        $result = $result ? $this->generate_image($thumbcfg) : FALSE;
 
-
-
-            $this->CI->image_lib->clear();
-            $profilecfg = $this->profile_cfg;
-            $thumbcfg = $this->thumbnail_cfg;
-
-            $target = $data['full_path'];
-
-
-            
-            $profilecfg['source_image'] = $target;
-            $thumbcfg['source_image'] = $target;
-
-
-            echo $data['full_path'] . '<--- FULL PATH !!!!!!!!!';
-
-
-            
-
-            // Generate profile picture
-            $result = $this->generate_image($profilecfg);
-
-            // Generate thumbnail picture
-            $result = $result ? $this->generate_image($thumbcfg) : FALSE;
-
-            return $result;
-        }
-
-        return false;
+        return $result;
     }
 
     private function generate_image($config)

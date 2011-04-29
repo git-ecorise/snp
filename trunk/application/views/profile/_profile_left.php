@@ -3,12 +3,12 @@
         <img src="<?= select_profile_image($user->id, $user->hasimage);?>" alt="" width="180px"/>
     </div>
     <div class="float-left">
-        <?= $user->firstname.' '.$user->lastname; ?>
+        <?= $user->firstname .' '. $user->lastname; ?>
     </div>
-
     <div class="clear"></div>
     <div class="left-menu-line"></div>
 </div>
+
 <div id="profile-left-item">
     <div class="float-left">
         <h3>Friends</h3>

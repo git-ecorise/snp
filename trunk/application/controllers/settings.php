@@ -64,50 +64,44 @@ class settings extends CI_Controller
             {
                 // Success
 
+                $data = $this->uploadservice->get_upload_data();
 
-
-
-                
-                //could inject the imageservice into the upload service ? but then i should be using the loader!? or pass arguments ? or create default constructor
-
-
-                
-                // Create images                                                MOVE TO THE UPLOAD SERVICE ?
-                $this->load->library('image/ImageService');
-                $this->imageservice->generate_profile_image($this->uploadservice->get_upload_data());
-
-
-
-                        
-                        // Check for return ??? true false ? ikke fejl ? ved fejl skal den jo ikke opdaterer db men istedet sætte til FALSE ? for brugeren
-                        // Bare gem boolean og send med til update ...
-
-
-
-
-
-                // Update user if not already having an image
-                $user = get_user();
-                if (!$user->has_image())
+                // Check if it is an image
+                if ($data['is_image'])
                 {
-                    // Update user in database
-                    $this->load->model('ProfileUserModel','model');
-                    $this->model->update_profile_image_status(get_user()->get_id(), TRUE);    // insert_picture_url(get_user()->get_id(), $data['upload_data']['file_name']);
 
-                    // Update user object
-                    $user->set_has_image(TRUE);
-                    $this->authenticationservice->login($user);
+
+                    //could inject the imageservice into the upload service ? but then i should be using the loader!? or pass arguments ? or create default constructor
+
+
+
+                            // Check for return ??? true false ? ikke fejl ? ved fejl skal den jo ikke opdaterer db men istedet sætte til FALSE ? for brugeren
+                            // Bare gem boolean og send med til update ...
+
+
+                    echo $data['full_path'];
+
+
+                    // Create images
+                    $this->load->library('image/ImageService');
+                    $this->imageservice->generate_profile_image($data['full_path']);
+
+                    // Updated user
+                    $this->update_user(TRUE);
+
+                    // Show confirmation
+                    set_status_message('Your image have been uploaded');
+
+                    //return redirect(profile_route());
                 }
-
-                // Show confirmation
-                set_status_message('Your image have been uploaded');
-
-
-
-                
-                //return redirect(profile_route());
+                else
+                {
+                    $this->update_profile_image(FALSE);
+                }
             }
 
+
+            
             // Fail
 
             // Show error message about what went wrong...
@@ -120,6 +114,21 @@ class settings extends CI_Controller
 
         // Fallback
         $this->template->load('settings/uploadimage', $viewdata);
+    }
+
+    private function update_user($hasimage)
+    {
+        $user = get_user();
+        if ($user->has_image() != $hasimage)
+        {
+            // Update user in database
+            $this->load->model('ProfileUserModel','model');
+            $this->model->update_profile_image_status(get_user()->get_id(), $hasimage);
+
+            // Update user object
+            $user->set_has_image($hasimage);
+            $this->authenticationservice->login($user);
+        }
     }
 
     public function edit($id = "")
