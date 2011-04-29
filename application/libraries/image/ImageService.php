@@ -5,8 +5,8 @@ class ImageService implements IImageService
 {
     // Private fields
     protected $CI;
-    protected $profile_image_cfg;
-    protected $thumbnail_image_cfg;
+    protected $profile_cfg;
+    protected $thumbnail_cfg;
 
     function __construct($config = array())
     {
@@ -17,8 +17,8 @@ class ImageService implements IImageService
         $this->CI->load->library('image_lib');
 
         // Load configuration
-        $this->profile_image_cfg = $config["profile_image"];
-        $this->thumbnail_image_cfg = $config["thumbnail_image"];
+        $this->profile_cfg = $config["profile"];
+        $this->thumbnail_cfg = $config["thumbnail"];
     }
 
     public function get_errors()
@@ -27,29 +27,12 @@ class ImageService implements IImageService
     }
 
 
-
-    
-    private function do_resize($image_data)
-    {
-        $config = array(
-            'source_image' => $image_data['full_path'],
-            'new_image' => 'content/img/uploads/thumbs/',
-            'maintain_ratio' => TRUE,
-            'master_dim' => 'auto',
-            'width' => 200,
-            'height' => 200     // kun witdth .. ingen height ... på profile ?
-        );
-
-        $this->load->library('image_lib', $config);
-        $this->image_lib->resize();
-    }
-
-
-
     // Resize
     // Billeder
 
     // Admin
+
+    // Update profile kager fuldstændig i det ... formentlig where sætning ... opdaterer alle brugerer med navn
 
     // Rapport
 
@@ -62,68 +45,56 @@ class ImageService implements IImageService
     {
         // pass in full_path instead?
         // destination path / + file name = or create it here ... just pass it to the create image ?
-        
+
+        if ($data['is_image'])
+        {
+
+            // fix name osv ...
+            // istedet for config .. kan man så ikke baer have noget hardcoded ?
+
+            // lav en private metode der klarer det ?
 
 
-        $this->CI->image_lib->clear();
 
-        //$config = $this->profile_image_cfg;
+            $this->CI->image_lib->clear();
+            $profilecfg = $this->profile_cfg;
+            $thumbcfg = $this->thumbnail_cfg;
+
+            $target = $data['full_path'];
 
 
-        echo $data['full_path'] . '<--- FULL PATH !!!!!!!!!';
-
-        
-        $config = array(
             
-            'source_image' => $data['full_path'],
-            'new_image' => 'profile.jpg',      // only name will place it in same folder as original
-            'create_thumb' => TRUE,                                     // LAVER DEN BÅDE THUMB OG NEW ?
-
-            'maintain_ratio' => TRUE,
-            'master_dim' => 'auto',
-            //'quality' => '90',
-            'width' => 200,
-            'height' => 200     // kun witdth .. ingen height ... på profile ?
-        );
+            $profilecfg['source_image'] = $target;
+            $thumbcfg['source_image'] = $target;
 
 
-        // fix name osv ...
-        // istedet for config .. kan man så ikke baer have noget hardcoded ?
-
-        // lav en private metode der klarer det ? 
-
-        $this->CI->image_lib->initialize($config);
+            echo $data['full_path'] . '<--- FULL PATH !!!!!!!!!';
 
 
+            
 
-        // kald resize---
+            // Generate profile picture
+            $result = $this->generate_image($profilecfg);
 
-        $this->CI->image_lib->resize()
+            // Generate thumbnail picture
+            $result = $result ? $this->generate_image($thumbcfg) : FALSE;
 
+            return $result;
+        }
 
-        // clear ?
+        return false;
     }
 
-    public function generate_thumbnail_image($data)
+    private function generate_image($config)
     {
+        // Clear
         $this->CI->image_lib->clear();
 
-        $config = $this->thumbnail_image_cfg;
-
-
-
-        
+        // Init
         $this->CI->image_lib->initialize($config);
-    }
 
-
-    private function generate_image($folder)
-    {
-        $this->CI->image_lib->clear();
-
-        // settings ind? config ?
-
-        //
+        // Resize
+        return $this->CI->image_lib->resize();
     }
 }
 

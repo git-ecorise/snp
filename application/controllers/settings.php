@@ -38,6 +38,17 @@ class settings extends CI_Controller
 
 
 
+    // Links på search til profile ...
+    // Links på search by interest ?
+    
+    // Korrekte billede helpers over det hele
+
+    // Add friend under profile ?
+
+
+    // RYDT OP ... SLET COMMENTS ...
+
+    
 
 
     public function uploadimage()
@@ -55,13 +66,21 @@ class settings extends CI_Controller
 
 
 
-                // Create thumnail and profile image
-                // Update database
 
-                $this->do_resize($this->uploadservice->get_upload_data());      // be part of the upload service ?
+                
                 //could inject the imageservice into the upload service ? but then i should be using the loader!? or pass arguments ? or create default constructor
 
 
+                
+                // Create images                                                MOVE TO THE UPLOAD SERVICE ?
+                $this->load->library('image/ImageService');
+                $this->imageservice->generate_profile_image($this->uploadservice->get_upload_data());
+
+
+
+                        
+                        // Check for return ??? true false ? ikke fejl ? ved fejl skal den jo ikke opdaterer db men istedet sætte til FALSE ? for brugeren
+                        // Bare gem boolean og send med til update ...
 
 
 
@@ -83,7 +102,10 @@ class settings extends CI_Controller
                 // Show confirmation
                 set_status_message('Your image have been uploaded');
 
-                return redirect(profile_route());
+
+
+                
+                //return redirect(profile_route());
             }
 
             // Fail
@@ -99,38 +121,6 @@ class settings extends CI_Controller
         // Fallback
         $this->template->load('settings/uploadimage', $viewdata);
     }
-
-
-
-
-
-
-
-
-
-    // upload service
-        // recieve_image_upload()       // laver settings for upload og kalder CI upload->do_upload()
-            // Sørger for at oprette mappe til billederne hvis ikke allerede eksisterer
-
-    //move to image-service
-    private function do_resize($image_data)
-    {
-        $config = array(
-            'source_image' => $image_data['full_path'],
-            'new_image' => 'content/img/',
-            'maintain_ratio' => TRUE,
-            'master_dim' => 'auto',
-            'width' => 200,
-            'height' => 200
-        );
-
-        $this->load->library('image_lib', $config);
-        $this->image_lib->resize();
-    }
-
-
-
-
 
     public function edit($id = "")
     {
