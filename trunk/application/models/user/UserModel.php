@@ -135,9 +135,9 @@ class UserModel extends CI_Model implements IUserModel
 
 
     //updates user
-    public function update($email, $user)
+    public function update($id, $user)
     {
-        $this->db->where('email', $email);
+        $this->db->where('id', $id);
         $this->db->update('users', $user);
     }
 
