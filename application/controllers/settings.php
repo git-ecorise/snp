@@ -16,16 +16,6 @@ class settings extends CI_Controller
     }
 
 
-
-    // Når det her er lavet så lav så admin kan resette password og opdaterer profil
-    // Så er all done reelt set ...
-
-    // Hvad mere ? delete image / change password
-
-
-
-
-
     // Not used anywhere yet
     public function deleteimage()
     {
@@ -73,19 +63,27 @@ class settings extends CI_Controller
 
 
 
-                // Update user in database
-                $this->load->model('ProfileUserModel','model');
-                $this->model->update_profile_image_status(get_user()->get_id(), TRUE);    // insert_picture_url(get_user()->get_id(), $data['upload_data']['file_name']);
 
 
 
-                // Also need to update current logged in user ! <- hasimage = true !
 
+                // Update user if not already having an image
+                $user = get_user();
+                if (!$user->has_image())
+                {
+                    // Update user in database
+                    $this->load->model('ProfileUserModel','model');
+                    $this->model->update_profile_image_status(get_user()->get_id(), TRUE);    // insert_picture_url(get_user()->get_id(), $data['upload_data']['file_name']);
 
+                    // Update user object
+                    $user->set_has_image(TRUE);
+                    $this->authenticationservice->login($user);
+                }
 
-                set_status_message('Your picture have been uploaded');
+                // Show confirmation
+                set_status_message('Your image have been uploaded');
 
-                return redirect(settings_route());  // route is wrong - go to profile instead or ?
+                return redirect(profile_route());
             }
 
             // Fail
@@ -95,7 +93,7 @@ class settings extends CI_Controller
 
             set_status_message('Something went wrong with your upload', $viewdata);
 
-            $viewdata["errors"] = $this->uploadservice->get_errors();       // use for something in view ? add to viewdata
+            $viewdata["errors"] = $this->uploadservice->get_errors();       // use for something in view ? add to viewdata  use form_validation add error og helpers til fejl ?
         }
 
         // Fallback
@@ -119,7 +117,7 @@ class settings extends CI_Controller
     {
         $config = array(
             'source_image' => $image_data['full_path'],
-            'new_image' => 'content/img/uploads/thumbs/',
+            'new_image' => 'content/img/',
             'maintain_ratio' => TRUE,
             'master_dim' => 'auto',
             'width' => 200,

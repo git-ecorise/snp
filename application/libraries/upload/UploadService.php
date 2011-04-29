@@ -17,9 +17,6 @@ class UploadService implements IUploadService
 
         // Load upload library
         $this->CI->load->library('upload');
-
-
-        // could accept IImageService as dependency injection ... 
     }
 
     public function get_errors()
@@ -37,11 +34,9 @@ class UploadService implements IUploadService
         // handle profile image upload ? skal den i controller sende videre ? eller skal den gøre det her ? til image resize
 
         // lad upload service bruge image resize service !?!?!??!
+  
 
-        
-
-        // Should it update the database ? NO !?
-
+ 
         // Should do some temp stuff and not move before success ?
         // Tilføj extensions til filnavn her ?
 
