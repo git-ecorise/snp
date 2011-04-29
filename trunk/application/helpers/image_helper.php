@@ -2,17 +2,17 @@
 
 function thumbnail_default_image()
 {
-    return image_content('_default.jpg');      // Korrekte navn ?
+    return image_content('thumbnail-default.jpg');
 }
 
 function profile_default_image()
 {
-    return image_content('_default.jpg');      // Korrekte navn ?
+    return image_content('profile-default.jpg');
 }
 
 function thumbnail_image($id)
 {
-    return image_content($id . '/thumbnail.jpg');       // img/id/thumbnail.jpg
+    return image_content($id . '/thumbnail.jpg');
 }
 
 function profile_image($id)

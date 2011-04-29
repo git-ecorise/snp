@@ -48,9 +48,14 @@ function reset_password_route()
     return site_url('user/resetpassword');
 }
 
+function reset_password_admin_route($id)
+{
+    return site_url('user/resetpasswordadmin/' . $id);
+}
+
 function reset_password_success_route()
 {
-    return site_url('user/resetpasswordsuccess');           // Behold eller redirect direkte ?
+    return site_url('user/resetpasswordsuccess');
 }
 
 function change_password_route($email = '', $code ='')
@@ -99,7 +104,7 @@ function upload_image_route()
 
 function interests_edit_route()
 {
-    return site_url('interests');                   // burde være /interests/edit ??? - /interest/ burde bare være oversigt oversine interests ? hvro man kan slette ?
+    return site_url('interests');
 }
 
 function interests_search_route()
@@ -122,9 +127,6 @@ function friends_add_route($id)
 }
 
 
-
-
-// CLEAN UP !?!?!??!?!?!
 
 
 
@@ -152,6 +154,7 @@ function profile_route()
 }
 
 
+// Not needed anymore ?
 
 function profile_thumbnail_route($picture_url = '')
 {
