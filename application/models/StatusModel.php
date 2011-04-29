@@ -43,7 +43,7 @@ class StatusModel extends CI_Model
 
     public function get_status_comments($status_id)
     {
-        $this->db->order_by("date", "desc");
+        $this->db->order_by("date", "asc");
         $query = $this->db->get_where('comments', array('wallid'=>$status_id));
         $comments = $query->result_array();
         foreach ($comments as $key=>$comment)

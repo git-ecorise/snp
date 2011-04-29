@@ -2,17 +2,15 @@
 
 $config = array(
     "profile" => array(
-            //'source_image' => $image_data['full_path'],     // hvor ? skal injectes ?
             'new_image' => 'profile.jpg',
             //'create_thumb' => TRUE,
             'maintain_ratio' => TRUE,
-            //'master_dim' => 'auto',
             'width' => 180,
             //'height' => 200,
+            'master_dim' => 'width',
             //'quality' => '90'
         ),
     "thumbnail" => array(
-            //'source_image' => $image_data['full_path'],
             'new_image' => 'thumbnail.jpg',
             //'create_thumb' => TRUE,
             //'maintain_ratio' => TRUE,
