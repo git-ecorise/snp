@@ -58,9 +58,11 @@ class StatusModel extends CI_Model
 
     public function create($status_update, $user_id)
     {
+        date_default_timezone_set('Europe/Copenhagen');
+
         //create date
-        $tUnixTime = time();
-        $sGMTMySqlString = gmdate("Y-m-d H:i:s", $tUnixTime);
+        //$tUnixTime = time();
+        $sGMTMySqlString = date("Y-m-d H:i:s");
         
         $data = array(
             'userid' => $user_id,
@@ -72,9 +74,11 @@ class StatusModel extends CI_Model
 
     public function add_comment($comment, $statusid)
     {
+        date_default_timezone_set('Europe/Copenhagen');
+
         //create date
-        $tUnixTime = time();
-        $sGMTMySqlString = gmdate("Y-m-d H:i:s", $tUnixTime);
+        //$tUnixTime = time();
+        $sGMTMySqlString = date("Y-m-d H:i:s");  // gmdate("Y-m-d H:i:s", $tUnixTime);
 
         $data = array(
             'userid' => get_user()->get_id() ,
