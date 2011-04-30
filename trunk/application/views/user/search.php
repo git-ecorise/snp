@@ -33,7 +33,7 @@ if (isset($result))
         </a>
         <a href="<?= profile_route($row->id)?>"><?=$row->firstname . ' ' . $row->lastname ?></a>
         <?if(!is_friend($row->id)):?>
-            <a href="<?= friends_add_route($row->id) ?>">add as friend</a>
+            -&nbsp;<a href="<?= friends_add_route($row->id) ?>">add as friend</a>
         <? endif; ?>
     </li>
     <?
@@ -44,7 +44,6 @@ if (isset($result))
 }
 ?>
 <br />
-<br />
-<a href="<?= interests_search_route(); ?>">Find friends with common interests</a>
+<a href="<?= interests_search_route(); ?>">Find friends by interests</a>
 <br />
 <br />
