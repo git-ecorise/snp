@@ -161,17 +161,17 @@ class InterestUserModel extends CI_Model
     {
         $db_result = $this->get_interest_for_user($user_id);
         $string = "";
-        for($i = 0; $i <= count($db_result)-1; $i++)
+
+        $length = count($db_result);
+
+        for($i = 0; $i < $length; $i++)
         {
-            if(!$db_result[$i] != count($db_result)-1)
-            {
-                $string .= $db_result[$i]['value'].", ";
-            }
-            else
-            {
-                $string .= $db_result[$i]['value'];
-            }
+            $string .= $db_result[$i]['value'];
+
+            if ($i < $length-1)
+                $string .= ', ';
         }
+
         return $string;
     }
 }

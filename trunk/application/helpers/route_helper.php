@@ -140,13 +140,12 @@ function profile_route($id = "")
 {
     if($id == "")
     {
-        return site_url('profile/index');
+        return site_url('profile');
     }
     else
     {
         return site_url('profile/index/'.$id);
     }
-    return site_url('profile');
 }
 
 function profile_thumbnail_route($picture_url = '')

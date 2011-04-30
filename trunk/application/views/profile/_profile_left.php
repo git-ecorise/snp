@@ -2,8 +2,10 @@
     <div class="float-left">
         <img src="<?= select_profile_image($user->id, $user->hasimage);?>" alt="" width="180px"/>
     </div>
-    <div class="float-left">
-        <?= $user->firstname .' '. $user->lastname; ?>
+    <div class="float-left" style="margin-bottom: 14px;">
+        <h4>
+            <?= $user->firstname .' '. $user->lastname; ?>
+        </h4>
     </div>
     <div class="clear"></div>
     <div class="left-menu-line"></div>
