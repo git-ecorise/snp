@@ -73,7 +73,7 @@ class UserModel extends CI_Model implements IUserModel
     {       
         // Split all by space
         $names = explode(' ', $fullname);
-
+        
         // Create search query that searches for each "word" / name
         foreach ($names as $name)
         {

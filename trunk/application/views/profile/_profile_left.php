@@ -6,6 +6,9 @@
         <h4>
             <?= $user->firstname .' '. $user->lastname; ?>
         </h4>
+        <?if(!is_friend($user->id)):?>
+            <a href="<?= friends_add_route($user->id, TRUE) ?>">add as friend</a>
+        <? endif; ?>
     </div>
     <div class="clear"></div>
     <div class="left-menu-line"></div>
