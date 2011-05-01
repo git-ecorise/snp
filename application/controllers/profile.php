@@ -10,12 +10,9 @@ class profile extends CI_Controller
         ensure_authenticated();
     }
 
-
     // Links
-    // Add comment skal return til rigtige urls (hvis man er under en profil går den til sig selv)
-
-    // Vis ikke sig selv i blandt friends
-    
+    // Vis ikke sig selv i blandt friends ?
+    // Ved søgning inkluder ikke sig selv
 
     public function index($id = "")
     {

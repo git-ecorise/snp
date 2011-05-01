@@ -39,11 +39,11 @@ function procesTags($string)
 
 function is_friend($friend_id)
 {
+    // Should not be here
     $CI =& get_instance();
-
     $CI->load->model('ProfileUserModel');
 
-    return $CI->ProfileUserModel->is_friend(get_user()->get_id(), $friend_id);
+    return $friend_id == get_user()->get_id() || $CI->ProfileUserModel->is_friend(get_user()->get_id(), $friend_id);
 }
 
 function has_image($id)

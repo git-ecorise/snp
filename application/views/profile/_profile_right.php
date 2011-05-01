@@ -13,7 +13,7 @@
 
 <?
 if (count($updates) == 0)
-    echo 'The user have not posted anything yet.'
+    echo 'Nothing have been posted yet.'
 ?>
 
 <? foreach ($updates as $update): ?>

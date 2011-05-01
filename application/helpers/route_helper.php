@@ -115,9 +115,9 @@ function friends_route()
     return site_url('friends');
 }
 
-function friends_add_route($id)
+function friends_add_route($id, $profile = FALSE)
 {
-    return site_url('friends/add/'.$id);
+    return site_url('friends/add/'.$id . '/'.$profile);
 }
 
 
