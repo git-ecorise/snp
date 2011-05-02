@@ -10,7 +10,7 @@ a { text-decoration:none; color:#10659a; }
 
 input{ padding: 2px 8px 2px 8px; font-size: 1.2em; border-radius: 3px; }
 input[type=text] { border: 1px solid #c8c5d2; height: 36px; width: 250px; line-height: 36px; }
-input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; }
+input[type=password] { border: 1px solid #c8c5d2; height: 36px; width: 250px; line-height: 36px; }
 input[type=submit] { padding: 8px; cursor: pointer; }
 textarea { width: 400px; height: 100px; }
 
